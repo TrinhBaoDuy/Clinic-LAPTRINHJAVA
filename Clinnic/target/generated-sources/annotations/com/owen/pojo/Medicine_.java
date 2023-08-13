@@ -1,0 +1,21 @@
+package com.owen.pojo;
+
+import com.owen.pojo.PrescriptionItem;
+import java.math.BigDecimal;
+import javax.annotation.Generated;
+import javax.persistence.metamodel.SetAttribute;
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
+
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-08-13T21:32:29")
+@StaticMetamodel(Medicine.class)
+public class Medicine_ { 
+
+    public static volatile SingularAttribute<Medicine, String> provider;
+    public static volatile SingularAttribute<Medicine, BigDecimal> price;
+    public static volatile SingularAttribute<Medicine, String> name;
+    public static volatile SingularAttribute<Medicine, Integer> id;
+    public static volatile SetAttribute<Medicine, PrescriptionItem> prescriptionItemSet;
+    public static volatile SingularAttribute<Medicine, Integer> numMed;
+
+}
