@@ -4,6 +4,7 @@
  */
 package com.owen.controllers;
 
+import com.owen.pojo.Medicine;
 import com.owen.pojo.User;
 import com.owen.service.MedicineService;
 import java.util.Map;
@@ -40,7 +41,8 @@ public class MedicineController {
         return "quanlythuoc";
     }
     @GetMapping("/quanlythuoc")
-    public String quanlythuoc() {
+    public String quanlythuoc(Model model) {
+        model.addAttribute("medicien", new Medicine());
         return "quanlythuoc";
     }
     

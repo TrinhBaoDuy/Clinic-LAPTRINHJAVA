@@ -5,77 +5,157 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:url value="/quanlythuoc" var="action" />
-<div class="container">
-    <div class="imglogo">
-        <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1691993662/Red_and_white_pill_icon_on_white_ez3beg.jpg" alt="logo">
-        <h2>Tủ thuốc PISCES</h2>
-    </div>
-    <form class="search-form" action="${action}">
-        <input class="form-control me-2" type="text" name="name" placeholder="Nhập tên thuốc...">
-        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
-    </form>
-    <form class="add-product-form" action="add_product.jsp" method="post">
-        <div class="row">
-            <div class="col">
-                <label for="product_id">Mã Sản phẩm:</label>
-                <input type="text" id="product_id" name="product_id" class="form-control" required>
-            </div>
-            <div class="col">
-                <label for="product_name">Tên sản phẩm:</label>
-                <input type="text" id="product_name" name="product_name" class="form-control" required>
-            </div>
-            <div class="col">
-                <label for="product_price">Giá sản phẩm:</label>
-                <input type="number" id="product_price" name="product_price" class="form-control" required>
-            </div>
-            <div class="col">
-                <label for="product_total">Số lượng sản phẩm:</label>
-                <input type="number" id="product_total" name="product_total" class="form-control" required>
-            </div>
+<form:form method="post" action="${action}" modelAttribute="medicien" enctype="multipart/form-data">
+    <div class="container">
+        <div class="imglogo">
+            <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1691993662/Red_and_white_pill_icon_on_white_ez3beg.jpg" alt="logo">
+            <h2>Tủ thuốc PISCES</h2>
         </div>
-        <div class="btadd">
-            <button type="submit" class="btn btn-info">Thêm Thuốc</button>
-        </div>
-    </form>
-    
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên thuốc</th>
-                <th>Số lượng kho</th>
-                <th>Giá</th>
-                <th>Nhà sản xuất</th>
-                <th>Ngày sản xuất</th>
-                <th>Ngày hết hạn</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${mediciens}" var="ds">
-                <tr>
-                    <td>${ds.id}</td>
-                    <td>${ds.name}</td>
-                    <td>${ds.numMed}</td>
-                    <td>${ds.price} VND</td>
-                    <td>${ds.provider}</td>
-                    <td>${ds.productionDate}</td>
-                    <td>${ds.expirationDate}</td>
-                    <td>
-                        <a href="/admin/users/${ds.id}" class="btn btn-success">Cập nhật</a>
-                        <button class="btn btn-danger" onclick="delUser('/api/${ds.id}', ${ds.id})">Xóa</button>
-                    </td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-</div>
+        <div class="main">
+            <div class = "addMe">
+                <div class="form-floating mb-3 mt-3">
+                    <div class="form-group">
+                        <form:input type="text" class="form-control" path="" id="product_name" placeholder="Tên thuốc..." />
+                        <label for="product_name">Tên thuốc</label>
+                    </div>
+                </div>
 
+                <div class="form-floating mb-3 mt-3">
+                    <div class="form-group">
+                        <form:input type="number" class="form-control" path="" id="product_quantity" placeholder="Số lượng kho..." />
+                        <label for="product_quantity">Số lượng kho</label>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3 mt-3">
+                    <div class="form-group">
+                        <form:input type="number" class="form-control" path="" id="product_price" placeholder="Giá..." />
+                        <label for="product_price">Giá</label>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3 mt-3">
+                    <div class="form-group">
+                        <form:input type="text" class="form-control" path="" id="product_manufacturer" placeholder="Nhà sản xuất..." />
+                        <label for="product_manufacturer">Nhà sản xuất</label>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3 mt-3">
+                    <div class="form-group">
+                        <form:input type="date" class="form-control" path="" id="product_production_date" placeholder="Ngày sản xuất..." />
+                        <label for="product_production_date">Ngày sản xuất</label>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3 mt-3">
+                    <div class="form-group">
+                        <form:input type="date" class="form-control" path="" id="product_expiration_date" placeholder="Ngày hết hạn..." />
+                        <label for="product_expiration_date">Ngày hết hạn</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "infoMe">
+                <form class="search-form" action="${action}">
+                    <input class="form-control me-2" type="text" name="name" placeholder="Nhập tên thuốc...">
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
+                </form>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên thuốc</th>
+                            <th>Số lượng kho</th>
+                            <th>Giá</th>
+                            <th>Nhà sản xuất</th>
+                            <th>Ngày sản xuất</th>
+                            <th>Ngày hết hạn</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${mediciens}" var="ds">
+                            <tr>
+                                <td>${ds.id}</td>
+                                <td>${ds.name}</td>
+                                <td>${ds.numMed}</td>
+                                <td>${ds.price} VNĐ</td>
+                                <td>${ds.provider}</td>
+                                <td>${ds.productionDate}</td>
+                                <td>${ds.expirationDate}</td>
+                                <td>
+                                    <a href="/admin/users/${ds.id}" class="btn btn-success">Cập nhật</a>
+                                    <button class="btn btn-danger" onclick="delUser('/api/${ds.id}', ${ds.id})">Xóa</button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>    
+    </div>
+</form:form>
 <style>
+    .form-floating label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .form-floating input.form-control,
+    .form-floating select.form-control {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 16px;
+        color: #555;
+    }
+
+    .form-floating input.form-control::placeholder {
+        color: #888;
+    }
+
+    .form-floating input.form-control:focus {
+        outline: none;
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
     .container {
-        margin-top: 30px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .btn-add-product {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-add-product:hover {
+        background-color: #45a049;
     }
     .imglogo {
         display: flex;
@@ -111,5 +191,14 @@
     }
     .add-product-form .btn {
         margin-top: 10px;
+    }
+    .main{
+        display: flex;
+    }
+    .addMe{
+        width: 30%;
+    }
+    .infoMe{
+        width: 70%;
     }
 </style>
