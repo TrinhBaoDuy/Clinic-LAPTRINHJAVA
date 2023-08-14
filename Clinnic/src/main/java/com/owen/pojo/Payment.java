@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p"),
     @NamedQuery(name = "Payment.findById", query = "SELECT p FROM Payment p WHERE p.id = :id"),
-    @NamedQuery(name = "Payment.findByExamFree", query = "SELECT p FROM Payment p WHERE p.examFree = :examFree"),
+    @NamedQuery(name = "Payment.findByExaminationFee", query = "SELECT p FROM Payment p WHERE p.examinationFee = :examinationFee"),
     @NamedQuery(name = "Payment.findByPaymentMethod", query = "SELECT p FROM Payment p WHERE p.paymentMethod = :paymentMethod")})
 public class Payment implements Serializable {
 
@@ -40,8 +40,8 @@ public class Payment implements Serializable {
     @Column(name = "id")
     private Integer id;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "exam_free")
-    private Float examFree;
+    @Column(name = "examination_fee")
+    private Float examinationFee;
     @Size(max = 20)
     @Column(name = "payment_method")
     private String paymentMethod;
@@ -64,12 +64,12 @@ public class Payment implements Serializable {
         this.id = id;
     }
 
-    public Float getExamFree() {
-        return examFree;
+    public Float getExaminationFee() {
+        return examinationFee;
     }
 
-    public void setExamFree(Float examFree) {
-        this.examFree = examFree;
+    public void setExaminationFee(Float examinationFee) {
+        this.examinationFee = examinationFee;
     }
 
     public String getPaymentMethod() {

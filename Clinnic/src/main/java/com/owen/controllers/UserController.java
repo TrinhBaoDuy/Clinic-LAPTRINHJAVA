@@ -42,6 +42,10 @@ public class UserController {
         model.addAttribute("user", new User());
         return "users";
     }
+    @ModelAttribute
+    public void commonAttr(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("user", this.userService.getUsers(params));
+    }
 
     @GetMapping("/admin/users/{id}")
     public String update(Model model, @PathVariable(value = "id") int id) {

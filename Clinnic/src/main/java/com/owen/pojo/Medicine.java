@@ -6,6 +6,7 @@ package com.owen.pojo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -34,7 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Medicine.findByName", query = "SELECT m FROM Medicine m WHERE m.name = :name"),
     @NamedQuery(name = "Medicine.findByPrice", query = "SELECT m FROM Medicine m WHERE m.price = :price"),
     @NamedQuery(name = "Medicine.findByProvider", query = "SELECT m FROM Medicine m WHERE m.provider = :provider"),
-    @NamedQuery(name = "Medicine.findByNumMed", query = "SELECT m FROM Medicine m WHERE m.numMed = :numMed")})
+    @NamedQuery(name = "Medicine.findByNumMed", query = "SELECT m FROM Medicine m WHERE m.numMed = :numMed"),
+    @NamedQuery(name = "Medicine.findByProductionDate", query = "SELECT m FROM Medicine m WHERE m.productionDate = :productionDate"),
+    @NamedQuery(name = "Medicine.findByExpirationDate", query = "SELECT m FROM Medicine m WHERE m.expirationDate = :expirationDate")})
 public class Medicine implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,6 +59,12 @@ public class Medicine implements Serializable {
     private String provider;
     @Column(name = "num_med")
     private Integer numMed;
+    @Column(name = "production_date")
+    @Temporal(TemporalType.DATE)
+    private Date productionDate;
+    @Column(name = "expiration_date")
+    @Temporal(TemporalType.DATE)
+    private Date expirationDate;
     @OneToMany(mappedBy = "medicineId")
     private Set<PrescriptionItem> prescriptionItemSet;
 
@@ -102,6 +113,22 @@ public class Medicine implements Serializable {
 
     public void setNumMed(Integer numMed) {
         this.numMed = numMed;
+    }
+
+    public Date getProductionDate() {
+        return productionDate;
+    }
+
+    public void setProductionDate(Date productionDate) {
+        this.productionDate = productionDate;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     @XmlTransient

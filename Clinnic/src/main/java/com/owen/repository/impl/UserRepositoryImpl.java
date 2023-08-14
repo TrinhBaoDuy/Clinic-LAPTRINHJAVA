@@ -35,6 +35,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
+    
     @Autowired
     private Environment env;
 
@@ -49,7 +50,7 @@ public class UserRepositoryImpl implements UserRepository {
         if (params != null) {
             List<Predicate> predicates = new ArrayList<>();
 
-            String kw = params.get("nameUser");
+            String kw = params.get("name");
             if (kw != null && !kw.isEmpty()) {
                 predicates.add(b.like(root.get("name"), String.format("%%%s%%", kw)));
             }

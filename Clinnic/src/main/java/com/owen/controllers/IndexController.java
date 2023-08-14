@@ -4,6 +4,7 @@
  */
 package com.owen.controllers;
 
+
 import com.owen.service.RoleService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @PropertySource("classpath:configs.properties")
 public class IndexController {
 
+    
     @Autowired
     private UserService userService;
     
@@ -68,9 +70,5 @@ public class IndexController {
     @GetMapping("/booking")
     public String booking() {
         return "booking";
-    }
-    @GetMapping("/quanlythuoc")
-    public String quanlythuoc() {
-        return "quanlythuoc";
     }
 }

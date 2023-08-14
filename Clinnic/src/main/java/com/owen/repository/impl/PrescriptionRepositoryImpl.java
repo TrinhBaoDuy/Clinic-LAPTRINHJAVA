@@ -6,8 +6,8 @@ package com.owen.repository.impl;
 
 import com.owen.pojo.Appointment;
 import com.owen.pojo.Medicine;
-import com.owen.pojo.User;
-import com.owen.repository.AppointmentRepository;
+import com.owen.pojo.Prescription;
+import com.owen.repository.PrescriptionRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +18,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -31,20 +30,20 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class AppointmentRepositoryImpl implements AppointmentRepository {
+public class PrescriptionRepositoryImpl implements PrescriptionRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Autowired
     private Environment env;
-    
+
     @Override
-    public List<Appointment> getAppointments(Map<String, String> params) {
+    public List<Prescription> getPrescriptions(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = session.getCriteriaBuilder();
-        CriteriaQuery<Appointment> q = b.createQuery(Appointment.class);
-        Root<Appointment> root = q.from(Appointment.class);
+        CriteriaQuery<Prescription> q = b.createQuery(Prescription.class);
+        Root<Prescription> root = q.from(Prescription.class);
         q.select(root);
 
         if (params != null) {
@@ -52,15 +51,13 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
             String kw = params.get("name");
             if (kw != null && !kw.isEmpty()) {
-                predicates.add(b.like(root.get("sickpersonId").get("name"), String.format("%%%s%%", kw)));
-//                predicates.add(b.like(root.get("doctorId").get("name"), String.format("%%%s%%", kw)));
+                predicates.add(b.like(root.get("name"), String.format("%%%s%%", kw)));
             }
 
             q.where(predicates.toArray(new Predicate[predicates.size()]));
         }
 
 //        q.orderBy(b.desc(root.get("id")));
-
         Query query = session.createQuery(q);
 
         if (params != null) {
@@ -75,36 +72,54 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         }
 
         return query.getResultList();
-
     }
 
     @Override
-    public List<Appointment> getAppointmentsunfished() {
+    public boolean addOrUpdatePrescription(Prescription m) {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Appointment WHERE status = :statusParam");
-        q.setParameter("statusParam", (short) 0);
+        try {
+            if (m.getId() == null) {
+                s.save(m);
+            } else {
+                s.update(m);
+            }
 
-        return q.getResultList();
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public Boolean changestatus(int id ,User u) {
+    public boolean deletePrescription(int id) {
         Session session = this.factory.getObject().getCurrentSession();
-        Appointment a = session.get(Appointment.class, id);
+        Prescription pr = session.get(Prescription.class, id);
         try {
-            if (a.getStatus()== 1) {
-                a.setStatus((short) 0);
-                a.setNurseId(null);
-            } else {
-                a.setStatus((short) 1);
-                a.setNurseId(u);
-            }
+            session.delete(pr);
             return true;
         } catch (HibernateException ex) {
             ex.printStackTrace();
         }
         return false;
-
     }
 
+    @Override
+    public String getDoctorPrescribeMedicine(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
+
+        Root<Appointment> rAppo = q.from(Appointment.class);
+        Root<Prescription> rPres = q.from(Prescription.class);
+
+        q.where(b.equal(rAppo.get("prescriptionId"), rPres.get("id")),
+                b.equal(rPres.get("id"), id));
+
+        q.multiselect(rAppo.get("doctorId").get("name"));
+
+        Query query = s.createQuery(q);
+        String doctorName = (String) query.getSingleResult();
+        return doctorName;
+    }
 }
