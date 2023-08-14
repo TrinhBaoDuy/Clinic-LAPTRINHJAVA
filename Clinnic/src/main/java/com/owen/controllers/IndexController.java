@@ -69,4 +69,8 @@ public class IndexController {
     public String booking() {
         return "booking";
     }
+    @GetMapping("/quanlythuoc")
+    public String quanlythuoc() {
+        return "quanlythuoc";
+    }
 }

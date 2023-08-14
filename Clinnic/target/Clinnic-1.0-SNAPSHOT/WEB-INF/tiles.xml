@@ -33,11 +33,17 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/lich.jsp" />
     </definition>
-    <definition name="home" template="/WEB-INF/pages/home.jsp" >
+    <definition name="home" template="/WEB-INF/pages/home.jsp"  >
+        <put-attribute name="title" value="Trang chủ" />
     </definition>
     <definition name="booking" extends="baseLayout">
         <put-attribute name="title" value="Dat lich" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/user/booking.jsp" />
+    </definition>
+    <definition name="quanlythuoc" extends="baseLayout">
+        <put-attribute name="title" value="Quan ly Thuoc" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/quanlythuoc.jsp" />
     </definition>
 </tiles-definitions>
