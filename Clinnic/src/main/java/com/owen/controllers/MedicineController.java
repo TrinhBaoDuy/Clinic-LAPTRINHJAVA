@@ -32,12 +32,17 @@ public class MedicineController {
         model.addAttribute("mediciens", this.medicineService.getMediciness(params));
     }
 
-    @GetMapping("/medicien/{id}")
+    @GetMapping("/quanlythuoc/{id}")
     public String xuli(Model model, @RequestParam Map<String, String> params, @PathVariable(value = "id") int id, Authentication authentication) {
         if (this.medicineService.deleteMedicine(id) == true) {
             return "forward:/lich";
         }
-        return "medicien";
+        return "quanlythuoc";
     }
+    @GetMapping("/quanlythuoc")
+    public String quanlythuoc() {
+        return "quanlythuoc";
+    }
+    
     
 }
