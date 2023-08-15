@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:url value="/" var="action" />
-<script src="<c:url value="/js/index.js" />"></script>
+<script src="<c:url value="../js/index.js" />"></script>
 <section>
     <div class="container mt-3">
         <h2>nguoi dung</h2>
@@ -58,7 +58,7 @@
                         <td>
                             <c:url value="/api/${ds.id}" var="apiDel" />
                             <a href="<c:url value="/admin/users/${ds.id}"/>" class="btn btn-success">Cập nhật</a>
-                            <button class="btn btn-danger" onclick="delUser('${apiDel}', ${ds.id})">Xóa</button>
+                            <button class="btn btn-danger" onclick="delObject('${apiDel}', ${ds.id})">Xóa</button>
                         </td>
                     </tr>
                 </c:forEach>

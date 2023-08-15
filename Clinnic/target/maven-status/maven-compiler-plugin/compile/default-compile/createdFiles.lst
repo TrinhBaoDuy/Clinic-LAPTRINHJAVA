@@ -36,6 +36,7 @@ com\owen\repository\UserRepository.class
 com\owen\pojo\Prescription.class
 com\owen\service\MedicineService.class
 com\owen\controllers\MedicineController.class
+com\owen\controllers\ApiMedicineController.class
 com\owen\repository\impl\UserRepositoryImpl.class
 com\owen\pojo\ServiceItems_.class
 com\owen\pojo\Payment_.class

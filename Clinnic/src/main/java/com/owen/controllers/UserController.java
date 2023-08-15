@@ -54,8 +54,7 @@ public class UserController {
     }
 
     @PostMapping("/admin/users")
-    public String addAndUp(@ModelAttribute(value = "user") @Valid User u, BindingResult rs) throws IOException {
-        
+    public String addAndUp(@ModelAttribute(value = "user") @Valid User u, BindingResult rs) throws IOException {   
         if (!rs.hasErrors()) {
                     if (this.userService.addOrUpdateUser(u) == true) {
                         return "redirect:/";

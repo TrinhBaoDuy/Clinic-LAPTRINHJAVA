@@ -36,24 +36,23 @@ public class MedicineController {
 //    public void commonAttr(Model model, @RequestParam Map<String, String> params) {
 //        model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
 //    }
-//    @GetMapping("/quanlythuoc/{id}")
-//    public String delete(@PathVariable(value = "id") int id) {
-//        if (this.medicineService.deleteMedicine(id) == true) {
-//            return "forward:/quanlythuoc";
-//        }
-//        return "quanlythuoc";
-//    }
-    @GetMapping("/quanlythuoc")
+    @GetMapping("/admin/quanlythuoc/{id}")
+    public String update(Model model,@PathVariable(value = "id") int id) {
+        model.addAttribute("medicien", this.medicineService.getMedicineById(id)); 
+        model.addAttribute("getmediciens", this.medicineService.getMediciness(null));
+        return "quanlythuoc";
+    }
+    @GetMapping("/admin/quanlythuoc")
     public String quanlythuoc(Model model, @RequestParam Map<String, String> params) {
         model.addAttribute("medicien", new Medicine());
         model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
         return "quanlythuoc";
     }
 
-    @PostMapping("/quanlythuoc")
+    @PostMapping("/admin/quanlythuoc")
     public String XuLi(Model model, @ModelAttribute(value = "medicien") Medicine m, BindingResult rs) throws IOException {
             if (this.medicineService.addOrUpdateMedicine(m) == true) {
-                return "redirect:/quanlythuoc";
+                return "redirect:/admin/quanlythuoc";
             }
         return "quanlythuoc";
     }

@@ -44,6 +44,6 @@
     <definition name="quanlythuoc" extends="baseLayout">
         <put-attribute name="title" value="Quan ly Thuoc" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/quanlythuoc.jsp" />
+                       value="/WEB-INF/pages/admin/quanlythuoc.jsp" />
     </definition>
 </tiles-definitions>
