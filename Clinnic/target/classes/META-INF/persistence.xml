@@ -12,7 +12,6 @@
     <class>com.owen.pojo.Medicine</class>
     <class>com.owen.pojo.User</class>
     <class>com.owen.pojo.Role</class>
-    <class>com.owen.pojo.ScheduleClinic</class>
     <class>com.owen.pojo.ScheduleDetail</class>
     <class>com.owen.pojo.Shift</class>
     <class>com.owen.configs.User</class>
