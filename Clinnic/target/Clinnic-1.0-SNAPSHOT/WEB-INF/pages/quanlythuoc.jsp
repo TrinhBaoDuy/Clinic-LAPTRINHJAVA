@@ -18,52 +18,63 @@
             <div class = "addMe">
                 <div class="form-floating mb-3 mt-3">
                     <div class="form-group">
-                        <form:input type="text" class="form-control" path="" id="product_name" placeholder="Tên thuốc..." />
                         <label for="product_name">Tên thuốc</label>
+                        <form:input type="text" class="form-control" path="" id="product_name" placeholder="Tên thuốc..." />
+                        
                     </div>
                 </div>
 
                 <div class="form-floating mb-3 mt-3">
                     <div class="form-group">
-                        <form:input type="number" class="form-control" path="" id="product_quantity" placeholder="Số lượng kho..." />
                         <label for="product_quantity">Số lượng kho</label>
+                        <form:input type="number" class="form-control" path="" id="product_quantity" placeholder="Số lượng kho..." />
+                         
                     </div>
                 </div>
 
                 <div class="form-floating mb-3 mt-3">
                     <div class="form-group">
-                        <form:input type="number" class="form-control" path="" id="product_price" placeholder="Giá..." />
                         <label for="product_price">Giá</label>
+                        <form:input type="number" class="form-control" path="" id="product_price" placeholder="Giá..." />
+                         
                     </div>
                 </div>
 
                 <div class="form-floating mb-3 mt-3">
                     <div class="form-group">
-                        <form:input type="text" class="form-control" path="" id="product_manufacturer" placeholder="Nhà sản xuất..." />
                         <label for="product_manufacturer">Nhà sản xuất</label>
+                        <form:input type="text" class="form-control" path="" id="product_manufacturer" placeholder="Nhà sản xuất..." />
+                         
                     </div>
                 </div>
 
                 <div class="form-floating mb-3 mt-3">
                     <div class="form-group">
-                        <form:input type="date" class="form-control" path="" id="product_production_date" placeholder="Ngày sản xuất..." />
                         <label for="product_production_date">Ngày sản xuất</label>
+                        <form:input type="date" class="form-control" path="" id="product_production_date" placeholder="Ngày sản xuất..." />
+                         
                     </div>
                 </div>
 
                 <div class="form-floating mb-3 mt-3">
                     <div class="form-group">
-                        <form:input type="date" class="form-control" path="" id="product_expiration_date" placeholder="Ngày hết hạn..." />
                         <label for="product_expiration_date">Ngày hết hạn</label>
+                        <form:input type="date" class="form-control" path="" id="product_expiration_date" placeholder="Ngày hết hạn..." />
+                         
                     </div>
+                </div>
+                            <div class="submitAddProduct">
+                    <a href="#"><button type="submit">Thêm Sản Phẩm</button></a>
                 </div>
             </div>
 
             <div class = "infoMe">
+                <div class = "infoMeSearch" >
                 <form class="search-form" action="${action}">
                     <input class="form-control me-2" type="text" name="name" placeholder="Nhập tên thuốc...">
                     <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
                 </form>
+                </div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -93,9 +104,11 @@
                                 </td>
                             </tr>
                         </c:forEach>
+                         
                     </tbody>
                 </table>
             </div>
+                    
         </div>    
     </div>
 </form:form>
@@ -179,6 +192,7 @@
     .search-form input[type="text"] {
         flex-grow: 1;
         margin-right: 10px;
+        
     }
     .table th, .table td {
         vertical-align: middle;
@@ -196,9 +210,29 @@
         display: flex;
     }
     .addMe{
-        width: 30%;
+        width: 20%;
     }
     .infoMe{
-        width: 70%;
+        width: 80%;
+        padding-left: 40px;
+    }
+    .infoMeSearch{
+        display: flex;
+    }
+      .submitAddProduct{
+        margin-top:30px;
+        display: flex;
+        justify-content: center;
+    }
+    .submitAddProduct a button{
+        width: 200px;
+        padding: 14px;
+        font-size: 14px;
+        border: 0px solid #ADD8E6;
+        background-color:#87CEFA;
+        color: white;
+        box-shadow: 0px 5px 10px 0 #ADD8E6;
+        transition: 0.3s;
+        border-radius: 6px;
     }
 </style>

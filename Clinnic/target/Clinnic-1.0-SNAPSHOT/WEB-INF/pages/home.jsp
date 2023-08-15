@@ -16,9 +16,9 @@
             <header class="header">
                 <div class="logo">
                     <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1691909467/Online_Drug_Store___Infinite_Medical_Cross_Unused_for_Sale_xnf4hq.png" alt="Bệnh viện XYZ Logo">
-                    <p>Pisces Hospital</p>
+                    <p>PISCES Hospital</p>
                 </div>
-                
+
                 <nav class="navigation">
                     <ul>
                         <li><a href="#">Trang chủ</a></li>
@@ -37,9 +37,9 @@
             </div>  
 
         </div>
-        
+
         <div>
-            
+
         </div>
     </nav>
 
@@ -47,7 +47,7 @@
 </form:form>
 <style>
     .header {
-        background-color: #f0f0f0;
+        background-color: #E0FFFF!important;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -59,14 +59,16 @@
 
         font-family: "Times New Roman", serif;
         font-size: 18px;
-        color: #333;
+
         text-align: center;
-        /* text-transform: uppercase; */
+        color: red!important;
+
+        font-weight: bold;
+        /* padding: 10px;
+            /* text-transform: uppercase; */
         letter-spacing: 2px;
         /* line-height: 1.5; */
-        background-color: #f0f0f0;
-        /* padding: 20px; */
-        border-radius: 10px;
+
     }
     .logo img {
         height: 50px;

@@ -9,7 +9,11 @@
 <c:url value="/" var="action" />
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">E-commerce Website</a>
+        <div class="logo">
+            <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1691909467/Online_Drug_Store___Infinite_Medical_Cross_Unused_for_Sale_xnf4hq.png" alt="Bệnh viện XYZ Logo">
+
+        </div>
+        <a class="navbar-brand" href="#">Pisces Hospital</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,3 +54,65 @@
         </div>
     </div>
 </nav>
+
+<style>
+    .logo img{
+        width: 50px;
+    }
+    .navbar {
+        background-color: #E0FFFF!important;
+    }
+
+    .navbar-brand {
+        color: red!important;
+        font-size: 24px;
+        font-weight: bold;
+
+
+        padding: 10px;
+
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+
+    .navbar-toggler-icon {
+        background-color: #fff;
+    }
+
+    .navbar-collapse {
+        justify-content: flex-end;
+    }
+
+    .navbar-nav .nav-item {
+        margin-right: 10px;
+    }
+
+    .navbar-nav .nav-link {
+        color: black!important;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: red;
+    }
+
+    .form-control {
+        border: none;
+        border-radius: 20px;
+        background-color: #f8f9fa;
+        color: #333;
+    }
+
+    .btn-primary {
+        border-radius: 20px;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+</style>
+
