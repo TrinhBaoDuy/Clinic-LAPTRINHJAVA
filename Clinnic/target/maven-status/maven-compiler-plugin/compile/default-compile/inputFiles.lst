@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\PrescriptionRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\UserRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\CustomSuccessHandler.java
@@ -48,51 +47,3 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\MedicineServiceImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\MedicineRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\TilesConfigs.java
-=======
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\UserRepository.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\PrescriptionServiceImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\MedicineController.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Payment.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\ServiceItems.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\UserServiceImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\PrescriptionService.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\AppointmentServiceImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Role.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\HibernateConfig.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\RoleRepositoryImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\MedicineRepository.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\CustomSuccessHandler.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\MedicineServiceImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\UserService.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Prescription.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\PrescriptionItem.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\SpringSecurityConfig.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\MedicineRepositoryImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\AppointmentController.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\fomatters\RoleFomatters.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Service.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\MedicineService.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\ApiUserController.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\PrescriptionRepositoryImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\User.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Shift.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\UserRepositoryImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\AppointmentService.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\SecurityWebApplicationInitializer.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\TilesConfigs.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\RoleService.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\AppConfig.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\DispatcherServletInit.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\UserController.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\ScheduleDetail.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\ScheduleClinic.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\PrescriptionRepository.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\IndexController.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\AppointmentRepositoryImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\AppointmentRepository.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\WebAppContextConfig.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Medicine.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\RoleServiceImpl.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Appointment.java
-C:\Users\hung\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\RoleReponsitory.java
->>>>>>> 880c7375185ff9e43759d691f5112f5fef3ca183

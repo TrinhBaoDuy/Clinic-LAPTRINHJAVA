@@ -7,7 +7,6 @@ package com.owen.pojo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.ejb.TransactionAttribute;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author hung
+ * @author Trinh Bao Duy
  */
 @Entity
 @Table(name = "user")
@@ -94,9 +93,22 @@ public class User implements Serializable {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Role roleId;
-
     @Transient
     private MultipartFile file;
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     public User() {
     }
@@ -252,20 +264,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.owen.pojo.User[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
     }
 
 }
