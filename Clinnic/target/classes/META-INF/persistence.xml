@@ -27,6 +27,16 @@
     <class>com.owen.configs.Medicine</class>
     <class>com.owen.pojo.ServiceItems</class>
     <class>com.owen.pojo.Service</class>
+    <class>com.owen.pojo.Appointment_1</class>
+    <class>com.owen.pojo.Payment_1</class>
+    <class>com.owen.pojo.ServiceItems_1</class>
+    <class>com.owen.pojo.Shift_1</class>
+    <class>com.owen.pojo.PrescriptionItem_1</class>
+    <class>com.owen.pojo.Role_1</class>
+    <class>com.owen.pojo.Service_1</class>
+    <class>com.owen.pojo.Medicine_1</class>
+    <class>com.owen.pojo.ScheduleDetail_1</class>
+    <class>com.owen.pojo.Prescription_1</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/clinicdb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
