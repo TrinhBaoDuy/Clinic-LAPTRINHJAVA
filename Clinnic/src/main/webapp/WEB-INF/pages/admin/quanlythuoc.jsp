@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:url value="/admin/quanlythuoc" var="action" />
 <sec:authorize access="hasRole('ADMIN')"> 
-    <script src="<c:url value="/js/index.js" />"></script>
+    <script src="<c:url value="/js/FunctionObject.js" />"></script>
     <div class="container">
         <div class="imglogo">
             <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1691993662/Red_and_white_pill_icon_on_white_ez3beg.jpg" alt="logo">

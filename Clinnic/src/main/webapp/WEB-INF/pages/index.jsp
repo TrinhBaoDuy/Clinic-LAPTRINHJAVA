@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:url value="/" var="action" />
-<script src="<c:url value="../js/index.js" />"></script>
+<script src="<c:url value="/js/FunctionObject.js" />"></script>
 <section>
     <div class="container mt-3">
         <h2>nguoi dung</h2>
