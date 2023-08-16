@@ -5,6 +5,7 @@
 package com.owen.repository.impl;
 
 import com.owen.pojo.Medicine;
+import com.owen.pojo.User;
 import com.owen.repository.MedicineRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,22 @@ public class MedicineRepositoryImpl implements MedicineRepository{
             ex.printStackTrace(); 
         }
         return false;
+    }
+
+    @Override
+    public Medicine getMedicineById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Medicine> query = builder.createQuery(Medicine.class);
+        Root<Medicine> root = query.from(Medicine.class);
+        query.where(
+                builder.and(
+                        builder.equal(root.get("id"), id)
+                )
+        );
+        Query q = session.createQuery(query);
+        List<Medicine> results = q.getResultList();
+        return results.isEmpty() ? null : results.get(0);   
     }
 }
 

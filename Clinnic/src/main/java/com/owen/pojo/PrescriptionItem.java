@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author hung
+ * @author Trinh Bao Duy
  */
 @Entity
 @Table(name = "prescription_item")

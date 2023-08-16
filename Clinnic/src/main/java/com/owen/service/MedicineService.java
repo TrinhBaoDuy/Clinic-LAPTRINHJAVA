@@ -16,4 +16,5 @@ public interface MedicineService {
     List<Medicine> getMediciness(Map<String, String> params);
     boolean addOrUpdateMedicine(Medicine m);
     boolean deleteMedicine(int id);
+    Medicine getMedicineById(int id);
 }

@@ -7,74 +7,87 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<c:url value="/quanlythuoc" var="action" />
-<form:form method="post" action="${action}" modelAttribute="medicien" enctype="multipart/form-data">
+<c:url value="/admin/quanlythuoc" var="action" />
+<sec:authorize access="hasRole('ADMIN')"> 
+    <script src="<c:url value="/js/FunctionObject.js" />"></script>
     <div class="container">
+<<<<<<<< HEAD:Clinnic/src/main/webapp/WEB-INF/pages/doctor/xemlichkham.jsp
+         
+========
         <div class="imglogo">
             <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1691993662/Red_and_white_pill_icon_on_white_ez3beg.jpg" alt="logo">
             <h2>Tủ thuốc PISCES</h2>
         </div>
         <div class="main">
             <div class = "addMe">
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_name">Tên thuốc</label>
-                        <form:input type="text" class="form-control" path="" id="product_name" placeholder="Tên thuốc..." />
-                        
-                    </div>
-                </div>
+                <form:form method="post" action="${action}" modelAttribute="medicien" enctype="multipart/form-data">
+                    <form:hidden path="id" />
+                    <div class="form-floating mb-3 mt-3">
+                        <div class="form-group">
+                            <label for="product_name">Tên thuốc</label>
+                            <form:input type="text" class="form-control" path="name" id="product_name" placeholder="Tên thuốc..." />
 
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_quantity">Số lượng kho</label>
-                        <form:input type="number" class="form-control" path="" id="product_quantity" placeholder="Số lượng kho..." />
-                         
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_price">Giá</label>
-                        <form:input type="number" class="form-control" path="" id="product_price" placeholder="Giá..." />
-                         
-                    </div>
-                </div>
+                    <div class="form-floating mb-3 mt-3">
+                        <div class="form-group">
+                            <label for="product_quantity">Số lượng kho</label>
+                            <form:input type="number" class="form-control" path="numMed" id="product_quantity" placeholder="Số lượng kho..." />
 
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_manufacturer">Nhà sản xuất</label>
-                        <form:input type="text" class="form-control" path="" id="product_manufacturer" placeholder="Nhà sản xuất..." />
-                         
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_production_date">Ngày sản xuất</label>
-                        <form:input type="date" class="form-control" path="" id="product_production_date" placeholder="Ngày sản xuất..." />
-                         
-                    </div>
-                </div>
+                    <div class="form-floating mb-3 mt-3">
+                        <div class="form-group">
+                            <label for="product_price">Giá</label>
+                            <form:input type="number" class="form-control" path="price" id="product_price" placeholder="Giá..." />
 
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_expiration_date">Ngày hết hạn</label>
-                        <form:input type="date" class="form-control" path="" id="product_expiration_date" placeholder="Ngày hết hạn..." />
-                         
+                        </div>
                     </div>
-                </div>
-                            <div class="submitAddProduct">
-                    <a href="#"><button type="submit">Thêm Sản Phẩm</button></a>
-                </div>
+
+                    <div class="form-floating mb-3 mt-3">
+                        <div class="form-group">
+                            <label for="product_manufacturer">Nhà sản xuất</label>
+                            <form:input type="text" class="form-control" path="provider" id="product_manufacturer" placeholder="Nhà sản xuất..." />
+
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3 mt-3">
+                        <div class="form-group">
+                            <label for="product_production_date">Ngày sản xuất</label>
+                            <form:input type="date" class="form-control" path="productionDate" id="product_production_date" placeholder="Ngày sản xuất..." />
+
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3 mt-3">
+                        <div class="form-group">
+                            <label for="product_expiration_date">Ngày hết hạn</label>
+                            <form:input type="date" class="form-control" path="expirationDate" id="product_expiration_date" placeholder="Ngày hết hạn..." />
+
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3 mt-3">
+                        <button class="btn btn-info" type="submit">
+                            <c:choose>
+                                <c:when test="${medicien.id == null}">Thêm sản phẩm</c:when>
+                                <c:otherwise>Cập nhật sản phẩm</c:otherwise>
+                            </c:choose>
+                        </button>
+                    </div>
+                </form:form>
             </div>
 
             <div class = "infoMe">
                 <div class = "infoMeSearch" >
-                <form class="search-form" action="${action}">
-                    <input class="form-control me-2" type="text" name="name" placeholder="Nhập tên thuốc...">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
-                </form>
+                    <form class="search-form" action="${action}">
+                        <input class="form-control me-2" type="text" name="name" placeholder="Nhập tên thuốc...">
+                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
+                    </form>
                 </div>
+>>>>>>>> 5f8d3beab80d31e163a3042bbad8a6d702171850:Clinnic/src/main/webapp/WEB-INF/pages/doctor/admin/quanlythuoc.jsp
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -89,7 +102,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${mediciens}" var="ds">
+                        <c:forEach items="${getmediciens}" var="ds">
                             <tr>
                                 <td>${ds.id}</td>
                                 <td>${ds.name}</td>
@@ -99,19 +112,20 @@
                                 <td>${ds.productionDate}</td>
                                 <td>${ds.expirationDate}</td>
                                 <td>
-                                    <a href="/admin/users/${ds.id}" class="btn btn-success">Cập nhật</a>
-                                    <button class="btn btn-danger" onclick="delUser('/api/${ds.id}', ${ds.id})">Xóa</button>
+                                    <c:url value="/api/admin/quanlythuoc/${ds.id}" var="apiDel" />
+                                    <a href="<c:url value="/admin/quanlythuoc/${ds.id}"/>" class="btn btn-success">Cập nhật</a>
+                                    <button class="btn btn-danger" onclick="delObject('${apiDel}', ${ds.id})">Xóa</button>
                                 </td>
                             </tr>
                         </c:forEach>
-                         
+
                     </tbody>
                 </table>
             </div>
-                    
+
         </div>    
     </div>
-</form:form>
+</sec:authorize>
 <style>
     .form-floating label {
         font-weight: bold;
@@ -192,7 +206,7 @@
     .search-form input[type="text"] {
         flex-grow: 1;
         margin-right: 10px;
-        
+
     }
     .table th, .table td {
         vertical-align: middle;
@@ -219,7 +233,7 @@
     .infoMeSearch{
         display: flex;
     }
-      .submitAddProduct{
+    .submitAddProduct{
         margin-top:30px;
         display: flex;
         justify-content: center;

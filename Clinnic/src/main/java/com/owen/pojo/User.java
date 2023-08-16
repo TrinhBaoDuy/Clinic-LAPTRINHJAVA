@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author hung
+ * @author Trinh Bao Duy
  */
 @Entity
 @Table(name = "user")
@@ -265,5 +265,4 @@ public class User implements Serializable {
     public String toString() {
         return "com.owen.pojo.User[ id=" + id + " ]";
     }
-    
 }

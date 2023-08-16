@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `clinicdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `clinicdb`;
 -- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: clinicdb
@@ -194,33 +196,6 @@ INSERT INTO `role` VALUES (1,'ROLE_ADMIN'),(2,'ROLE_DOCTOR'),(3,'ROLE_NURSE'),(4
 UNLOCK TABLES;
 
 --
--- Table structure for table `schedule_clinic`
---
-
-DROP TABLE IF EXISTS `schedule_clinic`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `schedule_clinic` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `status` tinyint DEFAULT NULL,
-  `user_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `u_idx` (`user_id`),
-  CONSTRAINT `u` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `schedule_clinic`
---
-
-LOCK TABLES `schedule_clinic` WRITE;
-/*!40000 ALTER TABLE `schedule_clinic` DISABLE KEYS */;
-INSERT INTO `schedule_clinic` VALUES (1,1,2),(2,0,3);
-/*!40000 ALTER TABLE `schedule_clinic` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `schedule_detail`
 --
 
@@ -230,13 +205,14 @@ DROP TABLE IF EXISTS `schedule_detail`;
 CREATE TABLE `schedule_detail` (
   `date_schedule` date DEFAULT NULL,
   `shift_id` int DEFAULT NULL,
-  `schedule_id` int DEFAULT NULL,
+  `personnel_id` int DEFAULT NULL,
   `id` int NOT NULL AUTO_INCREMENT,
+  `status` tinyint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `SHI_idx` (`shift_id`),
-  KEY `sche_idx` (`schedule_id`),
-  CONSTRAINT `sche` FOREIGN KEY (`schedule_id`) REFERENCES `schedule_clinic` (`id`),
-  CONSTRAINT `SHI` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`)
+  KEY `user_idx` (`personnel_id`),
+  CONSTRAINT `SHI` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`),
+  CONSTRAINT `user` FOREIGN KEY (`personnel_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -246,7 +222,7 @@ CREATE TABLE `schedule_detail` (
 
 LOCK TABLES `schedule_detail` WRITE;
 /*!40000 ALTER TABLE `schedule_detail` DISABLE KEYS */;
-INSERT INTO `schedule_detail` VALUES ('2023-08-01',1,1,1),('2023-08-02',2,1,2),('2023-08-03',1,2,3);
+INSERT INTO `schedule_detail` VALUES ('2023-08-01',1,1,1,NULL),('2023-08-02',2,1,2,NULL),('2023-08-03',1,2,3,NULL);
 /*!40000 ALTER TABLE `schedule_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-14 12:32:59
+-- Dump completed on 2023-08-15 12:39:06
