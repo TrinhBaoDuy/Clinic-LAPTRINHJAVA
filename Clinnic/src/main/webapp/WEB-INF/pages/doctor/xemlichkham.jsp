@@ -10,71 +10,7 @@
 <c:url value="/quanlythuoc" var="action" />
 <form:form method="post" action="${action}" modelAttribute="medicien" enctype="multipart/form-data">
     <div class="container">
-        <div class="imglogo">
-            <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1691993662/Red_and_white_pill_icon_on_white_ez3beg.jpg" alt="logo">
-            <h2>Tủ thuốc PISCES</h2>
-        </div>
-        <div class="main">
-            <div class = "addMe">
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_name">Tên thuốc</label>
-                        <form:input type="text" class="form-control" path="" id="product_name" placeholder="Tên thuốc..." />
-                        
-                    </div>
-                </div>
-
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_quantity">Số lượng kho</label>
-                        <form:input type="number" class="form-control" path="" id="product_quantity" placeholder="Số lượng kho..." />
-                         
-                    </div>
-                </div>
-
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_price">Giá</label>
-                        <form:input type="number" class="form-control" path="" id="product_price" placeholder="Giá..." />
-                         
-                    </div>
-                </div>
-
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_manufacturer">Nhà sản xuất</label>
-                        <form:input type="text" class="form-control" path="" id="product_manufacturer" placeholder="Nhà sản xuất..." />
-                         
-                    </div>
-                </div>
-
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_production_date">Ngày sản xuất</label>
-                        <form:input type="date" class="form-control" path="" id="product_production_date" placeholder="Ngày sản xuất..." />
-                         
-                    </div>
-                </div>
-
-                <div class="form-floating mb-3 mt-3">
-                    <div class="form-group">
-                        <label for="product_expiration_date">Ngày hết hạn</label>
-                        <form:input type="date" class="form-control" path="" id="product_expiration_date" placeholder="Ngày hết hạn..." />
-                         
-                    </div>
-                </div>
-                            <div class="submitAddProduct">
-                    <a href="#"><button type="submit">Thêm Sản Phẩm</button></a>
-                </div>
-            </div>
-
-            <div class = "infoMe">
-                <div class = "infoMeSearch" >
-                <form class="search-form" action="${action}">
-                    <input class="form-control me-2" type="text" name="name" placeholder="Nhập tên thuốc...">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
-                </form>
-                </div>
+         
                 <table class="table table-striped">
                     <thead>
                         <tr>

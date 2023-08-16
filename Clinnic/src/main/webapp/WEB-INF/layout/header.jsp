@@ -47,10 +47,10 @@
                 </c:choose>
             </ul>
 
-            <form class="d-flex" action="${action}">
+<!--            <form class="d-flex" action="${action}">
                 <input class="form-control me-2" type="text" name="kw" placeholder="Nhập từ khóa...">
                 <button class="btn btn-primary" type="submit">Tìm</button>
-            </form>
+            </form>-->
         </div>
     </div>
 </nav>

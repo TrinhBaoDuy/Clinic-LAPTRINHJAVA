@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ScheduleDetail.findAll", query = "SELECT s FROM ScheduleDetail s"),
     @NamedQuery(name = "ScheduleDetail.findByDateSchedule", query = "SELECT s FROM ScheduleDetail s WHERE s.dateSchedule = :dateSchedule"),
-    @NamedQuery(name = "ScheduleDetail.findById", query = "SELECT s FROM ScheduleDetail s WHERE s.id = :id")})
+    @NamedQuery(name = "ScheduleDetail.findById", query = "SELECT s FROM ScheduleDetail s WHERE s.id = :id"),
+    @NamedQuery(name = "ScheduleDetail.findByStatus", query = "SELECT s FROM ScheduleDetail s WHERE s.status = :status")})
 public class ScheduleDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,12 +44,14 @@ public class ScheduleDetail implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
-    @ManyToOne
-    private ScheduleClinic scheduleId;
+    @Column(name = "status")
+    private Short status;
     @JoinColumn(name = "shift_id", referencedColumnName = "id")
     @ManyToOne
     private Shift shiftId;
+    @JoinColumn(name = "personnel_id", referencedColumnName = "id")
+    @ManyToOne
+    private User personnelId;
 
     public ScheduleDetail() {
     }
@@ -73,12 +76,12 @@ public class ScheduleDetail implements Serializable {
         this.id = id;
     }
 
-    public ScheduleClinic getScheduleId() {
-        return scheduleId;
+    public Short getStatus() {
+        return status;
     }
 
-    public void setScheduleId(ScheduleClinic scheduleId) {
-        this.scheduleId = scheduleId;
+    public void setStatus(Short status) {
+        this.status = status;
     }
 
     public Shift getShiftId() {
@@ -87,6 +90,14 @@ public class ScheduleDetail implements Serializable {
 
     public void setShiftId(Shift shiftId) {
         this.shiftId = shiftId;
+    }
+
+    public User getPersonnelId() {
+        return personnelId;
+    }
+
+    public void setPersonnelId(User personnelId) {
+        this.personnelId = personnelId;
     }
 
     @Override

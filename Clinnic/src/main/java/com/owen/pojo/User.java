@@ -7,7 +7,6 @@ package com.owen.pojo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.ejb.TransactionAttribute;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -83,8 +82,8 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "sex")
     private String sex;
-    @OneToMany(mappedBy = "userId")
-    private Set<ScheduleClinic> scheduleClinicSet;
+    @OneToMany(mappedBy = "personnelId")
+    private Set<ScheduleDetail> scheduleDetailSet;
     @OneToMany(mappedBy = "doctorId")
     private Set<Appointment> appointmentSet;
     @OneToMany(mappedBy = "nurseId")
@@ -94,9 +93,22 @@ public class User implements Serializable {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Role roleId;
-
     @Transient
     private MultipartFile file;
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     public User() {
     }
@@ -186,12 +198,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Set<ScheduleClinic> getScheduleClinicSet() {
-        return scheduleClinicSet;
+    public Set<ScheduleDetail> getScheduleDetailSet() {
+        return scheduleDetailSet;
     }
 
-    public void setScheduleClinicSet(Set<ScheduleClinic> scheduleClinicSet) {
-        this.scheduleClinicSet = scheduleClinicSet;
+    public void setScheduleDetailSet(Set<ScheduleDetail> scheduleDetailSet) {
+        this.scheduleDetailSet = scheduleDetailSet;
     }
 
     @XmlTransient
@@ -253,19 +265,5 @@ public class User implements Serializable {
     public String toString() {
         return "com.owen.pojo.User[ id=" + id + " ]";
     }
-
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-
+    
 }
