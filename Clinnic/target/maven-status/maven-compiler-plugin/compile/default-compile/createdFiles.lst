@@ -35,6 +35,7 @@ com\owen\configs\AppConfig.class
 com\owen\repository\UserRepository.class
 com\owen\pojo\Prescription.class
 com\owen\service\MedicineService.class
+com\owen\controllers\NurseController.class
 com\owen\controllers\MedicineController.class
 com\owen\controllers\ApiMedicineController.class
 com\owen\repository\impl\UserRepositoryImpl.class
@@ -51,6 +52,7 @@ com\owen\repository\impl\AppointmentRepositoryImpl.class
 com\owen\pojo\Medicine_.class
 com\owen\pojo\Service_.class
 com\owen\pojo\Payment.class
+com\owen\controllers\DoctorController.class
 com\owen\pojo\Appointment.class
 com\owen\service\PrescriptionService.class
 com\owen\configs\SpringSecurityConfig.class
