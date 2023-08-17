@@ -11,9 +11,9 @@
  
 <form:form >
     <div class="infor1">
-        <nav class="bookingleft">
+        <nav class="doctorleft">
             <div class="dkk1">
-                <div class="booking1">
+                <div class="doctor1">
                     <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1692082761/969c4e31-83b3-4a58-9e9e-5133602c817a_rvsbt9.jpg" alt="alert"/>
                 </div>
                 <div class="contentbooking2_main">
@@ -34,17 +34,29 @@
 
             </div>
         </nav>
-        <nav class="bookingright">
-            <h1>CHỨC NĂNG</h1>
-            <div class="dkk2">
-                <div class="submitbooking">
-                    <a href="#"><button type="submit"> Khám Bệnh</button></a>
-                </div>
-                <div class="submitbooking">
-                    <a href="#"><button type="submit">Xem Lịch Khám</button></a>
-                </div>
+        <div class="doctorright">
+            <h2> Lịch Khám </h2>
+                    <div class="content2">
 
-            </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+
+                                <th>Mã lịch khám</th>
+                                <th>
+                                    <a href="url">Tên khách hàng</a> 
+                                </th>
+                                <th>Giờ khám</th>
+
+                    
+                                <th>Ngày khám</th>
+                                <th>Trạng Thái</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                        </div>
+        </div>
 
 
     </div>
@@ -52,17 +64,18 @@
 </div>
 </form:form>
 <style>
-    .bookingleft{
+    .doctorleft{
         width: 30%;
     }
-    .bookingright{
+    .doctorright{
         width: 70%;
         padding-left: 30px;
-        background-image: url(https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119274/Free_Vector___Cardio_heartbeat_medical_and_healthcare_background_oxvnvc.jpg);
+        /*background-image: url(https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119274/Free_Vector___Cardio_heartbeat_medical_and_healthcare_background_oxvnvc.jpg);*/
         border: 0.5px solid #5AAC4E;
         border-radius: 30px;
         margin-left: 30px;
-        background-color: rgba(0, 0, 0, 0.5);
+       
+        
 
     }
     .bookingright h1{
@@ -95,7 +108,7 @@
 
         padding: 30px;
     }
-    .booking1{
+    .doctor1{
         width: 30%;
         /*        width: 300px;
                 height: 300px;*/
@@ -104,7 +117,7 @@
         align-items: center;
         overflow: hidden;
     }
-    .booking1 img{
+    .doctor1 img{
         padding: 5px;
         /* border-radius: 20px; */
         border-radius: 50px;
@@ -151,7 +164,10 @@
 /*    .contentbooking2_main{
         width: 70%;
     }*/
-
+.doctorright th a{
+    color: black;
+    text-decoration: auto;
+}
     .contentbooking2 h1{
         font-size: 23px;
         font-weight: 700;
@@ -260,5 +276,7 @@
   background-size: cover;
   background-position: center;
   padding-top: 5px;
+  
     }
+    
 </style>

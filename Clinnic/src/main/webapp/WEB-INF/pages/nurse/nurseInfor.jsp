@@ -8,11 +8,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
+ 
 <form:form >
     <div class="infor1">
-        <nav class="bookingleft">
+        <nav class="doctorleft">
             <div class="dkk1">
-                <div class="booking1">
+                <div class="doctor1">
                     <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1692082761/969c4e31-83b3-4a58-9e9e-5133602c817a_rvsbt9.jpg" alt="alert"/>
                 </div>
                 <div class="contentbooking2_main">
@@ -33,16 +34,29 @@
 
             </div>
         </nav>
-        <nav class="bookingright">
-            <div class="dkk2">
-                <div class="submitbooking">
-                    <a href="#"><button type="submit">Khám Bệnh</button></a>
-                </div>
-                <div class="submitbooking">
-                    <a href="#"><button type="submit">Xem Lịch Khám</button></a>
-                </div>
+        <div class="doctorright">
+            <h2> Lịch Khám </h2>
+                    <div class="content2">
 
-            </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+
+                                <th>Mã lịch khám</th>
+                                <th>
+                                    <a href="url">Tên khách hàng</a> 
+                                </th>
+                                <th>Giờ khám</th>
+
+                    
+                                <th>Ngày khám</th>
+                                <th>Trạng Thái</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                        </div>
+        </div>
 
 
     </div>
@@ -50,18 +64,25 @@
 </div>
 </form:form>
 <style>
-    .bookingleft{
+    .doctorleft{
         width: 30%;
     }
-    .bookingright{
+    .doctorright{
         width: 70%;
         padding-left: 30px;
-        background-image: url(https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119274/Free_Vector___Cardio_heartbeat_medical_and_healthcare_background_oxvnvc.jpg);
+        /*background-image: url(https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119274/Free_Vector___Cardio_heartbeat_medical_and_healthcare_background_oxvnvc.jpg);*/
         border: 0.5px solid #5AAC4E;
         border-radius: 30px;
         margin-left: 30px;
-        background-color: rgba(0, 0, 0, 0.5);
+       
+        
 
+    }
+    .bookingright h1{
+  
+    text-align: center;
+    font-weight: bold;
+    padding-top: 30px;
     }
     .infor1{
         display: flex;
@@ -77,8 +98,8 @@
         border-radius: 30px;
     }
     .dkk2{
-
- padding-top: 80px;
+/*
+ padding-top: 80px;*/
     padding-left: 150px;
 
         display: flex;
@@ -87,7 +108,7 @@
 
         padding: 30px;
     }
-    .booking1{
+    .doctor1{
         width: 30%;
         /*        width: 300px;
                 height: 300px;*/
@@ -96,7 +117,7 @@
         align-items: center;
         overflow: hidden;
     }
-    .booking1 img{
+    .doctor1 img{
         padding: 5px;
         /* border-radius: 20px; */
         border-radius: 50px;
@@ -143,7 +164,10 @@
 /*    .contentbooking2_main{
         width: 70%;
     }*/
-
+.doctorright th a{
+    color: black;
+    text-decoration: auto;
+}
     .contentbooking2 h1{
         font-size: 23px;
         font-weight: 700;
@@ -243,10 +267,16 @@
     font-weight: bold;
         
         border: 0px solid #ADD8E6;
-        background-color:orangered;
-        color: white;
+/*        background-color:orangered;*/
+        color: #285cc6;
         box-shadow: 0px 5px 10px 0 #ADD8E6;
         transition: 0.3s;
         border-radius: 6px;
+        background-image: url('https://res.cloudinary.com/dstqvlt8d/image/upload/v1692163867/Free_Vector___Blue_dna_background_with_medical_and_healthcare_purpose_askygz.jpg');
+  background-size: cover;
+  background-position: center;
+  padding-top: 5px;
+  
     }
+    
 </style>

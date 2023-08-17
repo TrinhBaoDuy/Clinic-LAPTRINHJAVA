@@ -107,12 +107,12 @@
 
     }
     .title{
-        display: flex;
-        justify-content: center;
-        height:450px;
-        align-items: center;
-        width: 75%;
-        margin-left: 600px;
+        
+        height: 450px;
+    align-items: center;
+    width: 44%;
+    margin-left: auto;
+    margin-top: 116px;
     }
     .title div{
         text-align: justify;
