@@ -8,32 +8,35 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
- 
-<form:form >
-    <div class="infor1">
-        <nav class="bookingleft">
-            <div class="dkk1">
-                <div class="booking1">
-                    <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1692082761/969c4e31-83b3-4a58-9e9e-5133602c817a_rvsbt9.jpg" alt="alert"/>
-                </div>
-                <div class="contentbooking2_main">
 
-                    <div class="contentbooking2">
-                        <h1>Thạc sĩ X "link tên tk login vào đây"</h1>
-                        <h5>Mã:        </h5>
-                        <h5>Ngày sinh: </h5>
-                        <h5>Số điện Thoại: </h5>
-                        <h5>Địa chỉ: </h5>
-                        <h5>Email: </h5>
-                        <h5>Giới tính: </h5>
+<c:url value="/doctor" var="action" />
+<sec:authorize access="hasRole('DOCTOR')">
+    <div class="infor1">
+        <form:form method="post" action="${action}" modelAttribute="doctor"  enctype="multipart/form-data">
+            <nav class="bookingleft">
+                <div class="dkk1">
+                    <div class="booking1">
+                        <img src="${doctor.avatar}" alt="alert"/>
+                    </div>
+                    <div class="contentbooking2_main">
+
+                        <div class="contentbooking2">
+                            <h1>Thạc sĩ ${doctor.name}</h1>
+                            <h5>Mã: ${doctor.id} </h5>
+                            <h5>Ngày sinh: ${doctor.dod}</h5>
+                            <h5>Số điện Thoại: ${doctor.phone}</h5>
+                            <h5>Địa chỉ: ${doctor.address}</h5>
+                            <h5>Email: ${doctor.emaill}</h5>
+                            <h5>Giới tính: ${doctor.sex}</h5>
+                        </div>
+
+
                     </div>
 
 
                 </div>
-
-
-            </div>
-        </nav>
+            </nav>
+        </form:form>
         <nav class="bookingright">
             <h1>CHỨC NĂNG</h1>
             <div class="dkk2">
@@ -41,16 +44,14 @@
                     <a href="#"><button type="submit"> Khám Bệnh</button></a>
                 </div>
                 <div class="submitbooking">
-                    <a href="#"><button type="submit">Xem Lịch Khám</button></a>
+                    <a href="<c:url value="/doctor/xemlichkham"/>"><button type="submit">Xem Lịch Khám</button></a>
                 </div>
 
             </div>
-
+        </nav>
 
     </div>
-</nav>
-</div>
-</form:form>
+</sec:authorize>
 <style>
     .bookingleft{
         width: 30%;
@@ -66,10 +67,10 @@
 
     }
     .bookingright h1{
-  
-    text-align: center;
-    font-weight: bold;
-    padding-top: 30px;
+
+        text-align: center;
+        font-weight: bold;
+        padding-top: 30px;
     }
     .infor1{
         display: flex;
@@ -85,13 +86,13 @@
         border-radius: 30px;
     }
     .dkk2{
-/*
- padding-top: 80px;*/
-    padding-left: 150px;
+        /*
+         padding-top: 80px;*/
+        padding-left: 150px;
 
         display: flex;
     }
-.dkk2 div {
+    .dkk2 div {
 
         padding: 30px;
     }
@@ -148,9 +149,9 @@
         padding-bottom: 30px;
         width: 70%;
     }
-/*    .contentbooking2_main{
-        width: 70%;
-    }*/
+    /*    .contentbooking2_main{
+            width: 70%;
+        }*/
 
     .contentbooking2 h1{
         font-size: 23px;
@@ -242,23 +243,23 @@
         justify-content: center;
     }
     .submitbooking a button{
-        
+
         padding: 14px;
-            height: 100px;
-    width: 200px;
-    font-size: 30px;
-    /* text-align: -webkit-auto; */
-    font-weight: bold;
-        
+        height: 100px;
+        width: 200px;
+        font-size: 30px;
+        /* text-align: -webkit-auto; */
+        font-weight: bold;
+
         border: 0px solid #ADD8E6;
-/*        background-color:orangered;*/
+        /*        background-color:orangered;*/
         color: #285cc6;
         box-shadow: 0px 5px 10px 0 #ADD8E6;
         transition: 0.3s;
         border-radius: 6px;
         background-image: url('https://res.cloudinary.com/dstqvlt8d/image/upload/v1692163867/Free_Vector___Blue_dna_background_with_medical_and_healthcare_purpose_askygz.jpg');
-  background-size: cover;
-  background-position: center;
-  padding-top: 5px;
+        background-size: cover;
+        background-position: center;
+        padding-top: 5px;
     }
 </style>

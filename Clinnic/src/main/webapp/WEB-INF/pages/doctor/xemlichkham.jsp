@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<c:url value="/admin/quanlythuoc" var="action" />
+<c:url value="/doctor/xemlichkham" var="action" />
 <sec:authorize access="hasRole('ADMIN')"> 
     <script src="<c:url value="/js/FunctionObject.js" />"></script>
     <div class="container">
@@ -17,7 +17,7 @@
         </div>
         <div class="main">
             <div class = "addMe">
-                <form:form method="post" action="${action}" modelAttribute="medicien" enctype="multipart/form-data">
+                <form:form >
                     <form:hidden path="id" />
                     <div class="form-floating mb-3 mt-3">
                         <div class="form-group">
