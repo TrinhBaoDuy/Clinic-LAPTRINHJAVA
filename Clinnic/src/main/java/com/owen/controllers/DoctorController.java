@@ -39,7 +39,7 @@ public class DoctorController {
             UserDetails user = this.userService.loadUserByUsername(authentication.getName());
             User u = this.userService.getUserByUsername(user.getUsername());
             model.addAttribute("doctor", u);
-            model.addAttribute("lichkham", this.appointmentService.getAppointmentsbyDoctor(u));
+//            model.addAttribute("lichkham", this.appointmentService.getAppointmentsbyDoctor(u));
         }     
         return "doctor";
     }

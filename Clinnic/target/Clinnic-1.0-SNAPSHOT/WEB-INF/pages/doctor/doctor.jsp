@@ -37,33 +37,58 @@
                 </div>
             </nav>
         </form:form>
-        <nav class="bookingright">
-            <h1>CHỨC NĂNG</h1>
-            <div class="dkk2">
-                <div class="submitbooking">
-                    <a href="#"><button type="submit"> Khám Bệnh</button></a>
-                </div>
-                <div class="submitbooking">
-                    <a href="<c:url value="/doctor/xemlichkham"/>"><button type="submit">Xem Lịch Khám</button></a>
-                </div>
-
+        <div class="bookingright">
+            <div class="schedule">
+                <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119292/Download_free_vector_of_Heart_with_a_red_cross_symbol_vector_by_Ning_about_plus_sign_plus_symbol_healthcare_heart_hospital_and_plus_icon_sign_516146_jafq4t.jpg" alt="Image Description">
+                <h1>Lịch khám</h1>
             </div>
-        </nav>
+
+            <div class="content1">
+
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>Mã khách hàng</th>
+                            <th><a href="url"> Tên khách hàng</a></th>
+                            <th>Ngày khám</th>
+                            <th>Giờ khám</th>
+                            <th>Trạng Thái</th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+<!--                    <tbody>
+                        <%--<c:forEach items="${lichkham}" var="ds">--%>
+                            <tr>
+                                <td>${ds.sickpersonId.id}</td>
+                                <td>${ds.sickpersonId.name}</td>
+                                <td>${ds.medicalappointmentDate}</td>
+                                <<td>${ds.medicalappointmentDate}</td>
+                                <td>${ds.status}</td>
+                            <%--</c:forEach>--%>
+                    </tbody>-->
+                </table>
+
+            </div>    
+
+        </div>
 
     </div>
 </sec:authorize>
 <style>
     .bookingleft{
-        width: 30%;
+
     }
     .bookingright{
         width: 70%;
         padding-left: 30px;
-        background-image: url(https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119274/Free_Vector___Cardio_heartbeat_medical_and_healthcare_background_oxvnvc.jpg);
+        /*background-image: url(https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119274/Free_Vector___Cardio_heartbeat_medical_and_healthcare_background_oxvnvc.jpg);*/
         border: 0.5px solid #5AAC4E;
         border-radius: 30px;
         margin-left: 30px;
-        background-color: rgba(0, 0, 0, 0.5);
+
 
     }
     .bookingright h1{
@@ -76,6 +101,19 @@
         display: flex;
         padding: 30px;
 
+    }
+    .schedule{
+        display: flex;
+
+    }
+    .schedule img{
+        width: 20%;
+        border-radius: 100%;
+        padding: 10px;
+    }
+    .content1 th a{
+        color: black;
+        text-decoration: auto;
     }
     .dkk1{
 
