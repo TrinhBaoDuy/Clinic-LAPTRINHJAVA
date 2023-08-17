@@ -21,20 +21,18 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  */
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest hsr, HttpServletResponse hsr1, Authentication a) throws IOException, ServletException {
         Collection<? extends GrantedAuthority> authoritys = a.getAuthorities();
 
         for (GrantedAuthority authority : authoritys) {
             if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                redirectStrategy.sendRedirect(hsr, hsr1, "/admin/users");
-                redirectStrategy.sendRedirect(hsr, hsr1, "/admin/quanlythuoc");
-                return;
+                hsr1.sendRedirect(String.format("%s/admin/users", hsr.getContextPath()));
+            } else if (authority.getAuthority().equals("ROLE_DOCTOR")) {
+                hsr1.sendRedirect(String.format("%s/doctor", hsr.getContextPath()));
             } else if (authority.getAuthority().equals("ROLE_NURSE")) {
-                redirectStrategy.sendRedirect(hsr, hsr1, "/lich");
-                return;
+                hsr1.sendRedirect(String.format("%s/nurse", hsr.getContextPath()));
+
             }
         }
     }

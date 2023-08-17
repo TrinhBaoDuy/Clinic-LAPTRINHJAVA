@@ -5,7 +5,13 @@
 package com.owen.controllers;
 
 
+import com.owen.pojo.User;
+import com.owen.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -15,13 +21,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DoctorController {
     
-  @GetMapping("/doctor/xemlichkham")
+    @Autowired
+    private UserService userService;
+    
+    @GetMapping("/doctor/xemlichkham")
     public String xemlichkham() {
         return "xemlichkham";
     }
-    @GetMapping("/doctor/doctorInfor")
-    public String doctorInfor() {
-        return "doctorInfor";
+    @GetMapping("/doctor")
+    public String doctorInfor(Model model, Authentication authentication) {
+        model.addAttribute("doctor", new User());
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("doctor", u);
+        }
+        return "doctor";
     }
     @GetMapping("/doctor/khambenh")
     public String khambenh() {

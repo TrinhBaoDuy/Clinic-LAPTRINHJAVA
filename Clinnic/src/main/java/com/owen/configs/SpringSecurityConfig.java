@@ -42,7 +42,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    @Qualifier("cusstomSuccessHandler")
+    @Qualifier("customSuccessHandler")
     private CustomSuccessHandler customSuccessHandler;
 
     @Bean
@@ -85,9 +85,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/").permitAll().
                 antMatchers("/admin/**").access("hasAnyRole('ADMIN')");
-
         http.authorizeRequests().antMatchers("/").permitAll().
-                antMatchers("/lich/**").access("hasRole('NURSE')");
+                antMatchers("/nurse/**").access("hasRole('NURSE')");
+        http.authorizeRequests().antMatchers("/").permitAll().
+                antMatchers("/doctor/**").access("hasRole('DOCTOR')");
 
        
 

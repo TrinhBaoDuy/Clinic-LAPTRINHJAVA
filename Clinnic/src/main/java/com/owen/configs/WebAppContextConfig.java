@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.owen.fomatters.RoleFomatters;
 import java.text.SimpleDateFormat;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -69,5 +70,13 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new RoleFomatters());
     }
+//    public SimpleDateFormat simpleDateFormat() {
+//        return new SimpleDateFormat("yyyy-MM-dd");
+//    }
+//
+//    @Bean
+//    public CustomDateEditor customDateEditor() {
+//        return new CustomDateEditor(simpleDateFormat(), true);
+//    }
 
 }

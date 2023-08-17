@@ -8,66 +8,71 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
- 
-<form:form >
-    <div class="infor1">
-        <nav class="doctorleft">
-            <div class="dkk1">
-                <div class="doctor1">
-                    <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1692082761/969c4e31-83b3-4a58-9e9e-5133602c817a_rvsbt9.jpg" alt="alert"/>
-                </div>
-                <div class="contentbooking2_main">
 
-                    <div class="contentbooking2">
-                        <h1>Thạc sĩ X "link tên tk login vào đây"</h1>
-                        <h5>Mã:        </h5>
-                        <h5>Ngày sinh: </h5>
-                        <h5>Số điện Thoại: </h5>
-                        <h5>Địa chỉ: </h5>
-                        <h5>Email: </h5>
-                        <h5>Giới tính: </h5>
+<c:url value="/doctor" var="action" />
+<sec:authorize access="hasRole('DOCTOR')">
+    <div class="infor1">
+        <form:form method="post" action="${action}" modelAttribute="doctor"  enctype="multipart/form-data">
+            <nav class="bookingleft">
+                <div class="dkk1">
+                    <div class="booking1">
+                        <img src="${doctor.avatar}" alt="alert"/>
+                    </div>
+                    <div class="contentbooking2_main">
+
+                        <div class="contentbooking2">
+                            <h1>Thạc sĩ ${doctor.name}</h1>
+                            <h5>Mã: ${doctor.id} </h5>
+                            <h5>Ngày sinh: ${doctor.dod}</h5>
+                            <h5>Số điện Thoại: ${doctor.phone}</h5>
+                            <h5>Địa chỉ: ${doctor.address}</h5>
+                            <h5>Email: ${doctor.emaill}</h5>
+                            <h5>Giới tính: ${doctor.sex}</h5>
+                        </div>
+
+
                     </div>
 
 
                 </div>
-
-
+            </nav>
+        </form:form>
+        <div class="bookingright">
+            <div class="schedule">
+                 <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119292/Download_free_vector_of_Heart_with_a_red_cross_symbol_vector_by_Ning_about_plus_sign_plus_symbol_healthcare_heart_hospital_and_plus_icon_sign_516146_jafq4t.jpg" alt="Image Description">
+                <h1>Lịch khám</h1>
             </div>
-        </nav>
-        <div class="doctorright">
-            <h2> Lịch Khám </h2>
-                    <div class="content2">
+            
+            <div class="content1">
+                 
 
                     <table class="table table-striped">
                         <thead>
                             <tr>
 
-                                <th>Mã lịch khám</th>
-                                <th>
-                                    <a href="url">Tên khách hàng</a> 
-                                </th>
-                                <th>Giờ khám</th>
-
-                    
+                                <th>Mã khách hàng</th>
+                                <th><a href="url"> Tên khách hàng</a></th>
                                 <th>Ngày khám</th>
+
+                                <th>Giờ khám</th>
                                 <th>Trạng Thái</th>
+                                 
                                 <th></th>
                             </tr>
                         </thead>
                     </table>
-                        </div>
+                
+            </div>    
+
         </div>
 
-
     </div>
-</nav>
-</div>
-</form:form>
+</sec:authorize>
 <style>
-    .doctorleft{
-        width: 30%;
+    .bookingleft{
+
     }
-    .doctorright{
+    .bookingright{
         width: 70%;
         padding-left: 30px;
         /*background-image: url(https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119274/Free_Vector___Cardio_heartbeat_medical_and_healthcare_background_oxvnvc.jpg);*/
@@ -75,19 +80,31 @@
         border-radius: 30px;
         margin-left: 30px;
        
-        
 
     }
     .bookingright h1{
-  
-    text-align: center;
-    font-weight: bold;
-    padding-top: 30px;
+
+        text-align: center;
+        font-weight: bold;
+        padding-top: 30px;
     }
     .infor1{
         display: flex;
         padding: 30px;
 
+    }
+    .schedule{
+        display: flex;
+        
+    }
+    .schedule img{
+        width: 20%;
+    border-radius: 100%;
+    padding: 10px;
+    }
+    .content1 th a{
+            color: black;
+    text-decoration: auto;
     }
     .dkk1{
 
@@ -98,17 +115,17 @@
         border-radius: 30px;
     }
     .dkk2{
-/*
- padding-top: 80px;*/
-    padding-left: 150px;
+        /*
+         padding-top: 80px;*/
+        padding-left: 150px;
 
         display: flex;
     }
-.dkk2 div {
+    .dkk2 div {
 
         padding: 30px;
     }
-    .doctor1{
+    .booking1{
         width: 30%;
         /*        width: 300px;
                 height: 300px;*/
@@ -117,7 +134,7 @@
         align-items: center;
         overflow: hidden;
     }
-    .doctor1 img{
+    .booking1 img{
         padding: 5px;
         /* border-radius: 20px; */
         border-radius: 50px;
@@ -161,13 +178,10 @@
         padding-bottom: 30px;
         width: 70%;
     }
-/*    .contentbooking2_main{
-        width: 70%;
-    }*/
-.doctorright th a{
-    color: black;
-    text-decoration: auto;
-}
+    /*    .contentbooking2_main{
+            width: 70%;
+        }*/
+
     .contentbooking2 h1{
         font-size: 23px;
         font-weight: 700;
@@ -258,25 +272,23 @@
         justify-content: center;
     }
     .submitbooking a button{
-        
+
         padding: 14px;
-            height: 100px;
-    width: 200px;
-    font-size: 30px;
-    /* text-align: -webkit-auto; */
-    font-weight: bold;
-        
+        height: 100px;
+        width: 200px;
+        font-size: 30px;
+        /* text-align: -webkit-auto; */
+        font-weight: bold;
+
         border: 0px solid #ADD8E6;
-/*        background-color:orangered;*/
+        /*        background-color:orangered;*/
         color: #285cc6;
         box-shadow: 0px 5px 10px 0 #ADD8E6;
         transition: 0.3s;
         border-radius: 6px;
         background-image: url('https://res.cloudinary.com/dstqvlt8d/image/upload/v1692163867/Free_Vector___Blue_dna_background_with_medical_and_healthcare_purpose_askygz.jpg');
-  background-size: cover;
-  background-position: center;
-  padding-top: 5px;
-  
+        background-size: cover;
+        background-position: center;
+        padding-top: 5px;
     }
-    
 </style>

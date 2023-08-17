@@ -51,20 +51,20 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/doctor/xemlichkham.jsp" />
     </definition>
-    <definition name="doctorInfor" extends="baseLayout">
+    <definition name="doctor" extends="baseLayout">
         <put-attribute name="title" value="Thông Tin Bác Sĩ" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/doctor/doctorInfor.jsp" />
+                       value="/WEB-INF/pages/doctor/doctor.jsp" />
     </definition>
     <definition name="khambenh" extends="baseLayout">
         <put-attribute name="title" value="Khám Bệnh" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/doctor/khambenh.jsp" />
     </definition>
-    <definition name="nurseInfor" extends="baseLayout">
+    <definition name="nurse" extends="baseLayout">
         <put-attribute name="title" value="Thông Tin Y Tá" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/nurse/nurseInfor.jsp" />
+                       value="/WEB-INF/pages/nurse/nurse.jsp" />
     </definition>
      <definition name="xeplichkham" extends="baseLayout">
         <put-attribute name="title" value="Xếp lịch khám" />
