@@ -6,6 +6,8 @@ package com.owen.repository.impl;
 
 import com.owen.pojo.Appointment;
 import com.owen.pojo.Medicine;
+import com.owen.pojo.Service;
+import com.owen.pojo.ServiceItems;
 import com.owen.pojo.User;
 import com.owen.repository.AppointmentRepository;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Map;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
@@ -110,9 +113,26 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     public List<Appointment> getAppointmentsbyDoctor(User u) {
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM Appointment WHERE doctorId = :statusParam");
-        q.setParameter("statusParam", u.getId());
+        q.setParameter("statusParam", u);
 
         return q.getResultList();
+    }
+
+    @Override
+    public List<Object[]> getAppointmentServiceByDoctor(User doctor) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteria = builder.createQuery(Object[].class);
+
+        Root<Appointment> appointmentRoot = criteria.from(Appointment.class);
+        Join<Appointment, ServiceItems> serviceItemsJoin = appointmentRoot.join("serviceItemsSet");
+        Join<ServiceItems, Service> serviceJoin = serviceItemsJoin.join("serviceId");
+
+        criteria.select(builder.array(appointmentRoot, serviceJoin));
+        criteria.where(builder.and(builder.equal(appointmentRoot.get("doctorId"), doctor),builder.equal(appointmentRoot.get("status"), 1)));
+
+        List<Object[]> results = session.createQuery(criteria).getResultList();
+        return results;
     }
 
 }

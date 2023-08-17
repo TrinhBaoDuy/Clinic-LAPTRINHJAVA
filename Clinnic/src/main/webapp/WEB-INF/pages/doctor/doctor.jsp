@@ -21,8 +21,7 @@
                     <div class="contentbooking2_main">
 
                         <div class="contentbooking2">
-                            <h1>Thạc sĩ ${doctor.name}</h1>
-                            <h5>Mã: ${doctor.id} </h5>
+                            <h1>Bác sĩ ${doctor.name}</h1>
                             <h5>Ngày sinh: ${doctor.dod}</h5>
                             <h5>Số điện Thoại: ${doctor.phone}</h5>
                             <h5>Địa chỉ: ${doctor.address}</h5>
@@ -37,10 +36,13 @@
                 </div>
             </nav>
         </form:form>
-        <div class="bookingright">
+        <<script src="<c:url value="/js/dongho.js" />"></script>
+        <div class="bookingright" onload="updateCurrentTime()">
             <div class="schedule">
                 <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119292/Download_free_vector_of_Heart_with_a_red_cross_symbol_vector_by_Ning_about_plus_sign_plus_symbol_healthcare_heart_hospital_and_plus_icon_sign_516146_jafq4t.jpg" alt="Image Description">
                 <h1>Lịch khám</h1>
+                <!-- Hiển thị giờ hiện tại -->
+                <p>Giờ hiện tại: <span id="current-time"></span></p>
             </div>
 
             <div class="content1">
@@ -49,26 +51,43 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-
-                            <th>Mã khách hàng</th>
-                            <th><a href="url"> Tên khách hàng</a></th>
+                            <th> Tên khách hàng</th>
+                            <th>Dịch vụ</th>
                             <th>Ngày khám</th>
                             <th>Giờ khám</th>
                             <th>Trạng Thái</th>
-
                             <th></th>
                         </tr>
                     </thead>
-<!--                    <tbody>
-                        <%--<c:forEach items="${lichkham}" var="ds">--%>
+                    <tbody>
+                        <c:forEach items="${lichkham}" var="ds">
                             <tr>
-                                <td>${ds.sickpersonId.id}</td>
-                                <td>${ds.sickpersonId.name}</td>
-                                <td>${ds.medicalappointmentDate}</td>
-                                <<td>${ds.medicalappointmentDate}</td>
-                                <td>${ds.status}</td>
-                            <%--</c:forEach>--%>
-                    </tbody>-->
+                                <td><a href="#">${ds[0].sickpersonId.name}</a></td>
+                                <td>${ds[1].name}</td>
+                                <td>
+                                    <script>
+                                        var datetime = new Date("${ds[0].medicalappointmentDate}");
+                                        var date = datetime.getDate();
+                                        var month = datetime.getMonth() + 1; // Tháng trong JavaScript được đếm từ 0 đến 11, nên cần cộng 1
+                                        var year = datetime.getFullYear();
+                                        var formattedDate = date + '/' + month + '/' + year;
+                                        document.write(formattedDate);
+                                    </script>
+                                </td>
+                                <td>
+                                    <script>
+                                        var datetime = new Date("${ds[0].medicalappointmentDate}");
+                                        var hours = ("0" + datetime.getHours()).slice(-2); // Lấy giờ và đảm bảo hiển thị dưới dạng hai chữ số
+                                        var minutes = ("0" + datetime.getMinutes()).slice(-2); // Lấy phút và đảm bảo hiển thị dưới dạng hai chữ số
+                                        var formattedTime = hours + ':' + minutes;
+                                        document.write(formattedTime);
+                                    </script>
+                                </td>
+                                <td>${ds[0].status}</td>
+                                <td><a href="#">Khám</a></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
                 </table>
 
             </div>    

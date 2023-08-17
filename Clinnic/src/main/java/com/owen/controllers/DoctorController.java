@@ -4,7 +4,6 @@
  */
 package com.owen.controllers;
 
-
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
 import com.owen.service.UserService;
@@ -21,17 +20,18 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class DoctorController {
-    
+
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private AppointmentService appointmentService;
-    
+
     @GetMapping("/doctor/xemlichkham")
     public String xemlichkham() {
         return "xemlichkham";
     }
+
     @GetMapping("/doctor")
     public String doctorInfor(Model model, Authentication authentication) {
         model.addAttribute("doctor", new User());
@@ -40,13 +40,15 @@ public class DoctorController {
             User u = this.userService.getUserByUsername(user.getUsername());
             model.addAttribute("doctor", u);
 //            model.addAttribute("lichkham", this.appointmentService.getAppointmentsbyDoctor(u));
-        }     
+            model.addAttribute("lichkham", this.appointmentService.getAppointmentServiceByDoctor(u));
+
+        }
         return "doctor";
     }
+
     @GetMapping("/doctor/khambenh")
     public String khambenh() {
         return "khambenh";
     }
-    
-    
+
 }

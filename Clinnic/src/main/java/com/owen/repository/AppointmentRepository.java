@@ -18,4 +18,5 @@ public interface AppointmentRepository {
     List<Appointment> getAppointmentsunfished();
     Boolean changestatus(int id, User u);
     List<Appointment> getAppointmentsbyDoctor(User u);
+    List<Object[]> getAppointmentServiceByDoctor(User doctor);
 }
