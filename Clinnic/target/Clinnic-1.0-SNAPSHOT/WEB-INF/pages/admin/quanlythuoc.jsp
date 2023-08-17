@@ -29,18 +29,28 @@
 
                     <div class="form-floating mb-3 mt-3">
                         <div class="form-group">
-                            <label for="product_quantity">Số lượng kho</label>
-                            <form:input type="number" class="form-control" path="numMed" id="product_quantity" placeholder="Số lượng kho..." />
+                            <label for="product_price">Giá</label>
+                            <form:input type="number" class="form-control" path="price" id="product_price" placeholder="Giá..." />
 
                         </div>
                     </div>
 
                     <div class="form-floating mb-3 mt-3">
-                        <div class="form-group">
-                            <label for="product_price">Giá</label>
-                            <form:input type="number" class="form-control" path="price" id="product_price" placeholder="Giá..." />
+                        <form:select class="form-select" id="unit" name="unit" path="idUnit">
+                            <c:forEach items="${units}" var="r">
+                                <c:choose>
+                                    <c:when test="${r.id == medicien.idUnit.id}">
+                                        <option value="${r.id}" selected>${r.name}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${r.id}">${r.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
 
-                        </div>
+                            </c:forEach>
+                        </form:select>
+
+                        <label for="category" class="form-label">Đơn vị:</label>
                     </div>
 
                     <div class="form-floating mb-3 mt-3">
@@ -102,7 +112,7 @@
                             <tr>
                                 <td>${ds.id}</td>
                                 <td>${ds.name}</td>
-                                <td>${ds.numMed}</td>
+                                <td>${ds.quantity} ${ds.idUnit.name}</td>
                                 <td>${ds.price} VNĐ</td>
                                 <td>${ds.provider}</td>
                                 <td>${ds.productionDate}</td>

@@ -10,7 +10,6 @@
 <!DOCTYPE html>
 <c:url value="/nurse" var="action" />
 <sec:authorize access="hasRole('NURSE')">
-    <form:form >
         <div class="infor1">
             <form:form method="post" action="${action}" modelAttribute="nurse"  enctype="multipart/form-data">
                 <nav class="bookingleft">
@@ -251,4 +250,4 @@
             transition: 0.3s;
             border-radius: 6px;
         }
-    </style>
+</style>

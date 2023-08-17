@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,9 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Medicine.findByName", query = "SELECT m FROM Medicine m WHERE m.name = :name"),
     @NamedQuery(name = "Medicine.findByPrice", query = "SELECT m FROM Medicine m WHERE m.price = :price"),
     @NamedQuery(name = "Medicine.findByProvider", query = "SELECT m FROM Medicine m WHERE m.provider = :provider"),
-    @NamedQuery(name = "Medicine.findByNumMed", query = "SELECT m FROM Medicine m WHERE m.numMed = :numMed"),
     @NamedQuery(name = "Medicine.findByProductionDate", query = "SELECT m FROM Medicine m WHERE m.productionDate = :productionDate"),
-    @NamedQuery(name = "Medicine.findByExpirationDate", query = "SELECT m FROM Medicine m WHERE m.expirationDate = :expirationDate")})
+    @NamedQuery(name = "Medicine.findByExpirationDate", query = "SELECT m FROM Medicine m WHERE m.expirationDate = :expirationDate"),
+    @NamedQuery(name = "Medicine.findByQuantity", query = "SELECT m FROM Medicine m WHERE m.quantity = :quantity")})
 public class Medicine implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,16 +59,19 @@ public class Medicine implements Serializable {
     @Size(max = 45)
     @Column(name = "provider")
     private String provider;
-    @Column(name = "num_med")
-    private Integer numMed;
     @Column(name = "production_date")
     @Temporal(TemporalType.DATE)
     private Date productionDate;
     @Column(name = "expiration_date")
     @Temporal(TemporalType.DATE)
     private Date expirationDate;
+    @Column(name = "quantity")
+    private Integer quantity;
     @OneToMany(mappedBy = "medicineId")
     private Set<PrescriptionItem> prescriptionItemSet;
+    @JoinColumn(name = "id_unit", referencedColumnName = "id")
+    @ManyToOne
+    private Unit idUnit;
 
     public Medicine() {
     }
@@ -107,14 +112,6 @@ public class Medicine implements Serializable {
         this.provider = provider;
     }
 
-    public Integer getNumMed() {
-        return numMed;
-    }
-
-    public void setNumMed(Integer numMed) {
-        this.numMed = numMed;
-    }
-
     public Date getProductionDate() {
         return productionDate;
     }
@@ -131,6 +128,14 @@ public class Medicine implements Serializable {
         this.expirationDate = expirationDate;
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     @XmlTransient
     public Set<PrescriptionItem> getPrescriptionItemSet() {
         return prescriptionItemSet;
@@ -138,6 +143,14 @@ public class Medicine implements Serializable {
 
     public void setPrescriptionItemSet(Set<PrescriptionItem> prescriptionItemSet) {
         this.prescriptionItemSet = prescriptionItemSet;
+    }
+
+    public Unit getIdUnit() {
+        return idUnit;
+    }
+
+    public void setIdUnit(Unit idUnit) {
+        this.idUnit = idUnit;
     }
 
     @Override

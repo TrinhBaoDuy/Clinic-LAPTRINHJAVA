@@ -48,10 +48,10 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //        return r;
 //    }
 
-    @Bean
-    public SimpleDateFormat simpleDateFormat() {
-        return new SimpleDateFormat("yyyy-MM-dd");
-    }
+//    @Bean
+//    public SimpleDateFormat simpleDateFormat() {
+//        return new SimpleDateFormat("yyyy-MM-dd");
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -70,13 +70,5 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new RoleFomatters());
     }
-//    public SimpleDateFormat simpleDateFormat() {
-//        return new SimpleDateFormat("yyyy-MM-dd");
-//    }
-//
-//    @Bean
-//    public CustomDateEditor customDateEditor() {
-//        return new CustomDateEditor(simpleDateFormat(), true);
-//    }
-
+    
 }

@@ -4,24 +4,26 @@
  */
 package com.owen.fomatters;
 
-import java.util.Locale;
-import com.owen.pojo.Role;
-import org.springframework.format.Formatter;
+import com.owen.pojo.Unit;
 import java.text.ParseException;
+import java.util.Locale;
+import org.springframework.format.Formatter;
 
 /**
  *
  * @author Trinh Bao Duy
  */
-public class RoleFomatters implements Formatter<Role> {
-    
+public class UnitFomatter implements Formatter<Unit>{
+
     @Override
-    public String print(Role role, Locale locale) {
-        return String.valueOf(role.getId());
+    public String print(Unit object, Locale locale) {
+        return String.valueOf(object.getId());
     }
 
     @Override
-    public Role parse(String roleId, Locale locale) throws ParseException {
-        return new Role(Integer.parseInt(roleId));
+    public Unit parse(String idUnit, Locale locale) throws ParseException {
+         return new Unit(Integer.parseInt(idUnit));
     }
+    
+    
 }

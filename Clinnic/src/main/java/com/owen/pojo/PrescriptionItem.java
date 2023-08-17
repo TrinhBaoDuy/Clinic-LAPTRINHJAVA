@@ -30,8 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "PrescriptionItem.findAll", query = "SELECT p FROM PrescriptionItem p"),
     @NamedQuery(name = "PrescriptionItem.findById", query = "SELECT p FROM PrescriptionItem p WHERE p.id = :id"),
-    @NamedQuery(name = "PrescriptionItem.findByQuantity", query = "SELECT p FROM PrescriptionItem p WHERE p.quantity = :quantity"),
-    @NamedQuery(name = "PrescriptionItem.findByDosage", query = "SELECT p FROM PrescriptionItem p WHERE p.dosage = :dosage")})
+    @NamedQuery(name = "PrescriptionItem.findByQuantity", query = "SELECT p FROM PrescriptionItem p WHERE p.quantity = :quantity")})
 public class PrescriptionItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,9 +41,6 @@ public class PrescriptionItem implements Serializable {
     private Integer id;
     @Column(name = "quantity")
     private Integer quantity;
-    @Size(max = 255)
-    @Column(name = "dosage")
-    private String dosage;
     @Lob
     @Size(max = 65535)
     @Column(name = "instructions")
@@ -77,14 +73,6 @@ public class PrescriptionItem implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public String getDosage() {
-        return dosage;
-    }
-
-    public void setDosage(String dosage) {
-        this.dosage = dosage;
     }
 
     public String getInstructions() {
