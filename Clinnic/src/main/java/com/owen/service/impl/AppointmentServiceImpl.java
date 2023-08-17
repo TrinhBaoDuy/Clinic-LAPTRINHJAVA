@@ -37,5 +37,10 @@ public class AppointmentServiceImpl implements AppointmentService{
     public Boolean changestatus(int id,User u) {
         return this.appointmentRepository.changestatus(id,u);
     }
+
+    @Override
+    public List<Appointment> getAppointmentsbyDoctor(User u) {
+        return this.appointmentRepository.getAppointmentsbyDoctor(u);
+    }
     
 }

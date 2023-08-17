@@ -34,6 +34,14 @@
 
                         </div>
                     </div>
+                            
+                    <div class="form-floating mb-3 mt-3">
+                        <div class="form-group">
+                            <label for="product_quantity">Số lượng</label>
+                            <form:input type="number" class="form-control" path="quantity" id="product_quantity" placeholder="Số lượng..." />
+
+                        </div>
+                    </div>
 
                     <div class="form-floating mb-3 mt-3">
                         <form:select class="form-select" id="unit" name="unit" path="idUnit">

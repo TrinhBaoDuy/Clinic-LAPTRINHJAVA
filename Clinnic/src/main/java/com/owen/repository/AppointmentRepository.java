@@ -17,4 +17,5 @@ public interface AppointmentRepository {
     List<Appointment> getAppointments(Map<String, String> params);
     List<Appointment> getAppointmentsunfished();
     Boolean changestatus(int id, User u);
+    List<Appointment> getAppointmentsbyDoctor(User u);
 }

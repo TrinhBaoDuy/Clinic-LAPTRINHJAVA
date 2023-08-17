@@ -38,7 +38,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
     @Autowired
     private Environment env;
-    
+
     @Override
     public List<Appointment> getAppointments(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();
@@ -60,7 +60,6 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         }
 
 //        q.orderBy(b.desc(root.get("id")));
-
         Query query = session.createQuery(q);
 
         if (params != null) {
@@ -88,11 +87,11 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     }
 
     @Override
-    public Boolean changestatus(int id ,User u) {
+    public Boolean changestatus(int id, User u) {
         Session session = this.factory.getObject().getCurrentSession();
         Appointment a = session.get(Appointment.class, id);
         try {
-            if (a.getStatus()== 1) {
+            if (a.getStatus() == 1) {
                 a.setStatus((short) 0);
                 a.setNurseId(null);
             } else {
@@ -105,6 +104,15 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         }
         return false;
 
+    }
+
+    @Override
+    public List<Appointment> getAppointmentsbyDoctor(User u) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("FROM Appointment WHERE doctorId = :statusParam");
+        q.setParameter("statusParam", u.getId());
+
+        return q.getResultList();
     }
 
 }

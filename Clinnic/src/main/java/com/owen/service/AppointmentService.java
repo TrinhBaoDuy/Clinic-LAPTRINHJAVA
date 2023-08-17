@@ -14,7 +14,12 @@ import java.util.Map;
  * @author Trinh Bao Duy
  */
 public interface AppointmentService {
+
     List<Appointment> getAppointments(Map<String, String> params);
-     List<Appointment> getAppointmentsunfished();
-     Boolean changestatus(int id, User u);
+
+    List<Appointment> getAppointmentsunfished();
+
+    Boolean changestatus(int id, User u);
+
+    List<Appointment> getAppointmentsbyDoctor(User u);
 }
