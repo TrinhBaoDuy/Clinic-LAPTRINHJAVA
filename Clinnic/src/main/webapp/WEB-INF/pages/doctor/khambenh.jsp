@@ -60,18 +60,27 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Tên thuốc</th>
                                 <th>Số lượng kho</th>
                                 <th>Đơn giá</th>
-                                <th>Đơn vị</th>
-
                                 <th>Nhà sản xuất</th>
                                 <th>Ngày sản xuất</th>
                                 <th>Ngày hết hạn</th>
-                                <th></th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <c:forEach items="${getmediciens}" var="ds">
+                                <tr>
+                                    <td>${ds.name}</td>
+                                    <td>${ds.quantity} ${ds.idUnit.name}</td>
+                                    <td>${ds.price} VNĐ</td>
+                                    <td>${ds.provider}</td>
+                                    <td>${ds.productionDate}</td>
+                                    <td>${ds.expirationDate}</td>
+                                </tr>
+                            </c:forEach>
+
+                        </tbody>
                     </table>
                 </div>
                 <div class="add">

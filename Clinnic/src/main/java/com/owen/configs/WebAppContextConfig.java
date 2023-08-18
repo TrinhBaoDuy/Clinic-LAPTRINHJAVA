@@ -7,6 +7,7 @@ package com.owen.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.owen.fomatters.RoleFomatters;
+import com.owen.fomatters.ShiftFomatter;
 import com.owen.fomatters.UnitFomatter;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -71,6 +72,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new RoleFomatters());
         registry.addFormatter(new UnitFomatter());
+        registry.addFormatter(new ShiftFomatter());
     }
     
 }

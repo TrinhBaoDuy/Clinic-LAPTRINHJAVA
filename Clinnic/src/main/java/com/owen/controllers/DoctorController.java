@@ -6,6 +6,7 @@ package com.owen.controllers;
 
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
+import com.owen.service.MedicineService;
 import com.owen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,9 @@ public class DoctorController {
 
     @Autowired
     private AppointmentService appointmentService;
+    
+    @Autowired
+    private MedicineService medicineService;
 
     @GetMapping("/doctor/xemlichkham")
     public String xemlichkham() {
@@ -47,7 +51,8 @@ public class DoctorController {
     }
 
     @GetMapping("/doctor/khambenh")
-    public String khambenh() {
+    public String khambenh(Model model) {
+        model.addAttribute("getmediciens", this.medicineService.getMediciness(null));
         return "khambenh";
     }
 
