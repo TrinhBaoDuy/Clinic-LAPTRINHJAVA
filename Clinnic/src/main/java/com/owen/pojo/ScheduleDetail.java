@@ -49,9 +49,9 @@ public class ScheduleDetail implements Serializable {
     @JoinColumn(name = "shift_id", referencedColumnName = "id")
     @ManyToOne
     private Shift shiftId;
-    @JoinColumn(name = "personnel_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
-    private User personnelId;
+    private User userId;
 
     public ScheduleDetail() {
     }
@@ -92,12 +92,12 @@ public class ScheduleDetail implements Serializable {
         this.shiftId = shiftId;
     }
 
-    public User getPersonnelId() {
-        return personnelId;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setPersonnelId(User personnelId) {
-        this.personnelId = personnelId;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override

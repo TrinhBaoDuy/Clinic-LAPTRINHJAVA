@@ -67,11 +67,11 @@ public class Medicine implements Serializable {
     private Date expirationDate;
     @Column(name = "quantity")
     private Integer quantity;
-    @OneToMany(mappedBy = "medicineId")
-    private Set<PrescriptionItem> prescriptionItemSet;
     @JoinColumn(name = "id_unit", referencedColumnName = "id")
     @ManyToOne
     private Unit idUnit;
+    @OneToMany(mappedBy = "medicineId")
+    private Set<PrescriptionItem> prescriptionItemSet;
 
     public Medicine() {
     }
@@ -136,6 +136,14 @@ public class Medicine implements Serializable {
         this.quantity = quantity;
     }
 
+    public Unit getIdUnit() {
+        return idUnit;
+    }
+
+    public void setIdUnit(Unit idUnit) {
+        this.idUnit = idUnit;
+    }
+
     @XmlTransient
     public Set<PrescriptionItem> getPrescriptionItemSet() {
         return prescriptionItemSet;
@@ -143,14 +151,6 @@ public class Medicine implements Serializable {
 
     public void setPrescriptionItemSet(Set<PrescriptionItem> prescriptionItemSet) {
         this.prescriptionItemSet = prescriptionItemSet;
-    }
-
-    public Unit getIdUnit() {
-        return idUnit;
-    }
-
-    public void setIdUnit(Unit idUnit) {
-        this.idUnit = idUnit;
     }
 
     @Override

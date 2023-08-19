@@ -82,7 +82,7 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "sex")
     private String sex;
-    @OneToMany(mappedBy = "personnelId")
+    @OneToMany(mappedBy = "userId")
     private Set<ScheduleDetail> scheduleDetailSet;
     @OneToMany(mappedBy = "doctorId")
     private Set<Appointment> appointmentSet;
@@ -109,6 +109,7 @@ public class User implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
 
     public User() {
     }
@@ -265,4 +266,5 @@ public class User implements Serializable {
     public String toString() {
         return "com.owen.pojo.User[ id=" + id + " ]";
     }
+    
 }

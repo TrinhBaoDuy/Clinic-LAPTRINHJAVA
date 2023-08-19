@@ -4,10 +4,13 @@
  */
 package com.owen.service;
 
+import com.owen.pojo.Shift;
+import java.util.List;
+
 /**
  *
  * @author Trinh Bao Duy
  */
 public interface ShiftService {
-    
+    List<Shift> getShifts();
 }

@@ -27,7 +27,7 @@ public class DoctorController {
 
     @Autowired
     private AppointmentService appointmentService;
-    
+
     @Autowired
     private MedicineService medicineService;
 
@@ -54,6 +54,18 @@ public class DoctorController {
     public String khambenh(Model model) {
         model.addAttribute("getmediciens", this.medicineService.getMediciness(null));
         return "khambenh";
+    }
+
+    @GetMapping("/doctor/dangkylam")
+    public String dangkylam(Model model, Authentication authentication) {
+        model.addAttribute("doctor", new User());
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("doctor", u);
+
+        }
+        return "dangkylam";
     }
 
 }

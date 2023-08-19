@@ -1,3 +1,5 @@
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\ShiftServiceImpl.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Bill.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\PrescriptionRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\UserRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\CustomSuccessHandler.java
@@ -14,9 +16,12 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\PrescriptionRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\AppointmentService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\UnitServiceImpl.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Tienkham.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\AppointmentController.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\ServiceItems.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\ScheduleRepositoryImpl.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\ScheduleDetailService.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\ScheduleDetailServiceImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Role.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\AppConfig.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\RoleService.java
@@ -25,6 +30,7 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\HibernateConfig.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\PrescriptionServiceImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\UserService.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\ScheduleDetailRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\PrescriptionService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\NurseController.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\MedicineController.java
@@ -33,8 +39,10 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\fomatters\RoleFomatters.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\WebAppContextConfig.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\MedicineRepositoryImpl.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\ShiftRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\ScheduleServiceImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\UnitRepository.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\fomatters\ShiftFomatter.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\fomatters\UnitFomatter.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\RoleReponsitory.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\MedicineService.java
@@ -45,11 +53,14 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\AppointmentServiceImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Shift.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\AppointmentRepository.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\ShiftService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\ApiUserController.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\UserController.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\ShiftRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\AppointmentRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Medicine.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\SpringSecurityConfig.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\ScheduleDetailRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\ApiMedicineController.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\IndexController.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Prescription.java

@@ -9,14 +9,12 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -25,30 +23,29 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Trinh Bao Duy
  */
 @Entity
-@Table(name = "payment")
+@Table(name = "tienkham")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p"),
-    @NamedQuery(name = "Payment.findById", query = "SELECT p FROM Payment p WHERE p.id = :id"),
-    @NamedQuery(name = "Payment.findByPaymentMethod", query = "SELECT p FROM Payment p WHERE p.paymentMethod = :paymentMethod")})
-public class Payment implements Serializable {
+    @NamedQuery(name = "Tienkham.findAll", query = "SELECT t FROM Tienkham t"),
+    @NamedQuery(name = "Tienkham.findById", query = "SELECT t FROM Tienkham t WHERE t.id = :id"),
+    @NamedQuery(name = "Tienkham.findByTienkham", query = "SELECT t FROM Tienkham t WHERE t.tienkham = :tienkham")})
+public class Tienkham implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id")
     private Integer id;
-    @Size(max = 20)
-    @Column(name = "payment_method")
-    private String paymentMethod;
-    @OneToMany(mappedBy = "payId")
+    @Column(name = "tienkham")
+    private Integer tienkham;
+    @OneToMany(mappedBy = "tienkham")
     private Set<Bill> billSet;
 
-    public Payment() {
+    public Tienkham() {
     }
 
-    public Payment(Integer id) {
+    public Tienkham(Integer id) {
         this.id = id;
     }
 
@@ -60,12 +57,12 @@ public class Payment implements Serializable {
         this.id = id;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public Integer getTienkham() {
+        return tienkham;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setTienkham(Integer tienkham) {
+        this.tienkham = tienkham;
     }
 
     @XmlTransient
@@ -87,10 +84,10 @@ public class Payment implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Payment)) {
+        if (!(object instanceof Tienkham)) {
             return false;
         }
-        Payment other = (Payment) object;
+        Tienkham other = (Tienkham) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -99,7 +96,7 @@ public class Payment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.owen.pojo.Payment[ id=" + id + " ]";
+        return "com.owen.pojo.Tienkham[ id=" + id + " ]";
     }
     
 }

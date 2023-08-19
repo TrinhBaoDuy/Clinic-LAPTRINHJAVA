@@ -53,6 +53,8 @@ public class Appointment implements Serializable {
     @Column(name = "medicalappointment_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date medicalappointmentDate;
+    @OneToMany(mappedBy = "appoId")
+    private Set<Bill> billSet;
     @JoinColumn(name = "prescription_id", referencedColumnName = "id")
     @ManyToOne
     private Prescription prescriptionId;
@@ -65,8 +67,6 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "sickperson_id", referencedColumnName = "id")
     @ManyToOne
     private User sickpersonId;
-    @OneToMany(mappedBy = "appointmentId")
-    private Set<Payment> paymentSet;
     @OneToMany(mappedBy = "appoId")
     private Set<ServiceItems> serviceItemsSet;
 
@@ -109,6 +109,15 @@ public class Appointment implements Serializable {
         this.medicalappointmentDate = medicalappointmentDate;
     }
 
+    @XmlTransient
+    public Set<Bill> getBillSet() {
+        return billSet;
+    }
+
+    public void setBillSet(Set<Bill> billSet) {
+        this.billSet = billSet;
+    }
+
     public Prescription getPrescriptionId() {
         return prescriptionId;
     }
@@ -139,15 +148,6 @@ public class Appointment implements Serializable {
 
     public void setSickpersonId(User sickpersonId) {
         this.sickpersonId = sickpersonId;
-    }
-
-    @XmlTransient
-    public Set<Payment> getPaymentSet() {
-        return paymentSet;
-    }
-
-    public void setPaymentSet(Set<Payment> paymentSet) {
-        this.paymentSet = paymentSet;
     }
 
     @XmlTransient

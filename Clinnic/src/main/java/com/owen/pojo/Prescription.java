@@ -58,9 +58,9 @@ public class Prescription implements Serializable {
     @Column(name = "conclusion")
     private String conclusion;
     @OneToMany(mappedBy = "prescriptionId")
-    private Set<PrescriptionItem> prescriptionItemSet;
-    @OneToMany(mappedBy = "prescriptionId")
     private Set<Appointment> appointmentSet;
+    @OneToMany(mappedBy = "prescriptionId")
+    private Set<PrescriptionItem> prescriptionItemSet;
 
     public Prescription() {
     }
@@ -110,21 +110,21 @@ public class Prescription implements Serializable {
     }
 
     @XmlTransient
-    public Set<PrescriptionItem> getPrescriptionItemSet() {
-        return prescriptionItemSet;
-    }
-
-    public void setPrescriptionItemSet(Set<PrescriptionItem> prescriptionItemSet) {
-        this.prescriptionItemSet = prescriptionItemSet;
-    }
-
-    @XmlTransient
     public Set<Appointment> getAppointmentSet() {
         return appointmentSet;
     }
 
     public void setAppointmentSet(Set<Appointment> appointmentSet) {
         this.appointmentSet = appointmentSet;
+    }
+
+    @XmlTransient
+    public Set<PrescriptionItem> getPrescriptionItemSet() {
+        return prescriptionItemSet;
+    }
+
+    public void setPrescriptionItemSet(Set<PrescriptionItem> prescriptionItemSet) {
+        this.prescriptionItemSet = prescriptionItemSet;
     }
 
     @Override

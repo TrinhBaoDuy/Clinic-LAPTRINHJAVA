@@ -20,7 +20,7 @@
                 <div class="contentbooking2_main">
 
                     <div class="contentbooking2">
-                        <h1>Thạc sĩ X "link tên tk login vào đây"</h1>
+                        <h1>Tên bệnh nhân "link tên tk login vào đây"</h1>
                         <h5>Mã:        </h5>
                         <h5>Ngày sinh: </h5>
                         <h5>Số điện Thoại: </h5>
@@ -60,13 +60,13 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Tên thuốc</th>
-                                <th>Số lượng kho</th>
-                                <th>Đơn giá</th>
-                                <th>Nhà sản xuất</th>
-                                <th>Ngày sản xuất</th>
-                                <th>Ngày hết hạn</th>
-                            </tr>
+                          
+                                <th>Tên thuốc</th>                             
+                                <th>Đơn vị</th>
+                                <th>Số Lượng<input type="number" id="quantity" value="1"></th>
+
+                        </tr>
+
                         </thead>
                         <tbody>
                             <c:forEach items="${getmediciens}" var="ds">
@@ -83,10 +83,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="add">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i>>></button>
 
-                </div>
+                            
                 <div class="content2">
                     <h2> Toa Thuốc</h2>
 
@@ -94,13 +92,9 @@
                         <thead>
                             <tr>
 
-                                <th>Tên thuốc</th>
-                                <th>Đơn giá</th>
-                                <th>Số lượng</th>
-
-                                <th>Nhà sản xuất</th>
-                                <th>Ngày sản xuất</th>
-                                <th>Ngày hết hạn</th>
+                                <th>Tên thuốc</th>                             
+                                <th>Đơn vị</th>
+                                <th>Số Lượng</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -118,7 +112,7 @@
 
     }
     .bookingright{
-        display: flex;
+        
 
 
     }
@@ -276,6 +270,10 @@
         display: flex;
         justify-content: center;
         margin-top: 50px;
+    }
+    .contentdkk3 div{
+
+        margin: 20px;
     }
     /*    .contentdkk3 input{
             width: 90%;

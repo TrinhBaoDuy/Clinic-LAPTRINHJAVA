@@ -37,6 +37,8 @@
     <class>com.owen.pojo.ScheduleDetail_1</class>
     <class>com.owen.pojo.Prescription_1</class>
     <class>com.owen.pojo.Unit</class>
+    <class>com.owen.pojo.Bill</class>
+    <class>com.owen.pojo.Tienkham</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/clinicdb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
