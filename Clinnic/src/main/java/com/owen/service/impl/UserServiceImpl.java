@@ -92,4 +92,10 @@ public class UserServiceImpl implements UserService {
            return  this.userRepo.getUserByUsername(username);
       }
 
+    @Override
+    public List<User> getBacSi() {
+        return this.userRepo.getBacSi();
+         }
+    
+
 }

@@ -6,9 +6,11 @@ package com.owen.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.owen.fomatters.PrescriptionFomatter;
 import com.owen.fomatters.RoleFomatters;
 import com.owen.fomatters.ShiftFomatter;
 import com.owen.fomatters.UnitFomatter;
+import com.owen.fomatters.UserFormatter;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Bean;
@@ -73,6 +75,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new RoleFomatters());
         registry.addFormatter(new UnitFomatter());
         registry.addFormatter(new ShiftFomatter());
+        registry.addFormatter(new UserFormatter());
+        registry.addFormatter(new PrescriptionFomatter());
     }
     
 }

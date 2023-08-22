@@ -20,4 +20,5 @@ public interface UserRepository {
     boolean addOrUpdateUser(User d);
     User getUserById(int id);
     User getUserByUsername(String username);
+    List<User> getBacSi();
 }

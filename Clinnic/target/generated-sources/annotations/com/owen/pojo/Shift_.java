@@ -7,7 +7,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-08-19T12:25:36")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2023-08-21T16:54:25")
 @StaticMetamodel(Shift.class)
 public class Shift_ { 
 

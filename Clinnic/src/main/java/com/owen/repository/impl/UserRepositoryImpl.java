@@ -4,6 +4,7 @@
  */
 package com.owen.repository.impl;
 
+import com.owen.pojo.Role;
 import com.owen.pojo.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -172,5 +173,21 @@ public class UserRepositoryImpl implements UserRepository {
         q.setParameter("un", username);
 
         return (User) q.getSingleResult();
+    }
+    public Role getRoleBS()
+    {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("From Role Where name =: doctor");
+        q.setParameter("doctor", "ROLE_DOCTOR" );
+        return (Role) q.getSingleResult();
+    }
+
+    @Override
+    public List<User> getBacSi() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("From User Where roleId =: doctor");
+        q.setParameter("doctor", this.getRoleBS());
+
+        return q.getResultList();
     }
 }

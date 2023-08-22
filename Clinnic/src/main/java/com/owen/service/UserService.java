@@ -28,4 +28,5 @@ public interface UserService extends UserDetailsService{
 
     User getUserById(int id);
     User getUserByUsername(String username);
+    List<User> getBacSi();
 }

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -50,9 +51,10 @@ public class DoctorController {
         return "doctor";
     }
 
-    @GetMapping("/doctor/khambenh")
-    public String khambenh(Model model) {
+    @GetMapping("/doctor/khambenh/{id}")
+    public String khambenh(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("getmediciens", this.medicineService.getMediciness(null));
+        model.addAttribute("appo", this.appointmentService.getAppointmentById(id));
         return "khambenh";
     }
 

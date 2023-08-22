@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
  * @author Trinh Bao Duy
  */
 @Service
-public class AppointmentServiceImpl implements AppointmentService{
-    
+public class AppointmentServiceImpl implements AppointmentService {
+
     @Autowired
     private AppointmentRepository appointmentRepository;
 
@@ -34,10 +34,9 @@ public class AppointmentServiceImpl implements AppointmentService{
     }
 
     @Override
-    public Boolean changestatus(int id,User u) {
-        return this.appointmentRepository.changestatus(id,u);
+    public Appointment changestatus(int m, User yta) {
+        return this.appointmentRepository.changestatus(m,yta);
     }
-
     @Override
     public List<Appointment> getAppointmentsbyDoctor(User u) {
         return this.appointmentRepository.getAppointmentsbyDoctor(u);
@@ -47,5 +46,16 @@ public class AppointmentServiceImpl implements AppointmentService{
     public List<Object[]> getAppointmentServiceByDoctor(User doctor) {
         return this.appointmentRepository.getAppointmentServiceByDoctor(doctor);
     }
-    
+
+    @Override
+    public Appointment getAppointmentById(int id) {
+        return this.appointmentRepository.getAppointmentById(id);
+
+    }
+
+    @Override
+    public boolean addOrUpdateAppointment(Appointment m) {
+        return this.appointmentRepository.addOrUpdateAppointment(m);
+    }
+
 }

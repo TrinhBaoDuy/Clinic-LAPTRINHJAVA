@@ -42,6 +42,7 @@ public class AppointmentController {
 
     @GetMapping("/lich")
     public String lich(Model model, @RequestParam Map<String, String> params, Authentication authentication) {
+        model.addAttribute("Appoment", new Appointment());
         model.addAttribute("Apo", this.appointmentService.getAppointments(params));
         model.addAttribute("UnApo", this.appointmentService.getAppointmentsunfished());
         model.addAttribute("user", new User());
@@ -53,21 +54,21 @@ public class AppointmentController {
         return "lich";
     }
 
-    @GetMapping("/lich/{id}")
-    public String xuli(Model model, @RequestParam Map<String, String> params, @PathVariable(value = "id") int id, Authentication authentication) {
-        model.addAttribute("user", new User());
-        if (authentication != null) {
-            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
-            User u = this.userService.getUserByUsername(user.getUsername());
-            model.addAttribute("user", u);
-            if (this.appointmentService.changestatus(id, u) == true) {
-            return "forward:/lich";
-        }
-        }
-        
-        return "lich";
-
-    }
+//    @GetMapping("/lich/{id}")
+//    public String xuli(Model model, @RequestParam Map<String, String> params, @PathVariable(value = "id") int id, Authentication authentication) {
+//        model.addAttribute("user", new User());
+//        if (authentication != null) {
+//            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+//            User u = this.userService.getUserByUsername(user.getUsername());
+//            model.addAttribute("user", u);
+//            if (this.appointmentService.changestatus(id, u) == true) {
+//            return "forward:/lich";
+//        }
+//        }
+//        
+//        return "lich";
+//
+//    }
 //    @RequestMapping("/lich")
 //    public String doituongNurse(Model model, Authentication authentication) {
 //        

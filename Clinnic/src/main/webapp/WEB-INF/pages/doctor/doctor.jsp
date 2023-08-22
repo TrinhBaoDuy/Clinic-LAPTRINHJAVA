@@ -84,7 +84,7 @@
                                     </script>
                                 </td>
                                 <td>${ds[0].status}</td>
-                                <td><a href="#">Khám</a></td>
+                                <td><a href="<c:url value="/doctor/khambenh/${ds[0].id}"/>">Khám</a></td>
                             </tr>
                         </c:forEach>
                     </tbody>

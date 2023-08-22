@@ -19,9 +19,13 @@ public interface AppointmentService {
 
     List<Appointment> getAppointmentsunfished();
 
-    Boolean changestatus(int id, User u);
+    Appointment changestatus(int id, User yta);
 
     List<Appointment> getAppointmentsbyDoctor(User u);
-    
+
     List<Object[]> getAppointmentServiceByDoctor(User doctor);
+
+    Appointment getAppointmentById(int id);
+
+    boolean addOrUpdateAppointment(Appointment m);
 }

@@ -8,19 +8,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
+<c:url value="/doctor/khambenh" var="action" />
+<form:form method="post" action="${action}" modelAttribute="appo" enctype="multipart/form-data">
+    <div class="infor1">
+        <nav class="bookingleft">
 
-<div class="infor1">
-    <nav class="bookingleft">
-        <form:form >
             <h2>THÔNG TIN KHÁM </h2>
             <div class="dkk1">
                 <div class="booking1">
-                    <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1692082761/969c4e31-83b3-4a58-9e9e-5133602c817a_rvsbt9.jpg" alt="alert"/>
+                    <img src="${appo.sickpersonId.avatar}" alt="alert"/>
                 </div>
                 <div class="contentbooking2_main">
 
                     <div class="contentbooking2">
-                        <h1>Tên bệnh nhân "link tên tk login vào đây"</h1>
+                        <h1>Tên bệnh nhân "${appo.sickpersonId.name}"</h1>
                         <h5>Mã:        </h5>
                         <h5>Ngày sinh: </h5>
                         <h5>Số điện Thoại: </h5>
@@ -42,77 +43,76 @@
 
 
             </div>
-        </form:form >
-    </nav>
-    <nav class="bookingright ">
-        <div class="dkk2">
+        </nav>
+        <nav class="bookingright ">
+            <div class="dkk2">
 
-            <div class="contentdkk3  "  >
+                <div class="contentdkk3  "  >
 
-                <div class='content1'>
-                    <h2>Tra cứu</h2>
-                    <div class = "infoMeSearch" >
-                        <form class="search-form" action="${action}">
-                            <input class="form-control me-2" type="text"   name="name" placeholder="Nhập tên thuốc..."/>
-                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
-                        </form>
-                    </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                          
-                                <th>Tên thuốc</th>                             
-                                <th>Đơn vị</th>
-                                <th>Số Lượng<input type="number" id="quantity" value="1"></th>
-
-                        </tr>
-
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${getmediciens}" var="ds">
+                    <div class='content1'>
+                        <h2>Tra cứu</h2>
+                        <div class = "infoMeSearch" >
+                            <form class="search-form" action="${action}">
+                                <input class="form-control me-2" type="text"   name="name" placeholder="Nhập tên thuốc..."/>
+                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
+                            </form>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td>${ds.name}</td>
-                                    <td>${ds.quantity} ${ds.idUnit.name}</td>
-                                    <td>${ds.price} VNĐ</td>
-                                    <td>${ds.provider}</td>
-                                    <td>${ds.productionDate}</td>
-                                    <td>${ds.expirationDate}</td>
-                                </tr>
-                            </c:forEach>
 
-                        </tbody>
-                    </table>
+                                    <th>Tên thuốc</th>                             
+                                    <th>Đơn vị</th>
+                                    <th>Số Lượng<input type="number" id="quantity" value="1"></th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${getmediciens}" var="ds">
+                                    <tr>
+                                        <td>${ds.name}</td>
+                                        <td>${ds.quantity} ${ds.idUnit.name}</td>
+                                        <td>${ds.price} VNĐ</td>
+                                        <td>${ds.provider}</td>
+                                        <td>${ds.productionDate}</td>
+                                        <td>${ds.expirationDate}</td>
+                                    </tr>
+                                </c:forEach>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="content2">
+                        <h2> Toa Thuốc</h2>
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th>Tên thuốc</th>                             
+                                    <th>Đơn vị</th>
+                                    <th>Số Lượng</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>    
                 </div>
 
-                            
-                <div class="content2">
-                    <h2> Toa Thuốc</h2>
 
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-
-                                <th>Tên thuốc</th>                             
-                                <th>Đơn vị</th>
-                                <th>Số Lượng</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>    
             </div>
-
-
-        </div>
-    </nav>
-</div>
-
+        </nav>
+    </div>
+</form:form>
 <style>
     .bookingleft{
 
     }
     .bookingright{
-        
+
 
 
     }

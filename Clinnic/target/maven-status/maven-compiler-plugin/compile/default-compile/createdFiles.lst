@@ -32,6 +32,7 @@ com\owen\service\impl\RoleServiceImpl.class
 com\owen\pojo\Unit.class
 com\owen\repository\impl\RoleRepositoryImpl.class
 com\owen\pojo\PrescriptionItem.class
+com\owen\fomatters\PrescriptionFomatter.class
 com\owen\controllers\AppointmentController.class
 com\owen\pojo\Shift_.class
 com\owen\pojo\Bill.class
@@ -70,6 +71,7 @@ com\owen\service\UnitService.class
 com\owen\pojo\Payment.class
 com\owen\controllers\DoctorController.class
 com\owen\service\impl\UnitServiceImpl.class
+com\owen\fomatters\UserFormatter.class
 com\owen\pojo\Appointment.class
 com\owen\service\PrescriptionService.class
 com\owen\configs\SpringSecurityConfig.class

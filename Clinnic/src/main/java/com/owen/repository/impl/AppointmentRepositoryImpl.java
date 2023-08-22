@@ -5,7 +5,6 @@
 package com.owen.repository.impl;
 
 import com.owen.pojo.Appointment;
-import com.owen.pojo.Medicine;
 import com.owen.pojo.Service;
 import com.owen.pojo.ServiceItems;
 import com.owen.pojo.User;
@@ -20,6 +19,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
+import org.hibernate.LockOptions;
 import org.hibernate.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,24 +89,46 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         return q.getResultList();
     }
 
+//    @Override
+//    public Boolean changestatus(int id, User u, int idDoctor) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        Appointment a = session.get(Appointment.class, id);
+//        User doctor = session.get(User.class, idDoctor);
+//        try {
+//            if (a.getStatus() == 1) {
+//                a.setStatus((short) 0);
+//                a.setNurseId(null);
+//                a.setDoctorId(null);
+//            } else {
+//                a.setStatus((short) 1);
+//                a.setNurseId(u);
+//                a.setDoctorId(doctor);
+//            }
+//            return true;
+//        } catch (HibernateException ex) {
+//            ex.printStackTrace();
+//        }
+//        return false;
+//
+//    }
     @Override
-    public Boolean changestatus(int id, User u) {
+    public Appointment changestatus(int id, User yta) {
         Session session = this.factory.getObject().getCurrentSession();
-        Appointment a = session.get(Appointment.class, id);
+        Appointment m = session.get(Appointment.class, id);
         try {
-            if (a.getStatus() == 1) {
-                a.setStatus((short) 0);
-                a.setNurseId(null);
+            if (m.getStatus() != null && m.getStatus() == 1) {
+                m.setStatus((short) 0);
+                m.setNurseId(null);
+                m.setDoctorId(null);
             } else {
-                a.setStatus((short) 1);
-                a.setNurseId(u);
+                m.setStatus((short) 1);
+                m.setNurseId(yta);
             }
-            return true;
+            return m;
         } catch (HibernateException ex) {
             ex.printStackTrace();
         }
-        return false;
-
+        return null;
     }
 
     @Override
@@ -129,10 +151,48 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         Join<ServiceItems, Service> serviceJoin = serviceItemsJoin.join("serviceId");
 
         criteria.select(builder.array(appointmentRoot, serviceJoin));
-        criteria.where(builder.and(builder.equal(appointmentRoot.get("doctorId"), doctor),builder.equal(appointmentRoot.get("status"), 1)));
+        criteria.where(builder.and(builder.equal(appointmentRoot.get("doctorId"), doctor), builder.equal(appointmentRoot.get("status"), 1)));
 
         List<Object[]> results = session.createQuery(criteria).getResultList();
         return results;
+    }
+
+    @Override
+    public boolean addOrUpdateAppointment(Appointment m) {
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            if (m.getId() == null) {
+                s.save(m);
+                return true;
+            } else {
+                s.update(m);
+                if (m.getStatus() != null && m.getStatus() == 1) {
+                    m.setStatus((short) 0);
+                    m.setNurseId(null);
+                    m.setDoctorId(null);
+                } else {
+                    m.setStatus((short) 1);
+//                    m.setNurseId(yta);
+                }
+
+                return true;
+            }
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Appointment getAppointmentById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
+        Root<Appointment> root = query.from(Appointment.class);
+        query.where(builder.equal(root.get("id"), id));
+        Query q = session.createQuery(query);
+        List<Appointment> results = q.getResultList();
+        return results.isEmpty() ? null : results.get(0);
     }
 
 }

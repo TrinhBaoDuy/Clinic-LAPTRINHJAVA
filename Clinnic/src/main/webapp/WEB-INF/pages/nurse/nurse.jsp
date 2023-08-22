@@ -10,114 +10,156 @@
 <!DOCTYPE html>
 
 
-<c:url value="/nurse" var="action" />
+<c:url value="/nurse" var="actionUpdate" />
 <sec:authorize access="hasRole('NURSE')">
     <div class="infor1">
-        <form:form method="post" action="${action}" modelAttribute="nurse"  enctype="multipart/form-data">
-            <nav class="bookingleft">
-                <div class="dkk1">
-                    <div class="booking1">
-                        <img src="${nurse.avatar}" alt="alert"/>
-                    </div>
-                    <div class="contentbooking2_main">
-
-                        <div class="contentbooking2">
-                            <h1>Y tá ${nurse.name}</h1>
-                            <h5>Mã: ${nurse.id} </h5>
-                            <h5>Ngày sinh: ${nurse.dod}</h5>
-                            <h5>Số điện Thoại: ${nurse.phone}</h5>
-                            <h5>Địa chỉ: ${nurse.address}</h5>
-                            <h5>Email: ${nurse.emaill}</h5>
-                            <h5>Giới tính: ${nurse.sex}</h5>
-                        </div>
-
-                    </div>
+        <nav class="bookingleft">
+            <div class="dkk1">
+                <div class="booking1">
+                    <img src="${nurse.avatar}" alt="alert"/>
                 </div>
-            </nav>
-        </form:form>
-        <form:form method="post" modelAttribute="themDSpkd" action="${actions}">
-    <nav class="table1">
-        <section class="table__body1">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>ID Bệnh nhân</th>
-                        <th>Email</th>
-                        <th>Ngày đăng ký</th>
-                        <th>Y tá</th>
-                        <th>Bác sĩ</th>
-                        <th>Ngày hẹn khám</th>
-                        <th>Trạng thái</th>
-                        <th></th>
-                        <!--<th>ID Phiếu khám</th>-->
-                    </tr>
-                </thead>
-                <c:forEach items="${dskham}" var="p">
-                    <tbody>
+                <div class="contentbooking2_main">
+
+                    <div class="contentbooking2">
+                        <h1>Y tá ${nurse.name}</h1>
+                        <h5>Mã: ${nurse.id} </h5>
+                        <h5>Ngày sinh: ${nurse.dod}</h5>
+                        <h5>Số điện Thoại: ${nurse.phone}</h5>
+                        <h5>Địa chỉ: ${nurse.address}</h5>
+                        <h5>Email: ${nurse.emaill}</h5>
+                        <h5>Giới tính: ${nurse.sex}</h5>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+        <nav class="table1">
+            <section class="table__body1">
+                <table>
+                    <thead>
                         <tr>
-                            <td>${p.idPhieudk}</td>
-                            <td>[${p.idBn.idTk}] ${p.idBn.hoTen}</td>
-                            <td>${p.idBn.email}</td>
-                            <td>${p.ngayDky}</td>
-                            <td>${p.idYt.hoTen}</td>
-                            
-                            <td>
-                                <form:select name="idBs" path="idBs" id="idBs" class="form-select" cssErrorClass="is-invalid">
-                                    <c:forEach items="${dsbacsi}" var="c">
-                                        <form:option value="${c.idTk}" >${c.hoTen}</form:option>
-                                    </c:forEach>
-                                </form:select>
-                            </td>
-                            
-                            <td>
-                                <form:input type="date" path="ngayHkham" id="ngayHKham" placeholder=""/>
-                            </td>
-                            
-                            <td>
-                                <c:choose>
-                                    <c:when test="${p.trangThaidky.toString() eq 0}">
-                                        <p id="xacnhan">Chưa xác nhận</p>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <p id="xacnhan1"> Đã xác nhận </p>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            
-                            <td> 
-                                <c:choose>
-                                    <c:when test="${p.trangThaidky == 0}">
-                                        <button class="admin_submit111" type="submit">
-                                            <a href="<c:url value="/yta/lapdskham/${p.idPhieudk}"/>" >
-                                                Xác nhận
-                                            </a>
-                                        </button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <button class="admin_submit111" id="xacnhanLK" type="submit">
-                                            <a href="<c:url value="/yta/lapdskham/${p.idPhieudk}"/>" >
-                                                Hủy Xác nhận
-                                            </a>
-                                        </button>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            
-                            
-                            <!--<td>${p.idPk.idPhieukham}</td>-->
-
+                            <th>ID</th>
+                            <th>ID Bệnh nhân</th>
+                            <th>Email</th>
+                            <th>Ngày đăng ký</th>
+                            <th>Y tá</th>
+                            <th>Bác sĩ</th>
+                            <th>Trạng thái</th>
+                            <th>Nút nè</th>
                         </tr>
-                    </tbody>
-                </c:forEach>
-            </table>
-        </section>
-    </nav>
+                    </thead>
+                    <c:forEach items="${Apo}" var="p">
+                        <tbody>
+                            <tr>
+                                <td>${p.id}</td>
+                                <td>[${p.sickpersonId.id}] ${p.sickpersonId.name}</td>
+                                <td>${p.sickpersonId.emaill}</td>      
+                                <td>${p.appointmentDate}</td>
+                                <td>${p.nurseId.name}</td>
+                                <td>${p.doctorId.name}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${p.status.toString() eq 0}">
+                                            <p id="xacnhan">Chưa xác nhận</p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p id="xacnhan1">Đã xác nhận </p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success">
+                                        <c:choose>
+                                            <c:when test="${p.status == 0}">Xác nhận</c:when>
+                                            <c:otherwise>Hủy</c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </c:forEach>
+                </table>
+            </section>
+        </nav>
+        <<h1>${msg}</h1>
 
-</form:form>
+        <nav class="table1">
+            <form:form method="post" action="${actionUpdate}" modelAttribute="appoment">
+                <form:hidden path="appointmentDate" />
+                <form:hidden path="medicalappointmentDate" />
+                <form:hidden path="status" />
+                <form:hidden path="prescriptionId" />
+
+                <div class="form-floating mb-3 mt-3">
+                    <form:input type="text" class="form-control" 
+                                path="id" id="id"/>
+                    <label for="name">Mã</label>
+
+                </div>
+                <div class="form-floating mb-3 mt-3">
+                    <form:input type="text" class="form-control" 
+                                path="sickpersonId" id="sickpersonId"/>
+                    <label for="name">Mã thằng bệnh</label>
+
+                </div>
+                <div class="form-floating mb-3 mt-3">
+                    <form:input value="${nurse.id}" type="text" class="form-control" 
+                                path="nurseId" id="nurseId"/>
+                    <label for="name">Mã y tá</label>
+
+                </div>
+                <div class="form-floating mb-3 mt-3">
+                    <form:select class="form-select" id="role" name="doctorId" path="doctorId">
+                        <c:forEach items="${getbacsi}" var="r">
+                            <c:choose>
+                                <c:when test="${r.id == appoment.doctorId.id}">
+                                    <option value="${r.id}" selected>${r.name}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${r.id}">${r.name}</option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </form:select>
+                    <label for="category" class="form-label">Chọn Bác Sĩ:</label>
+                </div>
+                <div class="form-floating mb-3 mt-3">
+                    <button class="btn btn-info" type="submit">Thêm Bác Sĩ</button>
+                </div>
+
+            </form:form>
+        </nav>
+
     </div>
 </sec:authorize>
+
 <style>
+    .admin_submit111{
+        width: 160px;
+        text-align: center;
+        font-size: 17px;
+        border-radius: 6px;
+        border: none;
+        background-color: rgb(130, 201, 30);
+        padding: 10px;
+        box-shadow: 0px 5px 10px 0 rgba(130, 201, 30, 0.1);
+    }
+
+
+    .admin_submit111 a{
+        text-decoration: none;
+        color: white;
+    }
+    .admin_submit111 a:hover{
+        color: white;
+    }
+
+    .admin_submit1111{
+        margin: auto;
+        width: 100px;
+    }
+
     .bookingleft{
 
     }
@@ -162,7 +204,7 @@
         border: 0.5px solid #5AAC4E;
         border-radius: 30px;
         display: flex;
-        
+
     }
     .dkk2{
         /*
@@ -333,188 +375,188 @@
 
     }
     main.table1{
-    /*    height: 100%;*/
-    width: 84%;
-    border-radius: 30px;
-    background-color: #fffff;
-    box-shadow: 0px 0px 40px 0px #c0f4b9;
-    margin-top: 50px;
-    /*        display: flex;
-            justify-content: center;*/
-}
+        /*    height: 100%;*/
+        width: 84%;
+        border-radius: 30px;
+        background-color: #fffff;
+        box-shadow: 0px 0px 40px 0px #c0f4b9;
+        margin-top: 50px;
+        /*        display: flex;
+                justify-content: center;*/
+    }
 
-.table__body1 {
-    width: 100%;
-    border-radius: 20px;
-    height: 550px;
-    margin-top: 10px;
-    margin-bottom: 50px;
-    background-color: #fffb;
-    border-radius: 20p;
-    overflow: auto;
-    overflow: overlay;
-    border: 1px solid #E9F9E7;
-    padding: 0px;
-}
+    .table__body1 {
+        width: 100%;
+        border-radius: 20px;
+        height: 550px;
+        margin-top: 10px;
+        margin-bottom: 50px;
+        background-color: #fffb;
+        border-radius: 20p;
+        overflow: auto;
+        overflow: overlay;
+        border: 1px solid #E9F9E7;
+        padding: 0px;
+    }
 
-table {
-    width: 100%;
-}
+    table {
+        width: 100%;
+    }
 
-table, th, td {
-    border-collapse: collapse;
-    padding: 1rem;
-    text-align: center;
-    font-size: 20px;
-}
+    table, th, td {
+        border-collapse: collapse;
+        padding: 1rem;
+        text-align: center;
+        font-size: 20px;
+    }
 
-thead th {
-    position: sticky;
-    top: 0;
-    left: 0;
-    background-color: #E9F9E7;
-    cursor: pointer;
-}
+    thead th {
+        position: sticky;
+        top: 0;
+        left: 0;
+        background-color: #E9F9E7;
+        cursor: pointer;
+    }
 
-tbody tr:nth-child(even) {
-    background-color: #0000000b;
-}
+    tbody tr:nth-child(even) {
+        background-color: #0000000b;
+    }
 
-#xacnhanLK{
-    display: none;
-}
+    #xacnhanLK{
+        display: none;
+    }
 
-.admin_submit111{
-    width: 160px;
-    text-align: center;
-    font-size: 17px;
-    border-radius: 6px;
-    border: none;
-    background-color: rgb(130, 201, 30);
-    padding: 10px;
-    box-shadow: 0px 5px 10px 0 rgba(130, 201, 30, 0.1);
-}
-
-
-.admin_submit111 a{
-    text-decoration: none;
-    color: white;
-}
-.admin_submit111 a:hover{
-    color: white;
-}
-
-.admin_submit1111{
-    margin: auto;
-    width: 100px;
-}
-
-#capnhathuoc a{
-    color: white;
-    text-decoration: none;
-}
+    .admin_submit111{
+        width: 160px;
+        text-align: center;
+        font-size: 17px;
+        border-radius: 6px;
+        border: none;
+        background-color: rgb(130, 201, 30);
+        padding: 10px;
+        box-shadow: 0px 5px 10px 0 rgba(130, 201, 30, 0.1);
+    }
 
 
-#capnhathuoc{
-    font-size: 16.5px;
-    width: 110px;
-}
+    .admin_submit111 a{
+        text-decoration: none;
+        color: white;
+    }
+    .admin_submit111 a:hover{
+        color: white;
+    }
 
-.table__body1{
-    width: 100%;
-}
+    .admin_submit1111{
+        margin: auto;
+        width: 100px;
+    }
 
-.table1{
-    display: flex;
-    justify-content: space-around;
-    padding: 0px;
-    border-radius: 0px;
-}
-
-.change_ac11{
-    padding: 60px;
-    background: #E9F9E7;
-    border-radius: 0px;
-    display: block;
-}
-.admin_btn1{
-    margin-bottom: 50px;
-}
-
-.inputkw input{
-    width: 250px;
-    border-radius: 10px;
-    background: #F4F4F4;
-    border: none;
-    padding: 8px;
-    margin-top: 25px;
-}
-.inputkw button{
-    background: #F4F4F4;
-    width: 50px;
-    border-radius: 10px;
-    border: none;
-    padding: 8px;
-}
-
-.inputkw button i{
-    font-size: 17px;
-}
+    #capnhathuoc a{
+        color: white;
+        text-decoration: none;
+    }
 
 
+    #capnhathuoc{
+        font-size: 16.5px;
+        width: 110px;
+    }
 
-#idRole{
-    width: 250px;
-    margin: auto;
-    text-align: center;
-}
+    .table__body1{
+        width: 100%;
+    }
 
-#xacnhan{
-    color:#dc3545;
-    margin: 0px;
-}
+    .table1{
+        display: flex;
+        justify-content: space-around;
+        padding: 0px;
+        border-radius: 0px;
+    }
 
-#xacnhan1{
-    color:rgb(130, 201, 30);
-    margin: 0px;
-}
+    .change_ac11{
+        padding: 60px;
+        background: #E9F9E7;
+        border-radius: 0px;
+        display: block;
+    }
+    .admin_btn1{
+        margin-bottom: 50px;
+    }
 
-#xoaThuoc{
-    padding: 10px;
-}
+    .inputkw input{
+        width: 250px;
+        border-radius: 10px;
+        background: #F4F4F4;
+        border: none;
+        padding: 8px;
+        margin-top: 25px;
+    }
+    .inputkw button{
+        background: #F4F4F4;
+        width: 50px;
+        border-radius: 10px;
+        border: none;
+        padding: 8px;
+    }
 
-.table>:not(caption)>*>*{
-    padding: 0px !important;
-}
+    .inputkw button i{
+        font-size: 17px;
+    }
 
-.header-lapdskham{
-    display: flex;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    justify-content: space-around;
-    align-items: center;
-}
 
-.lapdskham_search{
-    align-items: center;
-}
 
-.lapdskham_search input{
-    width: 200px;
-    padding: 5px;
-    border-radius: 10px;
-    border: 1px solid #ced4da;
-}
-.lapdskham_search button{
-    margin-left: 10px;
-    width: 50px;
-    background: rgb(130, 201, 30);
-    padding: 5px;
-    color: white;
-    border-radius: 10px;
-    border: 0px solid #ced4da;
-    box-shadow: 0px 5px 10px 0 rgba(130, 201, 30, 0.5);
-}
+    #idRole{
+        width: 250px;
+        margin: auto;
+        text-align: center;
+    }
+
+    #xacnhan{
+        color:#dc3545;
+        margin: 0px;
+    }
+
+    #xacnhan1{
+        color:rgb(130, 201, 30);
+        margin: 0px;
+    }
+
+    #xoaThuoc{
+        padding: 10px;
+    }
+
+    .table>:not(caption)>*>*{
+        padding: 0px !important;
+    }
+
+    .header-lapdskham{
+        display: flex;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .lapdskham_search{
+        align-items: center;
+    }
+
+    .lapdskham_search input{
+        width: 200px;
+        padding: 5px;
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+    }
+    .lapdskham_search button{
+        margin-left: 10px;
+        width: 50px;
+        background: rgb(130, 201, 30);
+        padding: 5px;
+        color: white;
+        border-radius: 10px;
+        border: 0px solid #ced4da;
+        box-shadow: 0px 5px 10px 0 rgba(130, 201, 30, 0.5);
+    }
 
 
 </style>
