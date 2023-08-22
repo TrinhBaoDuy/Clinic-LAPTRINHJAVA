@@ -8,7 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<form:form >
+<c:url value="/user/booking" var="action" />
+<form:form method="post" action="${action}" modelAttribute="phieukhammoi">
     <nav class="booking">
         <div class="dkk">
             <div class="booking1">
@@ -19,52 +20,38 @@
                     <h1>ĐĂNG KÝ KHÁM</h1>
                     <h5>Vui lòng điền thông tin vào form bên dưới để đăng ký khám bệnh theo yêu cầu!</h5>
                 </div>
+                <%--<form:hidden path="appointmentDate" />--%>
+                <form:hidden path="medicalappointmentDate" />
+                <form:hidden path="status" />
+                <form:hidden path="prescriptionId" />
+                <form:hidden path="sickpersonId" value="${user.id}"/>
+                <form:hidden path="nurseId" />
+                <form:hidden path="doctorId" />
+                <form:hidden path="id" />
 
                 <div class="contentdkk3" style="display: block;">
-                    <div class="form-group" ">
+                    <div class="form-group">
                         <label for="usr">Name:</label>
-                        <input type="text" class="form-control" id="usr">
+                        <input value="${user.name}" type="text" class="form-control" id="usr">
                     </div>
-
-                    <div class="form-group" ">
-                        <label for="pwd">Số Điện Thoại:</label>
-                        <input type="password" class="form-control" id="pwd">
-                    </div>
-                    <div class="form-group" ">
-                        <label for="email">Email:</label>
-                        <input type="password" class="form-control" id="pwd">
-                    </div>
-
 
                     <div class="form-group">
-                        <label for="date">Ngày khám:</label>
-                        <input type="date" class="form-control" id="pwd">
+                        <label for="pwd">Số Điện Thoại:</label>
+                        <input value="${user.phone}" type="text" class="form-control" id="pwd">
                     </div>
-                    <div class="form-group"  ">
-                        <label for="group">Khoa:</label>
-                        <br>
-                        <select name="fieldName" id ="selectKhoa">
-                            <option value="value1">Khoa Nội</option>
-                            <option value="value2">Khoa Ngoại</option>
-                            <option value="value3">Khoa Thần Kinh</option>
-
-                        </select>
-                    </div>
-                    <div class="form-group"  ">
-                        <label for="doctor">Bác Sĩ:</label>
-                        <br>
-                        <select name="fieldName" id ="selectKhoa">
-                            <option value="value1">ThS. Bảo Duy</option>
-                            <option value="value2">Label 2</option>
-                            <option value="value3">Label 3</option>
-
-                        </select>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input value="${user.emaill}" type="text" class="form-control" id="pwd">
                     </div>
 
+                    <div class="form-group">
+                        <label for="appointment_Date">Ngày Khám:</label>
+                            <form:input type="date" class="form-control" path="appointmentDate" id="appointment_Date" placeholder="Ngày Khám..." />
+                    </div>
                 </div>
 
                 <div class="submitbooking">
-                    <a href="#"><button type="submit">ĐĂNG KÝ KHÁM</button></a>
+                    <button type="submit">ĐĂNG KÝ KHÁM</button>
                 </div>
             </div>
 

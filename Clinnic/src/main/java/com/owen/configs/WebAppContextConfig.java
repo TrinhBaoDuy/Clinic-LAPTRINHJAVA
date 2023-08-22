@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.owen.fomatters.PrescriptionFomatter;
 import com.owen.fomatters.RoleFomatters;
+import com.owen.fomatters.ServiceFomatter;
 import com.owen.fomatters.ShiftFomatter;
 import com.owen.fomatters.UnitFomatter;
 import com.owen.fomatters.UserFormatter;
@@ -77,6 +78,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new ShiftFomatter());
         registry.addFormatter(new UserFormatter());
         registry.addFormatter(new PrescriptionFomatter());
+        registry.addFormatter(new ServiceFomatter());
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package com.owen.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -83,15 +84,20 @@ public class User implements Serializable {
     @Column(name = "sex")
     private String sex;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<ScheduleDetail> scheduleDetailSet;
     @OneToMany(mappedBy = "doctorId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet;
     @OneToMany(mappedBy = "nurseId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet1;
     @OneToMany(mappedBy = "sickpersonId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet2;
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Role roleId;
     @Transient
     private MultipartFile file;

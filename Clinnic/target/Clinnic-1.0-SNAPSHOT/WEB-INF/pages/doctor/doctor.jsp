@@ -52,7 +52,7 @@
                     <thead>
                         <tr>
                             <th> Tên khách hàng</th>
-                            <th>Dịch vụ</th>
+                            <!--<th>Dịch vụ</th>-->
                             <th>Ngày khám</th>
                             <th>Giờ khám</th>
                             <th>Trạng Thái</th>
@@ -62,29 +62,26 @@
                     <tbody>
                         <c:forEach items="${lichkham}" var="ds">
                             <tr>
-                                <td><a href="#">${ds[0].sickpersonId.name}</a></td>
-                                <td>${ds[1].name}</td>
-                                <td>
-                                    <script>
-                                        var datetime = new Date("${ds[0].medicalappointmentDate}");
+                                <td><a href="#">${ds.sickpersonId.name}</a></td>
+                                <td><script>
+                                        var datetime = new Date("${ds.appointmentDate}");
                                         var date = datetime.getDate();
                                         var month = datetime.getMonth() + 1; // Tháng trong JavaScript được đếm từ 0 đến 11, nên cần cộng 1
                                         var year = datetime.getFullYear();
                                         var formattedDate = date + '/' + month + '/' + year;
                                         document.write(formattedDate);
-                                    </script>
-                                </td>
+                                    </script></td>
                                 <td>
                                     <script>
-                                        var datetime = new Date("${ds[0].medicalappointmentDate}");
+                                        var datetime = new Date("${ds.appointmentDate}");
                                         var hours = ("0" + datetime.getHours()).slice(-2); // Lấy giờ và đảm bảo hiển thị dưới dạng hai chữ số
                                         var minutes = ("0" + datetime.getMinutes()).slice(-2); // Lấy phút và đảm bảo hiển thị dưới dạng hai chữ số
                                         var formattedTime = hours + ':' + minutes;
                                         document.write(formattedTime);
                                     </script>
                                 </td>
-                                <td>${ds[0].status}</td>
-                                <td><a href="<c:url value="/doctor/khambenh/${ds[0].id}"/>">Khám</a></td>
+                                <td>${ds.status}</td>
+                                <td><a href="<c:url value="/doctor/khambenh/${ds.id}"/>">Khám</a></td>
                             </tr>
                         </c:forEach>
                     </tbody>

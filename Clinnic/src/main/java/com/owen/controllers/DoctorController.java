@@ -45,7 +45,8 @@ public class DoctorController {
             User u = this.userService.getUserByUsername(user.getUsername());
             model.addAttribute("doctor", u);
 //            model.addAttribute("lichkham", this.appointmentService.getAppointmentsbyDoctor(u));
-            model.addAttribute("lichkham", this.appointmentService.getAppointmentServiceByDoctor(u));
+//            model.addAttribute("lichkham", this.appointmentService.getAppointmentServiceByDoctor(u));
+              model.addAttribute("lichkham", this.appointmentService.getAppointmentsbyDoctor(u));
 
         }
         return "doctor";

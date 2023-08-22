@@ -32,6 +32,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 hsr1.sendRedirect(String.format("%s/doctor", hsr.getContextPath()));
             } else if (authority.getAuthority().equals("ROLE_NURSE")) {
                 hsr1.sendRedirect(String.format("%s/nurse", hsr.getContextPath()));
+            } else if (authority.getAuthority().equals("ROLE_SICKPERSON")) {
+                hsr1.sendRedirect(String.format("%s/user/booking", hsr.getContextPath()));
             }
         }
     }

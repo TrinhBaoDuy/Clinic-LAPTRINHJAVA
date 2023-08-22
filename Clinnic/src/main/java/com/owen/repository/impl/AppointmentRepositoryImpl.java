@@ -120,6 +120,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
                 m.setStatus((short) 0);
                 m.setNurseId(null);
                 m.setDoctorId(null);
+                m.setMedicalappointmentDate(null);
             } else {
                 m.setStatus((short) 1);
                 m.setNurseId(yta);
@@ -133,11 +134,18 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
     @Override
     public List<Appointment> getAppointmentsbyDoctor(User u) {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Appointment WHERE doctorId = :statusParam");
-        q.setParameter("statusParam", u);
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
+        Root<Appointment> root = criteria.from(Appointment.class);
 
-        return q.getResultList();
+        criteria.select(root).where(builder.and(
+                builder.equal(root.get("doctorId"), u),
+                builder.equal(root.get("status"), 1)
+        ));
+
+        Query query = session.createQuery(criteria);
+        return query.getResultList();
     }
 
     @Override
@@ -163,6 +171,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         try {
             if (m.getId() == null) {
                 s.save(m);
+                m.setStatus((short) 0);
                 return true;
             } else {
                 s.update(m);
