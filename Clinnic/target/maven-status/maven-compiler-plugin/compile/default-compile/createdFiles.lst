@@ -10,6 +10,7 @@ com\owen\repository\impl\ScheduleRepositoryImpl.class
 com\owen\service\impl\AppointmentServiceImpl.class
 com\owen\service\PrescriptionItemService.class
 com\owen\pojo\PrescriptionItem_.class
+com\owen\service\impl\ServiceItemServiceImpl.class
 com\owen\service\ShiftService.class
 com\owen\repository\ScheduleRepository.class
 com\owen\repository\impl\PrescriptionItemRepositoryImpl.class
@@ -26,11 +27,13 @@ com\owen\controllers\NurseController.class
 com\owen\controllers\MedicineController.class
 com\owen\controllers\ApiMedicineController.class
 com\owen\pojo\ServiceItems_.class
+com\owen\repository\impl\ServiceItemRepositoryImpl.class
 com\owen\service\ScheduleDetailService.class
 com\owen\service\RoleService.class
 com\owen\pojo\Appointment_.class
 com\owen\pojo\ScheduleDetail.class
 com\owen\service\impl\UnitServiceImpl.class
+com\owen\repository\ServiceItemRepository.class
 com\owen\service\PrescriptionService.class
 com\owen\service\impl\UserServiceImpl.class
 com\owen\repository\ServiceRepository.class
@@ -39,10 +42,12 @@ com\owen\configs\DispatcherServletInit.class
 com\owen\service\impl\ShiftServiceImpl.class
 com\owen\controllers\ApiUserController.class
 com\owen\configs\SecurityWebApplicationInitializer.class
+com\owen\service\ServiceItemService.class
 com\owen\repository\impl\PrescriptionRepositoryImpl.class
 com\owen\pojo\Prescription_.class
 com\owen\service\impl\DichvuServiceImpl.class
 com\owen\service\UserService.class
+com\owen\pojo\ScheduleDetailListForm.class
 com\owen\fomatters\UnitFomatter.class
 com\owen\pojo\Role.class
 com\owen\repository\PrescriptionItemRepository.class
@@ -91,6 +96,7 @@ com\owen\configs\SpringSecurityConfig.class
 com\owen\repository\impl\UnitRepositoryIpml.class
 com\owen\repository\ScheduleDetailRepository.class
 com\owen\repository\MedicineRepository.class
+com\owen\fomatters\AppointmentFomatter.class
 com\owen\configs\HibernateConfig.class
 com\owen\repository\impl\ServiceRepositoryImpl.class
 com\owen\configs\TilesConfigs.class

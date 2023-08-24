@@ -19,7 +19,6 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
-import org.hibernate.LockOptions;
 import org.hibernate.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +120,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
                 m.setNurseId(null);
                 m.setDoctorId(null);
                 m.setMedicalappointmentDate(null);
+                m.setPrescriptionId(null);
             } else {
                 m.setStatus((short) 1);
                 m.setNurseId(yta);
@@ -136,13 +136,17 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     public List<Appointment> getAppointmentsbyDoctor(User u) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
+
         CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
         Root<Appointment> root = criteria.from(Appointment.class);
 
-        criteria.select(root).where(builder.and(
-                builder.equal(root.get("doctorId"), u),
-                builder.equal(root.get("status"), 1)
-        ));
+        Predicate doctorPredicate = builder.equal(root.get("doctorId"), u);
+        Predicate statusPredicate = builder.equal(root.get("status"), 1);
+        Predicate prescriptionPredicate = builder.isNull(root.get("prescriptionId"));
+
+        Predicate finalPredicate = builder.and(doctorPredicate, statusPredicate, prescriptionPredicate);
+
+        criteria.select(root).where(finalPredicate);
 
         Query query = session.createQuery(criteria);
         return query.getResultList();

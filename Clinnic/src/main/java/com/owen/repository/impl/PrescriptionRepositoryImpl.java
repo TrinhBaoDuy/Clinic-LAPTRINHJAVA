@@ -5,7 +5,6 @@
 package com.owen.repository.impl;
 
 import com.owen.pojo.Appointment;
-import com.owen.pojo.Medicine;
 import com.owen.pojo.Prescription;
 import com.owen.repository.PrescriptionRepository;
 import java.util.ArrayList;
@@ -75,23 +74,6 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
     }
 
     @Override
-    public boolean addOrUpdatePrescription(Prescription m) {
-        Session s = this.factory.getObject().getCurrentSession();
-        try {
-            if (m.getId() == null) {
-                s.save(m);
-            } else {
-                s.update(m);
-            }
-
-            return true;
-        } catch (HibernateException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
     public boolean deletePrescription(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         Prescription pr = session.get(Prescription.class, id);
@@ -121,5 +103,25 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
         Query query = s.createQuery(q);
         String doctorName = (String) query.getSingleResult();
         return doctorName;
+    }
+
+    @Override
+    public boolean addOrUpdatePrescription(Prescription m, int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Appointment a = s.get(Appointment.class, id);
+        try {
+            if (m.getId() == null) {
+                s.save(m);
+                a.setPrescriptionId(m);
+                
+            } else {
+                s.update(m);
+            }
+
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 }

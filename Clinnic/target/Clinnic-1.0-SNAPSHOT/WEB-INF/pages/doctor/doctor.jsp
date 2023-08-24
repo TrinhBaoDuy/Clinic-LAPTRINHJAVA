@@ -80,7 +80,7 @@
                                         document.write(formattedTime);
                                     </script>
                                 </td>
-                                <td>${ds.status}</td>
+                                <td>${ds.prescriptionId.id}</td>
                                 <td><a href="<c:url value="/doctor/khambenh/${ds.id}"/>">Khám</a></td>
                             </tr>
                         </c:forEach>

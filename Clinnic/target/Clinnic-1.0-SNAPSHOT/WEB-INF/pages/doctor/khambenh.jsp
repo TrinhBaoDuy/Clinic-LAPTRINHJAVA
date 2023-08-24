@@ -1,140 +1,78 @@
 <%-- 
-    Document   : doctorInfor
-    Created on : Aug 15, 2023, 1:27:23 PM
+    Document   : kethuoc
+    Created on : Aug 23, 2023, 12:24:04 AM
     Author     : hung
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:url value="/doctor/khambenh" var="action" />
-<form:form method="post" action="${action}" modelAttribute="appo" enctype="multipart/form-data">
+<!DOCTYPE html>
+
+<form:form  id="phieubenh" modelAttribute="phieubenh" method="post" action="${action}">
+    <input type="hidden" name="appoID" value="${appo.id}" />
     <div class="infor1">
-        <nav class="bookingleft">
-
-            <h2>THÔNG TIN KHÁM </h2>
-            <div class="dkk1">
-                <div class="booking1">
-                    <img src="${appo.sickpersonId.avatar}" alt="alert"/>
-                </div>
-                <div class="contentbooking2_main">
-
-                    <div class="contentbooking2">
-                        <h1>Tên bệnh nhân "${appo.sickpersonId.name}"</h1>
-                        <h5>Mã:        </h5>
-                        <h5>Ngày sinh: </h5>
-                        <h5>Số điện Thoại: </h5>
-                        <h5>Địa chỉ: </h5>
-                        <h5>Email: </h5>
-                        <h5>Giới tính: </h5>
-                        <h5>Ngày khám: </h5>
-                        <h5>Giờ khám: </h5>
-                        <div class="form-group" ">
-                            <label for="problem">Chuẩn đoán bệnh:</label>
-                            <input type="text" class="form-control" path="" id="problem"/>
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-
+        <div class="contentdkk2_main contentdkk2_main1">
+            <div class="contentdkk2 contentdkk21">
+                <h1>PHIẾU KHÁM BỆNH NHÂN</h1>
             </div>
-        </nav>
-        <nav class="bookingright ">
-            <div class="dkk2">
-
-                <div class="contentdkk3  "  >
-
-                    <div class='content1'>
-                        <h2>Tra cứu</h2>
-                        <div class = "infoMeSearch" >
-                            <form class="search-form" action="${action}">
-                                <input class="form-control me-2" type="text"   name="name" placeholder="Nhập tên thuốc..."/>
-                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
-                            </form>
-                        </div>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-
-                                    <th>Tên thuốc</th>                             
-                                    <th>Đơn vị</th>
-                                    <th>Số Lượng<input type="number" id="quantity" value="1"></th>
-
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${getmediciens}" var="ds">
-                                    <tr>
-                                        <td>${ds.name}</td>
-                                        <td>${ds.quantity} ${ds.idUnit.name}</td>
-                                        <td>${ds.price} VNĐ</td>
-                                        <td>${ds.provider}</td>
-                                        <td>${ds.productionDate}</td>
-                                        <td>${ds.expirationDate}</td>
-                                    </tr>
-                                </c:forEach>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-
-                    <div class="content2">
-                        <h2> Toa Thuốc</h2>
-
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-
-                                    <th>Tên thuốc</th>                             
-                                    <th>Đơn vị</th>
-                                    <th>Số Lượng</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>    
-                </div>
-
-
+            <hr>
+            <form:hidden path="prescriptioncol" value="1" />
+            <form:hidden path="id" />
+            <form:hidden path="prescriptionDate" value="${currentDateTime}"/>
+            <div class="contentdkk3">
+                <label class="custom-input" id="custom-input1" readonly>${appo.sickpersonId.id}</label>
+                <label class="custom-input" id="custom-input1" readonly>${appo.sickpersonId.name}</label>
             </div>
-        </nav>
+
+            <div class="contentdkk2  ">
+                <h5>* Thông tin bệnh án</h5>
+            </div>
+            <div class="contentdkk4">
+                <div class="contentdkk5">
+                    <h5>Triệu chứng</h5>
+                    <form:input type="text" class="form-control" path="conclusion" id="conclusion" placeholder="Nhập triệu chứng..." />
+                </div>
+                <div class="contentdkk5">
+                    <h5>Kết luận của bác sĩ</h5>
+                    <form:input type="text" class="form-control" path="symptom" id="symptom" placeholder="Nhập kết luận..." />
+                </div>
+            </div>
+        </div>
     </div>
 </form:form>
+<form:form id="dichvu"  modelAttribute="chitietdichvu" method="post"  action="${action}">
+    <input type="hidden" name="appoID" value="${appo.id}" />
+    <form:hidden path="appoId"/>
+    <form:hidden path="id"/>
+    <form:hidden path="dateSer" value="${currentDateTime}"/>
+    <form:select class="form-select" id="serviceId" name="serviceId" path="serviceId">
+        <c:forEach items="${dichvu}" var="r">
+            <option value="${r.id}" selected>${r.name}</option>
+        </c:forEach>
+    </form:select>
+
+</form:form>
+<div class="submitbooking ">
+    <button type="submit"  onclick="submitForms()">CẤP THUỐC</button>
+</div>
+<script>
+    function submitForms() {
+        document.getElementById("dichvu").submit();
+//        document.getElementById("phieubenh").submit();
+    }
+</script>
 <style>
-    .bookingleft{
 
-    }
-    .bookingright{
-
-
-
-    }
-    .content1{
-        width: 70%;
-        padding-left: 30px;
-        border: 0.5px solid #5AAC4E;
-        border-radius: 30px;
-
-
-    }
-    .content2{
-        width: 70%;
-        padding-left: 30px;
-        border: 0.5px solid #5AAC4E;
-        border-radius: 30px;
-
-
-    }
     .infor1{
         /*display: flex;*/
         padding: 30px;
+        border: 0.5px solid #5AAC4E;
+        border-radius: 30px;
+        margin: 30px;
+        background-color: #F5FFFA;
 
     }
     .add{
@@ -178,6 +116,9 @@
     
     
         }*/
+    .contentdkk2{
+        margin: 20px;
+    }
     .booking1{
         width: 30%;
         /*        width: 300px;
@@ -195,6 +136,9 @@
         width: 100%;
 
         object-fit: cover;
+    }
+    .form-select{
+        border-radius: 10px;
     }
 
     /*    .contentbooking1{
@@ -222,9 +166,11 @@
             height: 100%;  Chiều cao của ảnh 
             object-fit: cover;
     }*/
-    .contentdkk1 h3{
-        font-size: 18px;
-        color: white;
+    .contentdkk5 input{
+        width: 100%;
+        border-radius: 5px;
+        border-width: 1px;
+        margin-bottom: 5px;
     }
     .contentbooking2_main
     {
@@ -250,6 +196,10 @@
         padding-left: 30px;
 
     }
+    hr {
+        border: none;
+        border-top: 3px solid #ccc;
+    }
     select{
 
         background-color: #f2f2f2;
@@ -274,6 +224,17 @@
     .contentdkk3 div{
 
         margin: 20px;
+    }
+    .contentdkk3 input{
+        width: 90%;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .contentdkk3 input:first-child{
+        margin-right: 20px;
     }
     /*    .contentdkk3 input{
             width: 90%;
@@ -334,18 +295,20 @@
     .submitbooking a button{
 
         padding: 14px;
-        height: 100px;
-        width: 200px;
+
+
         font-size: 30px;
         /* text-align: -webkit-auto; */
         font-weight: bold;
 
         border: 0px solid #ADD8E6;
-        background-color:orangered;
+        background-color: #4169E1;
         color: white;
         box-shadow: 0px 5px 10px 0 #ADD8E6;
         transition: 0.3s;
         border-radius: 6px;
+        width: 100%;
+        height: 70px;
     }
     .infoMeSearch{
         padding-right: 30px;

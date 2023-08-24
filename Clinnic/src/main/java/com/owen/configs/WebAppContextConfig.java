@@ -6,6 +6,7 @@ package com.owen.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.owen.fomatters.AppointmentFomatter;
 import com.owen.fomatters.PrescriptionFomatter;
 import com.owen.fomatters.RoleFomatters;
 import com.owen.fomatters.ServiceFomatter;
@@ -61,6 +62,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
     }
 
     @Bean
@@ -79,6 +81,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new UserFormatter());
         registry.addFormatter(new PrescriptionFomatter());
         registry.addFormatter(new ServiceFomatter());
+        registry.addFormatter(new AppointmentFomatter());
     }
     
 }

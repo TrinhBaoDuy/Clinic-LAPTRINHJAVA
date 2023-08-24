@@ -7,93 +7,80 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:url value="/doctor/dangkylam" var="action" />
 <div class="content">
-    <form:form method="post" action="${action}" modelAttribute="doctor"  enctype="multipart/form-data">
-        <div class="contentleft">
-            <div class="dkk1">
-                <div class="booking1">
-                    <img src="${doctor.avatar}" alt="alert"/>
-                </div>
-                <div class="contentbooking2_main">
 
-                    <div class="contentbooking2">
-                        <h1>Bác sĩ ${doctor.name}</h1>
-                        <h5>Ngày sinh: ${doctor.dod}</h5>
-                        <h5>Số điện Thoại: ${doctor.phone}</h5>
-                        <h5>Địa chỉ: ${doctor.address}</h5>
-                        <h5>Email: ${doctor.emaill}</h5>
-                        <h5>Giới tính: ${doctor.sex}</h5>
-                    </div>
+    <div class="contentleft">
+        <div class="dkk1">
+            <div class="booking1">
+                <img src="${doctor.avatar}" alt="alert"/>
+            </div>
+            <div class="contentbooking2_main">
 
-
+                <div class="contentbooking2">
+                    <h1>Bác sĩ ${doctor.name}</h1>
+                    <h5>Ngày sinh: ${doctor.dod}</h5>
+                    <h5>Số điện Thoại: ${doctor.phone}</h5>
+                    <h5>Địa chỉ: ${doctor.address}</h5>
+                    <h5>Email: ${doctor.emaill}</h5>
+                    <h5>Giới tính: ${doctor.sex}</h5>
                 </div>
 
 
             </div>
-        </div>
-    </form:form>
-    <script src="<c:url value="/js/dongho.js" />"></script>
-    <div class="contentright">
-        <h1>ĐĂNG KÝ LỊCH LÀM NGÀY<p id="future-date"></p></h1>
-        <p style="display: none">Giờ hiện tại: <span id="current-time"></span></p>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-
-                    <th>Ca/thứ</th>
-                    <th>THỨ 2 </th>
-                    <th>THỨ 3</th>
-                    <th>THỨ 4</th>
-                    <th>THỨ 5</th>
-                    <th>THỨ 6</th>
-                    <th>THỨ 7</th>
-                    <th>CHỦ NHẬT</th>
 
 
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Sáng</td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-
-                </tr>
-                <tr>
-                    <td>Chiều</td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-
-                </tr>
-                <tr>
-                    <td>Tối</td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-                    <td><input type="checkbox" name="myCheckbox" value="1" /></td>
-
-                </tr>
-            </tbody>
-        </table>
-        <div class="submitbooking">
-            <a href="#"><button type="submit">ĐĂNG KÝ LÀM</button></a>
         </div>
     </div>
+
+    <form:form method="post" action="${action}" modelAttribute="lichlam"  enctype="multipart/form-data">
+        <form:hidden path="id" />
+        <form:hidden path="userId" value="${doctor.id}" />
+        <form:hidden path="status" />
+        <script src="<c:url value="/js/dongho.js" />"></script>
+        <div class="contentright">
+            <h1>ĐĂNG KÝ LỊCH LÀM NGÀY<p id="future-date"></p></h1>
+            <p style="display: none">Giờ hiện tại: <span id="current-time"></span></p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+
+                        <th>Ca/thứ</th>
+                        <th>THỨ 2 </th>
+                        <th>THỨ 3</th>
+                        <th>THỨ 4</th>
+                        <th>THỨ 5</th>
+                        <th>THỨ 6</th>
+                        <th>THỨ 7</th>
+                        <th>CHỦ NHẬT</th>
+
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${lich}" var="ds">
+
+                        <form:hidden path="shiftId" value="${ds.id}" />
+
+                        <tr>
+                            <td>${ds.name} bắt đầu lúc ${ds.start} và kết thúc lúc ${ds.end}</td>
+                            <c:forEach items="${dateList}" var="date">
+                                <td>
+                                    <form:checkbox path="dateSchedule" value="${date}" />
+                                    <fmt:formatDate value="${date}" pattern="dd/MM/yyyy" />
+                                </td>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <div class="submitbooking">
+                <button type="submit">ĐĂNG KÝ LÀM</button>
+            </div>
+        </div>
+    </form:form >
 
 </div>
 

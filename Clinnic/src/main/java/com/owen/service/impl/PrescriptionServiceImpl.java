@@ -28,8 +28,8 @@ public class PrescriptionServiceImpl implements  PrescriptionService{
     }
 
     @Override
-    public boolean addOrUpdatePrescription(Prescription m) {
-        return this.prescriptionRepository.addOrUpdatePrescription(m);
+    public boolean addOrUpdatePrescription(Prescription m, int id) {
+        return this.prescriptionRepository.addOrUpdatePrescription(m, id);
     }
 
     @Override

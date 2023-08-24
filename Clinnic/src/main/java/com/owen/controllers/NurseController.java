@@ -91,21 +91,11 @@ public class NurseController {
     @PostMapping("/nurse")
     public String Update(Model model, Authentication authentication, @ModelAttribute(value = "appoment") @Valid Appointment a,
             BindingResult rs) {
-        String msg = "";
         if (!rs.hasErrors()) {
             if (this.appointmentService.addOrUpdateAppointment(a) == true) {
-                msg = "Do";
                 return "redirect:/nurse";
             }
-            else {
-                msg = "Loi1";
-            }
-        } else {
-             msg = "Loi2";
-//            System.err.println(rs.getObjectName());
         }
-        
-        model.addAttribute( "msg",msg);
         return "nurse";
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface PrescriptionService {
     List<Prescription> getPrescriptions(Map<String, String> params);
-    boolean addOrUpdatePrescription(Prescription m);
+    boolean addOrUpdatePrescription(Prescription m, int id);
     boolean deletePrescription(int id);
     String getDoctorPrescribeMedicine(int id);
 }

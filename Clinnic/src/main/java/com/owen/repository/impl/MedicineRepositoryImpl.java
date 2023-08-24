@@ -5,7 +5,6 @@
 package com.owen.repository.impl;
 
 import com.owen.pojo.Medicine;
-import com.owen.pojo.User;
 import com.owen.repository.MedicineRepository;
 import java.util.ArrayList;
 import java.util.List;
