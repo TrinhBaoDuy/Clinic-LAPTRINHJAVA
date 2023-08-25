@@ -66,7 +66,7 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/nurse/nurse.jsp" />
     </definition>
-     <definition name="xeplichkham" extends="baseLayout">
+    <definition name="xeplichkham" extends="baseLayout">
         <put-attribute name="title" value="Xếp lịch khám" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/nurse/xeplichkham.jsp" />
@@ -76,4 +76,15 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/doctor/dangkylam.jsp" />
     </definition>
+    <definition name="kethuoc" extends="baseLayout">
+        <put-attribute name="title" value="Ke thuoc" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/doctor/kethuoc.jsp" />
+    </definition>
+     <definition name="lichsukham" extends="baseLayout">
+        <put-attribute name="title" value="Lich su kham" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/doctor/lichsukham.jsp" />
+    </definition>
+
 </tiles-definitions>

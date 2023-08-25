@@ -28,7 +28,6 @@ com\owen\controllers\MedicineController.class
 com\owen\controllers\ApiMedicineController.class
 com\owen\pojo\ServiceItems_.class
 com\owen\repository\impl\ServiceItemRepositoryImpl.class
-com\owen\service\ScheduleDetailService.class
 com\owen\service\RoleService.class
 com\owen\pojo\Appointment_.class
 com\owen\pojo\ScheduleDetail.class
@@ -57,7 +56,6 @@ com\owen\pojo\Role_.class
 com\owen\repository\impl\MedicineRepositoryImpl.class
 com\owen\pojo\Bill_.class
 com\owen\pojo\User.class
-com\owen\service\impl\ScheduleDetailServiceImpl.class
 com\owen\configs\WebAppContextConfig.class
 com\owen\configs\CustomSuccessHandler.class
 com\owen\controllers\IndexController.class
@@ -81,7 +79,6 @@ com\owen\pojo\ServiceItems.class
 com\owen\pojo\Shift.class
 com\owen\controllers\ApiAppointmentController.class
 com\owen\pojo\Unit_.class
-com\owen\repository\impl\ScheduleDetailRepositoryImpl.class
 com\owen\fomatters\ServiceFomatter.class
 com\owen\repository\impl\AppointmentRepositoryImpl.class
 com\owen\pojo\Medicine_.class
@@ -94,7 +91,6 @@ com\owen\fomatters\UserFormatter.class
 com\owen\pojo\Appointment.class
 com\owen\configs\SpringSecurityConfig.class
 com\owen\repository\impl\UnitRepositoryIpml.class
-com\owen\repository\ScheduleDetailRepository.class
 com\owen\repository\MedicineRepository.class
 com\owen\fomatters\AppointmentFomatter.class
 com\owen\configs\HibernateConfig.class

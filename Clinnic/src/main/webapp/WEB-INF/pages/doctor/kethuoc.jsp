@@ -1,0 +1,378 @@
+<%-- 
+    Document   : kethuoc
+    Created on : Aug 23, 2023, 12:24:04 AM
+    Author     : hung
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+    <div class="infor1">
+        <div class="contentdkk2_main contentdkk2_main1">
+            <div class="imglogo">
+                <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692731869/zyro-image_ukyhu5.png" alt="logo">
+                <h2>Toa Thuốc</h2>
+
+            </div>
+            <hr>
+            <nav class="bookingright ">
+                <div class="dkk2">
+
+                    <div class="contentdkk3  "  >
+
+                        <div class='content1'>
+                            <h2>Tra cứu</h2>
+                            <div class = "infoMeSearch" >
+                                <form class="search-form" action="${action}">
+                                    <input class="form-control me-2" type="text"   name="name" placeholder="Nhập tên thuốc..."/>
+                                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
+                                </form>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+
+                                        <th>Tên thuốc</th>                             
+                                        <th>Đơn vị</th>
+                                        <th> </th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${getmediciens}" var="ds">
+                                    <tr>
+                                        <td>${ds.name}</td>
+                                        <td>${ds.quantity} ${ds.idUnit.name}</td>
+                                        <td>
+                                            <!--                                            <button onclick="showQuantityInput()">Thêm</button>                                           -->
+                                            <button class="showOverlayButton" id="showOverlayButton">Thêm</button>
+
+                                            <!-- Trang đè -->
+                                            <div id="overlay" class="overlay">
+                                                <div class="overlay-content">
+                                                    <label for="quantity">Số lượng:</label>
+                                                    <input type="number" id="quantity">
+                                                    <button id="addButton">Thêm</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                          <!--                                        <td>${ds.price} VNĐ</td>
+                                                                                  <td>${ds.provider}</td>
+                                                                                  <td>${ds.productionDate}</td>
+                                                                                  <td>${ds.expirationDate}</td>-->
+                                    </tr>
+                                </c:forEach>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="content2">
+                            <h2> Toa Thuốc</h2>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+
+                                        <th>Tên thuốc</th>                             
+                                        <th>Đơn vị</th>
+                                        <th>Số Lượng</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div> 
+
+                    </div>
+
+
+                </div>
+            </nav>
+            <div class="submitbooking ">
+                <a><button type="submit">XUẤT TOA THUỐC</button></a>
+            </div>
+        </div>
+
+        </form>
+    </div>
+
+<script>
+    // JavaScript
+    document.getElementById("showOverlayButton").addEventListener("click", function () {
+        // Hiển thị trang đè khi nhấp vào nút "Thêm"
+        document.getElementById("overlay").style.display = "flex";
+    });
+
+    document.getElementById("addButton").addEventListener("click", function () {
+        // Ẩn trang đè khi nhấp vào nút "Thêm2"
+        document.getElementById("overlay").style.display = "none";
+    });
+    window.addEventListener("DOMContentLoaded", function () {
+        // Ẩn trang đè khi form được tải
+        document.getElementById("overlay").style.display = "none";
+    });
+</script>
+<style>
+    /* CSS cho trang đè */
+    .overlay {
+        display: none; /* Ẩn trang đè ban đầu */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .overlay-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        max-width: 400px; /* Độ rộng tối đa của trang đè */
+        width: 80%; /* Độ rộng thực tế của trang đè */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .overlay-content label,
+    .overlay-content input,
+    .overlay-content button {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .overlay-content button {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .infor1{
+        /*display: flex;*/
+        padding: 30px;
+        border: 0.5px solid #5AAC4E;
+        border-radius: 30px;
+        margin: 30px;
+        background-color: #F5FFFA;
+
+    }
+    .add{
+        width: 10%;
+    }
+    hr {
+        border: none;
+        border-top: 3px solid #ccc;
+    }
+    .add button{
+        margin: 20px;
+        width: 70px;
+    }
+    .content1{
+        width: 70%;
+        padding-left: 30px;
+        border: 0.5px solid #5AAC4E;
+        border-radius: 30px;
+        padding: 20px;
+
+
+    }
+    .content2{
+        width: 70%;
+        padding-left: 30px;
+        border: 0.5px solid #5AAC4E;
+        border-radius: 30px;
+        padding: 20px;
+    }
+    .showOverlayButton{
+
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+
+    }
+    .dkk1{
+
+        display: flex;
+        justify-content:  space-between;
+        /*padding: 50px;*/
+        border: 0.5px solid #5AAC4E;
+        border-radius: 30px;
+    }
+    .imglogo{
+        display: flex;
+
+    }
+    .imglogo img{
+        width: 50px;
+    }
+    .imglogo h2{
+        padding: 0px;
+        margin: 0px;
+    }
+    /*    .dkk2 h2{
+            text-align: center;
+    
+        }
+        .dkk2 div {
+    
+    
+        }*/
+    .contentdkk2{
+        margin: 20px;
+    }
+    .booking1{
+        width: 30%;
+        /*        width: 300px;
+                height: 300px;*/
+        /*        display: flex;*/
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        width: 20%;
+    }
+    .booking1 img{
+        padding: 5px;
+        /* border-radius: 20px; */
+        border-radius: 50px;
+        width: 100%;
+
+        object-fit: cover;
+    }
+    .form-select{
+        border-radius: 10px;
+    }
+
+     
+    .contentdkk5 input{
+        width: 100%;
+        border-radius: 5px;
+        border-width: 1px;
+        margin-bottom: 5px;
+    }
+    .contentbooking2_main
+    {
+        display: block;
+        padding-bottom: 30px;
+        width: 80%;
+    }
+    /*    .contentbooking2_main{
+            width: 70%;
+        }*/
+
+    .contentbooking2 h1{
+        font-size: 23px;
+        font-weight: 700;
+        color: #4682B4;
+    }
+    .contentbooking2 h5{
+        font-size: 16px;
+        color: black;
+    }
+
+    .contentbooking2_main{
+        padding-left: 30px;
+
+    }
+    select{
+
+        background-color: #f2f2f2;
+        color: #333;
+        font-size: 14px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        height: 40px;
+        text-align: center;
+
+    }
+
+    .contentdkk3{
+
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+    }
+    .contentdkk3 div{
+
+        margin: 20px;
+    }
+    .contentdkk3 input{
+        width: 90%;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .contentdkk3 input:first-child{
+        margin-right: 20px;
+    }
+    .search-container input{
+        width: 50%;
+        border-radius: 10px;
+        border-width: 1px;
+    }
+    .search-form {
+        display: flex;
+    }
+
+    .search-button{
+
+        height: 30px;
+        width: 10%;
+        padding: 0px;
+        margin: 0px;
+
+
+        /* text-align: -webkit-auto; */
+        font-weight: bold;
+
+        border: 0px solid #ADD8E6;
+        background-color: #4169E1;
+        color: white;
+        box-shadow: 0px 5px 10px 0 #ADD8E6;
+        transition: 0.3s;
+        border-radius: 6px;
+
+    }
+    .submitbooking{
+        margin-top:30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .submitbooking a button{
+
+        padding: 14px;
+
+
+        font-size: 30px;
+        /* text-align: -webkit-auto; */
+        font-weight: bold;
+
+        border: 0px solid #ADD8E6;
+        background-color: #4169E1;
+        color: white;
+        box-shadow: 0px 5px 10px 0 #ADD8E6;
+        transition: 0.3s;
+        border-radius: 6px;
+        width: 100%;
+        height: 70px;
+    }
+</style>

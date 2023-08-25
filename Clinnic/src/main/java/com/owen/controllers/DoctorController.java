@@ -4,24 +4,20 @@
  */
 package com.owen.controllers;
 
-import com.owen.pojo.Appointment;
 import com.owen.pojo.Prescription;
 import com.owen.pojo.ScheduleDetail;
-import com.owen.pojo.ScheduleDetailListForm;
 import com.owen.pojo.ServiceItems;
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
 import com.owen.service.MedicineService;
 import com.owen.service.PrescriptionService;
-import com.owen.service.ScheduleDetailService;
+import com.owen.service.ScheduleService;
 import com.owen.service.ServiceItemService;
 import com.owen.service.ServiceService;
 import com.owen.service.ShiftService;
 import com.owen.service.UserService;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +35,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -60,7 +55,7 @@ public class DoctorController {
     private MedicineService medicineService;
 
     @Autowired
-    private ScheduleDetailService scheduleDetailService;
+    private ScheduleService scheduleService;
 
     @Autowired
     private ServiceItemService serviceItemService;
@@ -124,7 +119,7 @@ public class DoctorController {
     public String Updatekhambenh(Model mode, @ModelAttribute(value = "phieubenh") @Valid Prescription p, @ModelAttribute(value = "chitietdichvu") @Valid ServiceItems chitietdichvu, @RequestParam(value = "appoID") int appoId,
             BindingResult rs) {
         if (!rs.hasErrors()) {
-            if (this.serviceItemService.addOrUpdateServiceItem(chitietdichvu,appoId) == true) {
+            if (this.serviceItemService.addOrUpdateServiceItem(chitietdichvu, appoId) == true) {
                 if (this.prescriptionService.addOrUpdatePrescription(p, appoId) == true) {
                     return "redirect:/doctor";
                 }
@@ -168,8 +163,8 @@ public class DoctorController {
         }
         model.addAttribute("dateList", dateList);
 
-        List<ScheduleDetail> scheduleDetails = new ArrayList<ScheduleDetail>();
-        model.addAttribute("lichlam", scheduleDetails);
+//        List<ScheduleDetail> scheduleDetails = new ArrayList<ScheduleDetail>();
+        model.addAttribute("lichlam", new ScheduleDetail());
         model.addAttribute("lich", this.shiftService.getShifts());
         if (authentication != null) {
             UserDetails user = this.userService.loadUserByUsername(authentication.getName());
@@ -181,17 +176,24 @@ public class DoctorController {
     }
 
     @PostMapping("/doctor/dangkylam")
-    public String Update(Model model, Authentication authentication, @ModelAttribute(value = "lichlam") @Valid List<ScheduleDetail> scheduleDetails,
+    public String update(@ModelAttribute(value = "lichlam") @Valid ScheduleDetail scheduleDetails,
             BindingResult rs) {
         if (!rs.hasErrors()) {
-            for (ScheduleDetail scheduleDetail : scheduleDetails) {
-                if (this.scheduleDetailService.addOrUpdateScheduleDetail(scheduleDetail)) {
-                    // Do any additional processing if needed
-                }
+            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetails) == true) {
+                return "redirect:/doctor/dangkylam";
             }
-            return "redirect:/doctor/dangkylam";
         }
         return "dangkylam";
+    }
 
+    @GetMapping("/doctor/khambenh/kethuoc")
+    public String kethuoc(Model model, Authentication authentication) {
+
+        return "kethuoc";
+    }
+    @GetMapping("/doctor/khambenh/lichsukham")
+    public String lichsukham(Model model, Authentication authentication) {
+
+        return "lichsukham";
     }
 }

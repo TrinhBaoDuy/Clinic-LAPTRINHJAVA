@@ -60,9 +60,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${lich}" var="ds">
+                    <c:forEach items="${lich}" var="ds" >
 
-                        <form:hidden path="shiftId" value="${ds.id}" />
+                         <form:hidden path="shiftId" value="${ds.id}" />
 
                         <tr>
                             <td>${ds.name} bắt đầu lúc ${ds.start} và kết thúc lúc ${ds.end}</td>
