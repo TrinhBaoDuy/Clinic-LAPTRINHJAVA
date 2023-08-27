@@ -63,5 +63,13 @@ public class UserController {
         
         return "users";
     }
+     @GetMapping("/admin/themtaikhoan")
+    public String themtaikhoan() {
+        return "themtaikhoan";
+    }
+     @GetMapping("/admin/quanlytaikhoan")
+    public String quanlytaikhoan() {
+        return "quanlytaikhoan";
+    }
 }
 
