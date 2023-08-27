@@ -16,4 +16,5 @@ public interface ScheduleService {
     List<ScheduleDetail> getSchedules(Map<String, String> params);
     boolean addOrUpdateScheduleDetail(ScheduleDetail m);
     boolean deleteScheduleDetail(int id);
+    boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails);
 }

@@ -61,7 +61,7 @@
 <script>
     function submitForms() {
         document.getElementById("dichvu").submit();
-//        document.getElementById("phieubenh").submit();
+        document.getElementById("phieubenh").submit();
     }
 </script>
 <style>

@@ -4,12 +4,16 @@
  */
 package com.owen.controllers;
 
+import com.owen.pojo.Appointment;
+import com.owen.pojo.Medicine;
 import com.owen.pojo.Prescription;
+import com.owen.pojo.PrescriptionItem;
 import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.ServiceItems;
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
 import com.owen.service.MedicineService;
+import com.owen.service.PrescriptionItemService;
 import com.owen.service.PrescriptionService;
 import com.owen.service.ScheduleService;
 import com.owen.service.ServiceItemService;
@@ -36,6 +40,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Map;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -65,6 +71,9 @@ public class DoctorController {
 
     @Autowired
     private PrescriptionService prescriptionService;
+
+    @Autowired
+    private PrescriptionItemService prescriptionItemService;
 
     @Autowired
     private ShiftService shiftService;
@@ -121,7 +130,7 @@ public class DoctorController {
         if (!rs.hasErrors()) {
             if (this.serviceItemService.addOrUpdateServiceItem(chitietdichvu, appoId) == true) {
                 if (this.prescriptionService.addOrUpdatePrescription(p, appoId) == true) {
-                    return "redirect:/doctor";
+                    return "redirect:/doctor/khambenh/kethuoc/" + appoId;
                 }
             }
         }
@@ -176,23 +185,68 @@ public class DoctorController {
     }
 
     @PostMapping("/doctor/dangkylam")
-    public String update(@ModelAttribute(value = "lichlam") @Valid ScheduleDetail scheduleDetails,
+    public String update(@ModelAttribute(value = "lichlam") @Valid ScheduleDetail scheduleDetail,
             BindingResult rs) {
         if (!rs.hasErrors()) {
-            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetails) == true) {
-                return "redirect:/doctor/dangkylam";
-            }
+            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetail)== true);
+            return "redirect:/doctor/dangkylam";
         }
         return "dangkylam";
     }
+//    @PostMapping("/doctor/dangkylam")
+//    public String update(@RequestBody List<ScheduleDetail> scheduleDetails, BindingResult rs) {
+//        if (!rs.hasErrors()) {
+//            if (this.scheduleService.addOrUpdateScheduleDetails(scheduleDetails)) {
+//                return "redirect:/doctor/dangkylam";
+//            }
+//        }
+//        return "dangkylam";
+//    }
+    
 
     @GetMapping("/doctor/khambenh/kethuoc")
-    public String kethuoc(Model model, Authentication authentication) {
-
+    public String kethuoc(Model model, @RequestParam Map<String, String> params, @RequestParam(value = "PreId") int PreId
+    ) {
+        model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
+        Appointment a = this.appointmentService.getAppointmentById(PreId);
+        model.addAttribute("dsthuoc", this.prescriptionItemService.getPrescriptionsbyIDPres(a.getPrescriptionId().getId()));
         return "kethuoc";
     }
+
+    @GetMapping("/doctor/khambenh/kethuoc/{id}")
+    public String kethuocid(Model model, Authentication authentication,
+            @RequestParam Map<String, String> params, @PathVariable(value = "id") int id
+    ) {
+        model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
+        model.addAttribute("appo", this.appointmentService.getAppointmentById(id));
+        model.addAttribute("phieuthuoc", new PrescriptionItem());
+        Appointment a = this.appointmentService.getAppointmentById(id);
+        model.addAttribute("dsthuoc", this.prescriptionItemService.getPrescriptionsbyIDPres(a.getPrescriptionId().getId()));
+        return "kethuoc";
+    }
+
+    @PostMapping("/doctor/khambenh/kethuoc")
+    public String update(@ModelAttribute(value = "phieuthuoc")
+            @Valid PrescriptionItem phieuthuoc, @RequestParam(value = "PreId") int id,
+            BindingResult rs
+    ) {
+        if (!rs.hasErrors()) {
+            if (this.prescriptionItemService.addOrUpdatePrescriptionItem(phieuthuoc, id) == true) {
+                Medicine medicine = this.medicineService.getMedicineById(phieuthuoc.getMedicineId().getId());
+                int soluongthuoc = medicine.getQuantity();
+                int soluongban = phieuthuoc.getQuantity();
+                int soluongupdate = soluongthuoc - soluongban;
+                medicine.setQuantity(soluongupdate);
+                this.medicineService.addOrUpdateMedicine(medicine); //
+                return "redirect:/doctor/khambenh/kethuoc/" + id;
+            }
+        }
+        return "doctor";
+    }
+
     @GetMapping("/doctor/khambenh/lichsukham")
-    public String lichsukham(Model model, Authentication authentication) {
+    public String lichsukham(Model model, Authentication authentication
+    ) {
 
         return "lichsukham";
     }

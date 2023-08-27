@@ -7,6 +7,7 @@ package com.owen.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.owen.fomatters.AppointmentFomatter;
+import com.owen.fomatters.MedicineFormatter;
 import com.owen.fomatters.PrescriptionFomatter;
 import com.owen.fomatters.RoleFomatters;
 import com.owen.fomatters.ServiceFomatter;
@@ -14,11 +15,14 @@ import com.owen.fomatters.ShiftFomatter;
 import com.owen.fomatters.UnitFomatter;
 import com.owen.fomatters.UserFormatter;
 import java.text.SimpleDateFormat;
+import java.util.Properties;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+//import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -82,6 +86,26 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new PrescriptionFomatter());
         registry.addFormatter(new ServiceFomatter());
         registry.addFormatter(new AppointmentFomatter());
+        registry.addFormatter(new MedicineFormatter());
     }
+    
+
+    
+//    @Bean
+//    public JavaMailSender javaMailSender() {
+//        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//        mailSender.setHost("smtp.gmail.com");
+//        mailSender.setPort(587);
+//        mailSender.setUsername("2051050075duy@ou.edu.vn");
+//        mailSender.setPassword("0388853371baodu");
+//
+//        Properties properties = new Properties();
+//        properties.put("mail.smtp.auth", "true");
+//        properties.put("mail.smtp.starttls.enable", "true");
+//        mailSender.setJavaMailProperties(properties);
+//
+//        return mailSender;
+//
+//    }
     
 }

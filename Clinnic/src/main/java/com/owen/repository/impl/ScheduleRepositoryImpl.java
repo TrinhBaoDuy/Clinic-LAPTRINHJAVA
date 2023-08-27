@@ -90,6 +90,24 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
             return false;
         }
     }
+    
+    @Override
+    public boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails) {
+    Session s = this.factory.getObject().getCurrentSession();
+    try {
+        for (ScheduleDetail scheduleDetail : scheduleDetails) {
+            if (scheduleDetail.getId() == null) {
+                s.save(scheduleDetail);
+            } else {
+                s.update(scheduleDetail);
+            }
+        }
+        return true;
+    } catch (HibernateException ex) {
+        ex.printStackTrace();
+        return false;
+    }
+}
 
     @Override
     public boolean deleteScheduleDetail(int id) {

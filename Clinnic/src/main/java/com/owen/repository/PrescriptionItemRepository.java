@@ -4,12 +4,18 @@
  */
 package com.owen.repository;
 
+import com.owen.pojo.Prescription;
 import com.owen.pojo.PrescriptionItem;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Trinh Bao Duy
  */
 public interface PrescriptionItemRepository {
-    boolean addOrUpdatePrescriptionItem(PrescriptionItem m);
+
+    boolean addOrUpdatePrescriptionItem(PrescriptionItem m, int id);
+
+    List<PrescriptionItem> getPrescriptionsbyIDPres(int id);
 }

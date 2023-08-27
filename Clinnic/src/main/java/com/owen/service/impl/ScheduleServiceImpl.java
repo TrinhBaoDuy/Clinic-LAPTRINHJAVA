@@ -36,5 +36,10 @@ public class ScheduleServiceImpl implements ScheduleService{
     public boolean deleteScheduleDetail(int id) {
         return this.scheduleRepository.deleteScheduleDetail(id);
     }
+
+    @Override
+    public boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails) {
+        return this.scheduleRepository.addOrUpdateScheduleDetails(scheduleDetails);
+    }
     
 }

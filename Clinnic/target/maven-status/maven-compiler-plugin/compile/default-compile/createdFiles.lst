@@ -74,6 +74,7 @@ com\owen\fomatters\ShiftFomatter.class
 com\owen\pojo\Payment_.class
 com\owen\pojo\Tienkham.class
 com\owen\pojo\Service.class
+com\owen\fomatters\MedicineFormatter.class
 com\owen\fomatters\RoleFomatters.class
 com\owen\pojo\ServiceItems.class
 com\owen\pojo\Shift.class

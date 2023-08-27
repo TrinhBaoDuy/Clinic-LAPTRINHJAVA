@@ -4,10 +4,18 @@
  */
 package com.owen.repository.impl;
 
+import com.owen.pojo.Appointment;
+import com.owen.pojo.Appointment_;
+import com.owen.pojo.Prescription;
 import com.owen.pojo.PrescriptionItem;
 import com.owen.repository.PrescriptionItemRepository;
+import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -20,8 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class PrescriptionItemRepositoryImpl implements PrescriptionItemRepository{
-    
+public class PrescriptionItemRepositoryImpl implements PrescriptionItemRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
 
@@ -29,11 +37,13 @@ public class PrescriptionItemRepositoryImpl implements PrescriptionItemRepositor
     private Environment env;
 
     @Override
-    public boolean addOrUpdatePrescriptionItem(PrescriptionItem m) {
+    public boolean addOrUpdatePrescriptionItem(PrescriptionItem m, int id) {
         Session s = this.factory.getObject().getCurrentSession();
+        Appointment p = s.get(Appointment.class, id);
         try {
             if (m.getId() == null) {
                 s.save(m);
+                m.setPrescriptionId(p.getPrescriptionId());
             } else {
                 s.update(m);
             }
@@ -43,5 +53,17 @@ public class PrescriptionItemRepositoryImpl implements PrescriptionItemRepositor
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<PrescriptionItem> getPrescriptionsbyIDPres(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<PrescriptionItem> query = builder.createQuery(PrescriptionItem.class);
+        Root<PrescriptionItem> root = query.from(PrescriptionItem.class);
+
+        query.select(root).where(builder.equal(root.get("prescriptionId"), id));
+
+        return session.createQuery(query).getResultList();
     }
 }

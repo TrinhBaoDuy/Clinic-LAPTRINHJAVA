@@ -38,7 +38,7 @@ public class ApiAppointmentController {
 //    }
 
     @GetMapping("/appointments")
-//    @CrossOrigin
+    @CrossOrigin
     public ResponseEntity<List<Appointment>> list(@RequestParam Map<String, String> params) {
         return new ResponseEntity<>(this.appointmentService.getAppointments(params), HttpStatus.OK);
     }

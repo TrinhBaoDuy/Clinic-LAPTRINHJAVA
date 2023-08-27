@@ -5,11 +5,14 @@
 package com.owen.service;
 
 import com.owen.pojo.PrescriptionItem;
+import java.util.List;
 
 /**
  *
  * @author Trinh Bao Duy
  */
 public interface PrescriptionItemService {
-    boolean addOrUpdatePrescriptionItem(PrescriptionItem m);
+    boolean addOrUpdatePrescriptionItem(PrescriptionItem m, int id);
+    
+    List<PrescriptionItem> getPrescriptionsbyIDPres(int id);
 }

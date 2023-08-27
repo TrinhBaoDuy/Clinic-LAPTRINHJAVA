@@ -7,6 +7,7 @@ package com.owen.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import java.text.SimpleDateFormat;
+import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -15,6 +16,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+//import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -91,10 +94,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers("/nurse/**").access("hasRole('NURSE')");
         http.authorizeRequests().antMatchers("/").permitAll().
                 antMatchers("/doctor/**").access("hasRole('DOCTOR')");
-         http.authorizeRequests().antMatchers("/").permitAll().
+        http.authorizeRequests().antMatchers("/").permitAll().
                 antMatchers("/user/**").access("hasRole('SICKPERSON')");
-
-       
 
         http.csrf().disable();
     }
@@ -107,5 +108,22 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public CustomDateEditor customDateEditor() {
         return new CustomDateEditor(simpleDateFormat(), true);
     }
+
+//    @Bean
+//    public JavaMailSender javaMailSender() {
+//        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//        mailSender.setHost("smtp.gmail.com");
+//        mailSender.setPort(587);
+//        mailSender.setUsername("2051050075duy@ou.edu.vn");
+//        mailSender.setPassword("0388853371baodu");
+//
+//        Properties properties = new Properties();
+//        properties.put("mail.smtp.auth", "true");
+//        properties.put("mail.smtp.starttls.enable", "true");
+//        mailSender.setJavaMailProperties(properties);
+//
+//        return mailSender;
+//
+//    }
 
 }

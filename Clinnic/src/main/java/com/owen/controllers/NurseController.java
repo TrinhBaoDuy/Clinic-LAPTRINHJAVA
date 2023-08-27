@@ -5,24 +5,22 @@
 package com.owen.controllers;
 
 import com.owen.pojo.Appointment;
-import com.owen.pojo.Medicine;
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
 import com.owen.service.UserService;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.env.Environment;
+//import org.springframework.mail.SimpleMailMessage;
+//import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -55,6 +53,9 @@ public class NurseController {
 
     @Autowired
     private UserService userService;
+
+//    @Autowired
+//    private JavaMailSender emailSender;
 
     @GetMapping("/nurse")
     public String nurseInfor(Model model, @RequestParam Map<String, String> params, Authentication authentication) {
@@ -93,6 +94,14 @@ public class NurseController {
             BindingResult rs) {
         if (!rs.hasErrors()) {
             if (this.appointmentService.addOrUpdateAppointment(a) == true) {
+//                SimpleMailMessage message = new SimpleMailMessage();
+//                message.setTo(a.getSickpersonId().getEmaill());
+//                message.setSubject("LỊCH HẸN KHÁM BỆNH (Health Couch)");
+//                message.setText("Chào, " + a.getSickpersonId().getName()
+//                        + " \nBạn có lịch hẹn khám tại bệnh viện Health Couch vào ngày [" + a.getMedicalappointmentDate()
+//                );
+////                message.setCharset("UTF-8");
+//                emailSender.send(message);
                 return "redirect:/nurse";
             }
         }

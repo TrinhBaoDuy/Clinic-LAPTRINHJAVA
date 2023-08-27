@@ -13,7 +13,12 @@ import java.util.Map;
  * @author Trinh Bao Duy
  */
 public interface ScheduleRepository {
+
     List<ScheduleDetail> getSchedules(Map<String, String> params);
+
     boolean addOrUpdateScheduleDetail(ScheduleDetail m);
+
     boolean deleteScheduleDetail(int id);
+
+    boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails);
 }

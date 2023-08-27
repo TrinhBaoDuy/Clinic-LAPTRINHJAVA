@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <form:form method="post" action="${action}" modelAttribute="lichlam"  enctype="multipart/form-data">
+    <form:form method="post" action="${action}" modelAttribute="lichlam" >
         <form:hidden path="id" />
         <form:hidden path="userId" value="${doctor.id}" />
         <form:hidden path="status" />
