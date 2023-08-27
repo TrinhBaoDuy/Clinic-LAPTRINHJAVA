@@ -11,13 +11,16 @@ import com.owen.service.UserService;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.env.Environment;
-//import org.springframework.mail.SimpleMailMessage;
-//import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+//import org.apache.commons.mail.Email;
+//import org.apache.commons.mail.EmailException;
+//import org.apache.commons.mail.SimpleEmail;
+//import org.apache.commons.mail.DefaultAuthenticator;
 
 /**
  *
@@ -54,8 +61,8 @@ public class NurseController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private JavaMailSender emailSender;
+    @Autowired
+    private JavaMailSender emailSender;
 
     @GetMapping("/nurse")
     public String nurseInfor(Model model, @RequestParam Map<String, String> params, Authentication authentication) {
@@ -91,20 +98,57 @@ public class NurseController {
 
     @PostMapping("/nurse")
     public String Update(Model model, Authentication authentication, @ModelAttribute(value = "appoment") @Valid Appointment a,
-            BindingResult rs) {
-        if (!rs.hasErrors()) {
-            if (this.appointmentService.addOrUpdateAppointment(a) == true) {
+            BindingResult rs) throws MessagingException {
+//        if (!rs.hasErrors()) {
+//            if (this.appointmentService.addOrUpdateAppointment(a) == true) {
 //                SimpleMailMessage message = new SimpleMailMessage();
-//                message.setTo(a.getSickpersonId().getEmaill());
-//                message.setSubject("LỊCH HẸN KHÁM BỆNH (Health Couch)");
-//                message.setText("Chào, " + a.getSickpersonId().getName()
-//                        + " \nBạn có lịch hẹn khám tại bệnh viện Health Couch vào ngày [" + a.getMedicalappointmentDate()
-//                );
-////                message.setCharset("UTF-8");
+//                String nguoinhan = this.userService.getUserById(a.getSickpersonId().getId()).getEmaill();
+//                System.err.println(nguoinhan);
+//                message.setTo(nguoinhan);
+//                message.setSubject("LỊCH HẸN PHÒNG MẠCH ");
+////                message.setText("Chào, " + a.getSickpersonId().getName() + " \nBạn có lịch hẹn khám tại phòng mạch PIXCEL vào ngày [" + a.getMedicalappointmentDate() + "\n Chúng tôi hân hạnh chào đón bạn. ");
+//                String content = "<html><body>"
+//                        + "<p>Chào, " + a.getSickpersonId().getName() + "</p>"
+//                        + "<p>Bạn có lịch hẹn khám tại phòng mạch PIXCEL vào ngày [" + a.getMedicalappointmentDate() + "]</p>"
+//                        + "<p>Chúng tôi hân hạnh chào đón bạn.</p>"
+//                        + "</body></html>";
+//                message.setText(content);
+//                message.set(content, "text/html");
 //                emailSender.send(message);
-                return "redirect:/nurse";
+//
+//            }
+//            return "redirect:/nurse";
+//        }
+//
+//        return "nurse";
+        if (!rs.hasErrors()) {
+            if (this.appointmentService.addOrUpdateAppointment(a)) {
+                MimeMessage message = emailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+                String nguoinhan = this.userService.getUserById(a.getSickpersonId().getId()).getEmaill();
+                String tennguoibenh = this.userService.getUserById(a.getSickpersonId().getId()).getName();
+                String tenbacsi = this.userService.getUserById(a.getDoctorId().getId()).getName();
+                String ngaydikham = a.getAppointmentDate().toString();
+                System.err.println(nguoinhan);
+                helper.setTo(nguoinhan);
+                helper.setSubject("LỊCH HẸN PHÒNG MẠCH");
+
+                String content = "<html><body>"
+                        + "<p>Xin chào, " +tennguoibenh + "</p>"
+                        + "<p>Bạn có lịch hẹn khám tại phòng mạch PIXCEL vào ngày [" + ngaydikham + "]</p>"
+                        + "<p>Bác sĩ của bạn là "+tenbacsi +" .</p>"
+                        + "<p>Chúng tôi hân hạnh chào đón bạn.</p>"
+                        + "</body></html>";
+
+                helper.setText(content, true);
+
+                emailSender.send(message);
             }
+            return "redirect:/nurse";
         }
+
         return "nurse";
     }
 }
+//                message.setCharset("UTF-8");
+//                message.("Content-Type", "text/plain; charset=UTF-8");

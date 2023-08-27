@@ -5,8 +5,6 @@
 package com.owen.repository.impl;
 
 import com.owen.pojo.Appointment;
-import com.owen.pojo.Appointment_;
-import com.owen.pojo.Prescription;
 import com.owen.pojo.PrescriptionItem;
 import com.owen.repository.PrescriptionItemRepository;
 import java.util.List;
@@ -15,7 +13,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
