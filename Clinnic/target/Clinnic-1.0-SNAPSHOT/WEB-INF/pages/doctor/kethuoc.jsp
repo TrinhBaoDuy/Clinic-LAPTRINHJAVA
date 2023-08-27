@@ -9,6 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url value="/doctor/khambenh/kethuoc" var="action" />
 <!DOCTYPE html>
+<script src="<c:url value="/js/FunctionObject.js" />"></script>
 <div class="infor1">
     <input type="hidden" name="PreId" value="${appo.id}" />
     <div class="contentdkk2_main contentdkk2_main1">
@@ -106,7 +107,8 @@
                                         <td>${t.medicineId.name}</td>
                                         <td>${t.quantity}-${t.medicineId.idUnit.name}</td>
                                         <td>${t.instructions}</td>
-                                        <td></td>
+                                        <c:url value="/api/doctor/khambenh/kethuoc/${t.id}" var="apiDel" />
+                                        <td><button class="btn btn-danger" onclick="delObject('${apiDel}', ${t.id})">Xóa</button></td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -136,7 +138,7 @@
             var button = this;
             var overlay = button.nextElementSibling;
 
-            overlay.style.display = "block";       
+            overlay.style.display = "block";
 
         });
     }
@@ -150,10 +152,10 @@
 </script>
 
 <style>
-     CSS cho trang đè 
+    CSS cho trang đè
     .overlay {
         display: none;
-        /*Ẩn trang đè ban đầu*/ 
+        /*Ẩn trang đè ban đầu*/
         position: fixed;
         top: 0;
         left: 0;
@@ -169,10 +171,10 @@
         background-color: #fff;
         padding: 20px;
         border-radius: 5px;
-        max-width: 400px; 
-        /*Độ rộng tối đa của trang đè*/ 
-        width: 80%;  
-        /*Độ rộng thực tế của trang đè*/ 
+        max-width: 400px;
+        /*Độ rộng tối đa của trang đè*/
+        width: 80%;
+        /*Độ rộng thực tế của trang đè*/
         position: absolute;
         top: 50%;
         left: 50%;

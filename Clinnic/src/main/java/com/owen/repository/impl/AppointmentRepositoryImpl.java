@@ -208,4 +208,24 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         return results.isEmpty() ? null : results.get(0);
     }
 
+    @Override
+    public List<Appointment> getAppointmentsbyUser(User u) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
+        Root<Appointment> root = criteria.from(Appointment.class);
+
+        Predicate doctorPredicate = builder.equal(root.get("sickpersonId"), u);
+        Predicate statusPredicate = builder.equal(root.get("status"), 1);
+        Predicate prescriptionPredicate = builder.isNotNull(root.get("prescriptionId"));
+
+        Predicate finalPredicate = builder.and(doctorPredicate, statusPredicate, prescriptionPredicate);
+
+        criteria.select(root).where(finalPredicate);
+        criteria.orderBy(builder.desc(root.get("appointmentDate")));
+        Query query = session.createQuery(criteria);
+        return query.getResultList();
+    }
+
 }

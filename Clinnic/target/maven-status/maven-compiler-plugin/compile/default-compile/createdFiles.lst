@@ -68,6 +68,7 @@ com\owen\repository\UnitRepository.class
 com\owen\repository\PrescriptionRepository.class
 com\owen\configs\AppConfig.class
 com\owen\pojo\Tienkham_.class
+com\owen\controllers\ApiPrescriptionItemController.class
 com\owen\repository\impl\UserRepositoryImpl.class
 com\owen\fomatters\ShiftFomatter.class
 com\owen\pojo\Payment_.class

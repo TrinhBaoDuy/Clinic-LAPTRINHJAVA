@@ -6,7 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
     <div class="infor1">
 
@@ -28,17 +29,26 @@
 
             <section class="table__body1 table__body11">
                 <div class="content2">
-                    <h2>Nguyễn Văn A</h2>
+                    <h2>${benhnhan.name}</h2>
 
                     <table class="table table-striped">
                         <thead>
                             <tr>
 
-                                <th>Ngày khám</th>                             
+                                <th>Ngày khám</th> 
+                                <th>Bác Sĩ Khám</th> 
                                 <th>Triệu chứng</th>
                                 <th>Kết luận</th>
                             </tr>
                         </thead>
+                         <c:forEach items="${lishsubenh}" var="ds">
+                            <tr>
+                                <td><fmt:formatDate value="${ds.appointmentDate}" pattern="dd/MM/yyyy" /></td>
+                                <td>${ds.doctorId.name}</td>
+                                <td>${ds.prescriptionId.conclusion}</td>
+                                <td>${ds.prescriptionId.symptom}</td>
+                            </tr>
+                        </c:forEach>
                     </table>
                 </div>    
             </section>

@@ -18,4 +18,6 @@ public interface PrescriptionItemRepository {
     boolean addOrUpdatePrescriptionItem(PrescriptionItem m, int id);
 
     List<PrescriptionItem> getPrescriptionsbyIDPres(int id);
+    
+    boolean deletePres(int id);
 }

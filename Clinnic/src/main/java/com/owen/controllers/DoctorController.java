@@ -243,9 +243,11 @@ public class DoctorController {
         return "doctor";
     }
 
-    @GetMapping("/doctor/khambenh/lichsukham")
-    public String lichsukham(Model model, Authentication authentication
+    @GetMapping("/doctor/lichsukham/{id}")
+    public String lichsukham(Model model, @PathVariable(value = "id") int id
     ) {
+        model.addAttribute("benhnhan", this.userService.getUserById(id));
+        model.addAttribute("lishsubenh", this.appointmentService.getAppointmentsbyUser(this.userService.getUserById(id)));
 
         return "lichsukham";
     }

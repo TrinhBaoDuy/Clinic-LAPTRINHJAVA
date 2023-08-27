@@ -62,7 +62,7 @@
                     <tbody>
                         <c:forEach items="${lichkham}" var="ds">
                             <tr>
-                                <td><a href="#">${ds.sickpersonId.name}</a></td>
+                                <td><a href="<c:url value="/doctor/lichsukham/${ds.sickpersonId.id}" />">${ds.sickpersonId.name}</a></td>
                                 <td><script>
                                         var datetime = new Date("${ds.appointmentDate}");
                                         var date = datetime.getDate();

@@ -30,5 +30,10 @@ public class PrescriptionItemServiceImpl implements PrescriptionItemService {
     public List<PrescriptionItem> getPrescriptionsbyIDPres(int id) {
         return this.prescriptionItemRepository.getPrescriptionsbyIDPres(id);
     }
+
+    @Override
+    public boolean deletePres(int id) {
+        return this.prescriptionItemRepository.deletePres(id);
+    }
     
 }

@@ -28,4 +28,6 @@ public interface AppointmentService {
     Appointment getAppointmentById(int id);
 
     boolean addOrUpdateAppointment(Appointment m);
+    
+    List<Appointment> getAppointmentsbyUser(User u);
 }

@@ -5,6 +5,7 @@
 package com.owen.repository.impl;
 
 import com.owen.pojo.Appointment;
+import com.owen.pojo.Medicine;
 import com.owen.pojo.PrescriptionItem;
 import com.owen.repository.PrescriptionItemRepository;
 import java.util.List;
@@ -62,5 +63,24 @@ public class PrescriptionItemRepositoryImpl implements PrescriptionItemRepositor
         query.select(root).where(builder.equal(root.get("prescriptionId"), id));
 
         return session.createQuery(query).getResultList();
+    }
+
+    @Override
+    public boolean deletePres(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        PrescriptionItem me = session.get(PrescriptionItem.class, id);
+        try {
+            int idthuoc = me.getMedicineId().getId();
+            Medicine thuoc = session.get(Medicine.class, idthuoc);
+            int slban = me.getQuantity();
+            int slkho = thuoc.getQuantity();
+            int naplai = slkho +slban;
+            thuoc.setQuantity(naplai);
+            session.delete(me);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace(); 
+        }
+        return false;
     }
 }

@@ -26,6 +26,9 @@ public interface AppointmentRepository {
     List<Object[]> getAppointmentServiceByDoctor(User doctor);
 
     boolean addOrUpdateAppointment(Appointment m);
+    
     Appointment getAppointmentById(int id);
+    
+    List<Appointment> getAppointmentsbyUser(User u);
     
 }

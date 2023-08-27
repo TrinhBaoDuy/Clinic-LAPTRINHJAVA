@@ -58,4 +58,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         return this.appointmentRepository.addOrUpdateAppointment(m);
     }
 
+    @Override
+    public List<Appointment> getAppointmentsbyUser(User u) {
+        return this.appointmentRepository.getAppointmentsbyUser(u);
+    }
+
 }
