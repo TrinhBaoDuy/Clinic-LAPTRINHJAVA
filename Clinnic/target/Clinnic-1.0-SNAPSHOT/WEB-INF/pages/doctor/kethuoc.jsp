@@ -10,6 +10,7 @@
 <c:url value="/doctor/khambenh/kethuoc" var="action" />
 <!DOCTYPE html>
 <div class="infor1">
+    <input type="hidden" name="PreId" value="${appo.id}" />
     <div class="contentdkk2_main contentdkk2_main1">
         <div class="imglogo">
             <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692731869/zyro-image_ukyhu5.png" alt="logo">

@@ -4,7 +4,6 @@
  */
 package com.owen.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -43,15 +42,12 @@ public class Bill implements Serializable {
     private Integer payMoney;
     @JoinColumn(name = "appo_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private Appointment appoId;
     @JoinColumn(name = "pay_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private Payment payId;
     @JoinColumn(name = "tienkham", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private Tienkham tienkham;
 
     public Bill() {
@@ -125,5 +121,5 @@ public class Bill implements Serializable {
     public String toString() {
         return "com.owen.pojo.Bill[ id=" + id + " ]";
     }
-
+    
 }

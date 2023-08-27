@@ -1,0 +1,101 @@
+<%-- 
+    Document   : quanlitaikhoan
+    Created on : Aug 15, 2023, 1:27:23 PM
+    Author     : hung
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:url value="/admin/quanlytaikhoan" var="action" />
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+    <script src="<c:url value="/js/FunctionObject.js" />"></script>
+    <div class="container">
+        <h1>Trang quản lý tài khoản</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Avatar</th>
+                    <th>Username</th>
+                    <th>Họ và tên</th>
+                    <th>Chức vụ</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Email</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${user}" var="u">
+                    <tr>
+                        <td>${u.id}</td>
+                        <td><img style="height: 40px; width: auto" src="<c:url value="${u.avatar}"/>" alt="Avatar"></td>
+                        <td>${u.username}</td>
+                        <td>${u.name}</td>
+                        <td>${u.roleId.name.substring(5)}</td>
+                        <td>${u.phone}</td>
+                        <td>${u.address}</td>
+                        <td>${u.emaill}</td>
+                        <td><fmt:formatDate value="${u.dod}" pattern="dd/MM/yyyy" /></td>
+                        <td>${u.sex} </td>
+                        <td> <c:url value="/api/${u.id}" var="apiDel" />
+                            <a href="<c:url value="/admin/quanlytaikhoan/themtaikhoan/${u.id}"/>" class="btn btn-success">Cập nhật</a>
+                            <button class="btn btn-danger" onclick="delObject('${apiDel}', ${u.id})">Xóa</button></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <a href="<c:url value="/admin/quanlytaikhoan/themtaikhoan"/>">THÊM TÀI KHOẢN</a>
+    </div>
+</sec:authorize>
+
+<style>
+
+
+    .container {
+
+        margin: 0 auto;
+        padding: 20px;
+        border: 0.5px solid #5AAC4E;
+        border-radius: 30px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    thead {
+        color: white;
+
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+
+    }
+
+    th {
+        background-color: #198754;
+        ;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 50px;
+    }
+</style>

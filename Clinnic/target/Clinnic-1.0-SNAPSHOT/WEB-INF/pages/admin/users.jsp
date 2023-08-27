@@ -15,6 +15,7 @@
     <form:form method="post" action="${action}" modelAttribute="user" enctype="multipart/form-data">
         <form:hidden path="id" />
         <form:hidden path="avatar" />
+        
 
         <%--<form:errors path="*" element="div" cssClass="alert alert-danger" />--%>
         <div class="form-floating mb-3 mt-3">

@@ -23,6 +23,16 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/admin/users.jsp" />
     </definition>
+    <definition name="themtaikhoan" extends="baseLayout">
+        <put-attribute name="title" value="Thêm tài khoản" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/admin/themtaikhoan.jsp" />
+    </definition>
+    <definition name="quanlytaikhoan" extends="baseLayout">
+        <put-attribute name="title" value="Quản lý tài khoản" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/admin/quanlytaikhoan.jsp" />
+    </definition>
     <definition name="login" extends="baseLayout">
         <put-attribute name="title" value="Dang nhap" />
         <put-attribute name="content"

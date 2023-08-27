@@ -4,7 +4,6 @@
  */
 package com.owen.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -22,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -56,26 +54,20 @@ public class Appointment implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date medicalappointmentDate;
     @OneToMany(mappedBy = "appoId")
-    @JsonIgnore
     private Set<Bill> billSet;
     @JoinColumn(name = "prescription_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private Prescription prescriptionId;
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private User doctorId;
     @JoinColumn(name = "nurse_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private User nurseId;
     @JoinColumn(name = "sickperson_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private User sickpersonId;
     @OneToMany(mappedBy = "appoId")
-    @JsonIgnore
     private Set<ServiceItems> serviceItemsSet;
 
     public Appointment() {
@@ -191,6 +183,5 @@ public class Appointment implements Serializable {
     public String toString() {
         return "com.owen.pojo.Appointment[ id=" + id + " ]";
     }
-
     
 }

@@ -188,7 +188,7 @@ public class DoctorController {
     public String update(@ModelAttribute(value = "lichlam") @Valid ScheduleDetail scheduleDetail,
             BindingResult rs) {
         if (!rs.hasErrors()) {
-            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetail)== true);
+            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetail) == true);
             return "redirect:/doctor/dangkylam";
         }
         return "dangkylam";
@@ -202,13 +202,12 @@ public class DoctorController {
 //        }
 //        return "dangkylam";
 //    }
-    
 
     @GetMapping("/doctor/khambenh/kethuoc")
-    public String kethuoc(Model model, @RequestParam Map<String, String> params, @RequestParam(value = "PreId") int PreId
+    public String kethuoc(Model model, @RequestParam Map<String, String> params, @RequestParam(value = "PreId") int id
     ) {
         model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
-        Appointment a = this.appointmentService.getAppointmentById(PreId);
+        Appointment a = this.appointmentService.getAppointmentById(id);
         model.addAttribute("dsthuoc", this.prescriptionItemService.getPrescriptionsbyIDPres(a.getPrescriptionId().getId()));
         return "kethuoc";
     }

@@ -16,10 +16,13 @@ import com.owen.service.UserService;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  *
@@ -33,6 +36,9 @@ public class UserServiceImpl implements UserService {
     private Cloudinary cloudinary;
     @Autowired
     private UserRepository userRepo;
+    
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getUsers(Map<String, String> params) {
@@ -56,6 +62,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addOrUpdateUser(User u) {
+        if (u.getId()== null) {
+            String pass = u.getPassword();
+            u.setPassword(this.passwordEncoder.encode(pass));
+        }
         if (!u.getFile().isEmpty()) {
             try {
                 Map r = this.cloudinary.uploader().upload(u.getFile().getBytes(),

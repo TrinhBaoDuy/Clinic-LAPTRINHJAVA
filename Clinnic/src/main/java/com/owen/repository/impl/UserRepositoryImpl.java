@@ -4,6 +4,8 @@
  */
 package com.owen.repository.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.owen.pojo.Role;
 import com.owen.pojo.User;
 import java.util.ArrayList;
@@ -24,6 +26,11 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.owen.repository.UserRepository;
+import com.owen.service.impl.UserServiceImpl;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  *
@@ -36,9 +43,15 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Autowired
     private Environment env;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private Cloudinary cloudinary;
 
     @Override
     public List<User> getUsers(Map<String, String> params) {
@@ -56,7 +69,6 @@ public class UserRepositoryImpl implements UserRepository {
                 predicates.add(b.like(root.get("name"), String.format("%%%s%%", kw)));
             }
 
-
             String roleId = params.get("roleId");
             if (roleId != null && !roleId.isEmpty()) {
                 predicates.add(b.equal(root.get("roleId"), Integer.parseInt(roleId)));
@@ -65,8 +77,7 @@ public class UserRepositoryImpl implements UserRepository {
             q.where(predicates.toArray(new Predicate[predicates.size()]));
         }
 
-        q.orderBy(b.desc(root.get("id")));
-
+//        q.orderBy(b.desc(root.get("id")));
         Query query = session.createQuery(q);
 
         if (params != null) {
@@ -103,7 +114,7 @@ public class UserRepositoryImpl implements UserRepository {
             session.delete(user);
             return true;
         } catch (HibernateException ex) {
-            ex.printStackTrace(); 
+            ex.printStackTrace();
         }
         return false;
 
@@ -121,7 +132,7 @@ public class UserRepositoryImpl implements UserRepository {
             if (kw != null && !kw.isEmpty()) {
                 query.where(
                         builder.and(
-//                                builder.equal(root.get("roleId"), 2),
+                                //                                builder.equal(root.get("roleId"), 2),
                                 builder.like(root.get("name"), String.format("%%%s%%", kw))
                         )
                 );
@@ -142,7 +153,6 @@ public class UserRepositoryImpl implements UserRepository {
             } else {
                 s.update(p);
             }
-
             return true;
         } catch (HibernateException ex) {
             ex.printStackTrace();
@@ -159,14 +169,15 @@ public class UserRepositoryImpl implements UserRepository {
         query.where(
                 builder.and(
                         builder.equal(root.get("id"), id)
-//                        builder.equal(root.get("roleId"), 2)
+                //                        builder.equal(root.get("roleId"), 2)
                 )
         );
         Query q = session.createQuery(query);
         List<User> results = q.getResultList();
         return results.isEmpty() ? null : results.get(0);
     }
-     @Override
+
+    @Override
     public User getUserByUsername(String username) {
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM User WHERE username=:un");
@@ -174,11 +185,11 @@ public class UserRepositoryImpl implements UserRepository {
 
         return (User) q.getSingleResult();
     }
-    public Role getRoleBS()
-    {
+
+    public Role getRoleBS() {
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("From Role Where name =: doctor");
-        q.setParameter("doctor", "ROLE_DOCTOR" );
+        q.setParameter("doctor", "ROLE_DOCTOR");
         return (Role) q.getSingleResult();
     }
 

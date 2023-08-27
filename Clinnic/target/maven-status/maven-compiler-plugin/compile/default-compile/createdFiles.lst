@@ -3,7 +3,6 @@ com\owen\pojo\User_.class
 com\owen\controllers\SickPersonController.class
 com\owen\service\ScheduleService.class
 com\owen\service\impl\PrescriptionServiceImpl.class
-com\owen\controllers\UserController.class
 com\owen\pojo\Medicine.class
 com\owen\service\AppointmentService.class
 com\owen\repository\impl\ScheduleRepositoryImpl.class
@@ -46,7 +45,6 @@ com\owen\repository\impl\PrescriptionRepositoryImpl.class
 com\owen\pojo\Prescription_.class
 com\owen\service\impl\DichvuServiceImpl.class
 com\owen\service\UserService.class
-com\owen\pojo\ScheduleDetailListForm.class
 com\owen\fomatters\UnitFomatter.class
 com\owen\pojo\Role.class
 com\owen\repository\PrescriptionItemRepository.class
@@ -63,6 +61,7 @@ com\owen\service\impl\RoleServiceImpl.class
 com\owen\pojo\Unit.class
 com\owen\repository\impl\RoleRepositoryImpl.class
 com\owen\controllers\AppointmentController.class
+com\owen\controllers\AdminController.class
 com\owen\service\impl\PrescriptionItemServiceImpl.class
 com\owen\service\ServiceService.class
 com\owen\repository\UnitRepository.class
