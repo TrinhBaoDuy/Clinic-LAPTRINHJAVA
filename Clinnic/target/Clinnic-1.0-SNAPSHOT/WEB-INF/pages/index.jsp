@@ -66,5 +66,8 @@
         </table>
     </div>
 </section>
-
+<div>
+    <h1>Prescription Export</h1>
+    <a href="${pageContext.request.contextPath}/export">Export Prescription to PDF</a>
+</div>
 

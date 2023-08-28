@@ -6,6 +6,7 @@ package com.owen.repository;
 
 import com.owen.pojo.Appointment;
 import com.owen.pojo.User;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,4 +32,5 @@ public interface AppointmentRepository {
     
     List<Appointment> getAppointmentsbyUser(User u);
     
+    boolean canAcceptAppointment(Date date);
 }

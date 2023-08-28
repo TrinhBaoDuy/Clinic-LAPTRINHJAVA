@@ -8,6 +8,7 @@ import com.owen.pojo.Appointment;
 import com.owen.pojo.User;
 import com.owen.repository.AppointmentRepository;
 import com.owen.service.AppointmentService;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public List<Appointment> getAppointmentsbyUser(User u) {
         return this.appointmentRepository.getAppointmentsbyUser(u);
+    }
+
+    @Override
+    public boolean canAcceptAppointment(Date date) {
+           return this.appointmentRepository.canAcceptAppointment(date);
     }
 
 }

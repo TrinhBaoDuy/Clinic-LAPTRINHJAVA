@@ -41,5 +41,10 @@ public class PrescriptionServiceImpl implements  PrescriptionService{
     public String getDoctorPrescribeMedicine(int id) {
         return this.prescriptionRepository.getDoctorPrescribeMedicine(id);
     }
+
+    @Override
+    public Prescription getPrescriptionById(int id) {
+        return this.prescriptionRepository.getPrescriptionById(id);
+    }
     
 }

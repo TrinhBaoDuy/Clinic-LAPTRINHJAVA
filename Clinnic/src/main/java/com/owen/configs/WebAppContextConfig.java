@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.owen.fomatters.AppointmentFomatter;
 import com.owen.fomatters.MedicineFormatter;
+import com.owen.fomatters.PaymentFormatter;
 import com.owen.fomatters.PrescriptionFomatter;
 import com.owen.fomatters.RoleFomatters;
 import com.owen.fomatters.ServiceFomatter;
@@ -87,6 +88,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new ServiceFomatter());
         registry.addFormatter(new AppointmentFomatter());
         registry.addFormatter(new MedicineFormatter());
+        registry.addFormatter(new PaymentFormatter());
     }
     
 

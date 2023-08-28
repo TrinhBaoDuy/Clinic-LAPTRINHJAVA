@@ -6,6 +6,7 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\UserRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\PrescriptionItemServiceImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\fomatters\UserFormatter.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\PaymentRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\CustomSuccessHandler.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\ScheduleRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\UnitService.java
@@ -21,6 +22,7 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\ScheduleService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\User.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\PrescriptionRepositoryImpl.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\BillRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\AppointmentService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\fomatters\MedicineFormatter.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\UnitServiceImpl.java
@@ -36,12 +38,16 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\ServiceItemRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\AdminController.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\RoleRepositoryImpl.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\PaymentRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\HibernateConfig.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\BillRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\ServiceRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\PrescriptionServiceImpl.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\fomatters\PaymentFormatter.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\UserService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\PrescriptionService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\NurseController.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\PaymentServiceImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\MedicineController.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\DoctorController.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Appointment.java
@@ -54,6 +60,7 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\fomatters\ShiftFomatter.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\fomatters\UnitFomatter.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\RoleReponsitory.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\PaymentService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\MedicineService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\SecurityWebApplicationInitializer.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Unit.java
@@ -64,11 +71,13 @@ C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\jav
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Shift.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\AppointmentRepository.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\ShiftService.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\BillServiceImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\impl\DichvuServiceImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\controllers\ApiUserController.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\PrescriptionItemRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\ShiftRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\ServiceItemRepository.java
+C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\service\BillService.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\repository\impl\AppointmentRepositoryImpl.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\pojo\Medicine.java
 C:\Users\Trinh Bao Duy\OneDrive\Desktop\Clinic-LAPTRINHJAVA\Clinnic\src\main\java\com\owen\configs\SpringSecurityConfig.java

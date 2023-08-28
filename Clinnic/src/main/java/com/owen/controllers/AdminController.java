@@ -77,4 +77,8 @@ public class AdminController {
         }
         return "themtaikhoan";
     }
+    @GetMapping("/admin")
+    public String thanhtoan() {
+        return "admin";
+    }
 }

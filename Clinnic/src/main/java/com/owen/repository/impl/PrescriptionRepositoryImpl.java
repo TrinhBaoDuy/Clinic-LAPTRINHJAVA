@@ -113,7 +113,7 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
             if (m.getId() == null) {
                 s.save(m);
                 a.setPrescriptionId(m);
-                
+
             } else {
                 s.update(m);
             }
@@ -123,5 +123,17 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public Prescription getPrescriptionById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Prescription> query = builder.createQuery(Prescription.class);
+        Root<Prescription> root = query.from(Prescription.class);
+        query.where(builder.equal(root.get("id"), id));
+        Query q = session.createQuery(query);
+        List<Prescription> results = q.getResultList();
+        return results.isEmpty() ? null : results.get(0);
     }
 }

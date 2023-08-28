@@ -12,6 +12,13 @@
 
 <c:url value="/nurse" var="actionUpdate" />
 <sec:authorize access="hasRole('NURSE')">
+    <div th:if="${successMessage}" class="success-message">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
     <div class="infor1">
         <nav class="bookingleft">
             <div class="dkk1">

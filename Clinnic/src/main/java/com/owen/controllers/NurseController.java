@@ -99,56 +99,63 @@ public class NurseController {
     @PostMapping("/nurse")
     public String Update(Model model, Authentication authentication, @ModelAttribute(value = "appoment") @Valid Appointment a,
             BindingResult rs) throws MessagingException {
-//        if (!rs.hasErrors()) {
-//            if (this.appointmentService.addOrUpdateAppointment(a) == true) {
-//                SimpleMailMessage message = new SimpleMailMessage();
-//                String nguoinhan = this.userService.getUserById(a.getSickpersonId().getId()).getEmaill();
-//                System.err.println(nguoinhan);
-//                message.setTo(nguoinhan);
-//                message.setSubject("LỊCH HẸN PHÒNG MẠCH ");
-////                message.setText("Chào, " + a.getSickpersonId().getName() + " \nBạn có lịch hẹn khám tại phòng mạch PIXCEL vào ngày [" + a.getMedicalappointmentDate() + "\n Chúng tôi hân hạnh chào đón bạn. ");
-//                String content = "<html><body>"
-//                        + "<p>Chào, " + a.getSickpersonId().getName() + "</p>"
-//                        + "<p>Bạn có lịch hẹn khám tại phòng mạch PIXCEL vào ngày [" + a.getMedicalappointmentDate() + "]</p>"
-//                        + "<p>Chúng tôi hân hạnh chào đón bạn.</p>"
-//                        + "</body></html>";
-//                message.setText(content);
-//                message.set(content, "text/html");
-//                emailSender.send(message);
-//
-//            }
-//            return "redirect:/nurse";
-//        }
-//
-//        return "nurse";
         if (!rs.hasErrors()) {
-            if (this.appointmentService.addOrUpdateAppointment(a)) {
+            Date ngaykham = a.getAppointmentDate();
+            if (this.appointmentService.canAcceptAppointment(ngaykham) == true) {
+                if (this.appointmentService.addOrUpdateAppointment(a)) {
+                    MimeMessage message = emailSender.createMimeMessage();
+                    MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+                    String nguoinhan = this.userService.getUserById(a.getSickpersonId().getId()).getEmaill();
+                    String tennguoibenh = this.userService.getUserById(a.getSickpersonId().getId()).getName();
+                    String tenbacsi = this.userService.getUserById(a.getDoctorId().getId()).getName();
+                    String ngaydikham = a.getAppointmentDate().toString();
+                    System.err.println(nguoinhan);
+                    helper.setTo(nguoinhan);
+                    helper.setSubject("LỊCH HẸN PHÒNG MẠCH");
+
+                    String content = "<html><body>"
+                            + "<p>Xin chào, " + tennguoibenh + "</p>"
+                            + "<p>Bạn có lịch hẹn khám tại phòng mạch PIXCEL vào ngày [" + ngaydikham + "]</p>"
+                            + "<p>Bác sĩ của bạn là " + tenbacsi + " .</p>"
+                            + "<p>Chúng tôi hân hạnh chào đón bạn.</p>"
+                            + "</body></html>";
+
+                    helper.setText(content, true);
+
+                    emailSender.send(message);
+                    model.addAttribute("successMessage", "Lịch hẹn đã được cập nhật và email đã được gửi thành công.");
+                    return "redirect:/nurse";
+                }
+
+            } else {
                 MimeMessage message = emailSender.createMimeMessage();
                 MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
                 String nguoinhan = this.userService.getUserById(a.getSickpersonId().getId()).getEmaill();
                 String tennguoibenh = this.userService.getUserById(a.getSickpersonId().getId()).getName();
-                String tenbacsi = this.userService.getUserById(a.getDoctorId().getId()).getName();
                 String ngaydikham = a.getAppointmentDate().toString();
                 System.err.println(nguoinhan);
                 helper.setTo(nguoinhan);
                 helper.setSubject("LỊCH HẸN PHÒNG MẠCH");
 
                 String content = "<html><body>"
-                        + "<p>Xin chào, " +tennguoibenh + "</p>"
+                        + "<p>Xin chào, " + tennguoibenh + "</p>"
                         + "<p>Bạn có lịch hẹn khám tại phòng mạch PIXCEL vào ngày [" + ngaydikham + "]</p>"
-                        + "<p>Bác sĩ của bạn là "+tenbacsi +" .</p>"
-                        + "<p>Chúng tôi hân hạnh chào đón bạn.</p>"
+                        + "<p>Tuy nhiên , phòng mạch của chúng tôi đã đạt tối đa số lượng khách.</p>"
+                        + "<p>Hi vọng bạn có thể chọn khám vào một ngày khác .Chúng tôi hân hạnh chào đón bạn.</p>"
                         + "</body></html>";
 
                 helper.setText(content, true);
 
                 emailSender.send(message);
+                model.addAttribute("errorMessage", "Không thể đặt lịch hẹn. Phòng mạch đã đạt tối đa số lượng khách.");
+                return "redirect:/nurse";
             }
-            return "redirect:/nurse";
         }
 
         return "nurse";
     }
+    @GetMapping("/nurse/thanhtoan")
+    public String thanhtoan() {
+        return "thanhtoan";
+    }
 }
-//                message.setCharset("UTF-8");
-//                message.("Content-Type", "text/plain; charset=UTF-8");

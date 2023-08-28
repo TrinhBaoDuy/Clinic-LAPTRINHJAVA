@@ -91,10 +91,22 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/doctor/kethuoc.jsp" />
     </definition>
-     <definition name="lichsukham" extends="baseLayout">
+    <definition name="lichsukham" extends="baseLayout">
         <put-attribute name="title" value="Lich su kham" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/doctor/lichsukham.jsp" />
     </definition>
-
+    <definition name="prescription" template="/WEB-INF/views/prescription.jsp"  >
+        <put-attribute name="title" value="Nháp" />
+    </definition>
+    <definition name="thanhtoan" extends="baseLayout">
+        <put-attribute name="title" value="Thanh Toán" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/nurse/thanhtoan.jsp" />
+    </definition>
+    <definition name="admin" extends="baseLayout">
+        <put-attribute name="title" value="Thanh Toán" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/admin/admin" />
+    </definition>
 </tiles-definitions>

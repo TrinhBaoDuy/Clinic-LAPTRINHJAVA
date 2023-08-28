@@ -49,29 +49,35 @@
                 </c:forEach>
             </tbody>
         </table>
-        <a href="<c:url value="/admin/quanlytaikhoan/themtaikhoan"/>">THÊM TÀI KHOẢN</a>
+        <div class="input1"><a class="input" href="<c:url value="/admin/quanlytaikhoan/themtaikhoan"/>">THÊM TÀI KHOẢN</a></div>
     </div>
 </sec:authorize>
 
 <style>
-
-
     .container {
 
-        margin: 0 auto;
+        margin: 30px auto;
         padding: 20px;
         border: 0.5px solid #5AAC4E;
         border-radius: 30px;
+        overflow: auto;
+  max-height: 400px;
+        
     }
 
     h1 {
         text-align: center;
     }
+    thead>tr>th{
+        text-align: center;
+    }
 
     table {
-        width: 100%;
+         
         border-collapse: collapse;
         margin-top: 20px;
+        margin-bottom: 40px;
+        table-layout: fixed;
     }
     thead {
         color: white;
@@ -81,14 +87,18 @@
         padding: 10px;
         text-align: left;
         border-bottom: 1px solid #ddd;
+         white-space: nowrap;
+          width: 20%; 
+          word-break: break-all;
 
     }
+     
 
     th {
         background-color: #198754;
         ;
     }
-    input[type="submit"] {
+    .input{
         background-color: #4CAF50;
         color: white;
         padding: 12px 20px;
@@ -97,5 +107,7 @@
         cursor: pointer;
         width: 100%;
         margin-top: 50px;
+        margin: 42%;
+        text-decoration: none; 
     }
 </style>

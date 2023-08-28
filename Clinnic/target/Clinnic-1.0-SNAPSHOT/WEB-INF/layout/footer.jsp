@@ -10,7 +10,7 @@
 
 <form:form >
     <footer>
-  <div class="container">
+  <div class="footers">
     <div class="row">
       <div class="col-md-6">
         <h4>Thông tin liên hệ</h4>

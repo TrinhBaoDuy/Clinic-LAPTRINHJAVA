@@ -122,7 +122,7 @@
             </div>
         </nav>
         <div class="submitbooking ">
-            <a><button type="submit">XUẤT TOA THUỐC</button></a>
+            <a href="<c:url value="/doctor/khambenh/kethuoc/export/${appo.id}"/>">XUẤT TOA THUỐC</a>
         </div>
     </div>
 

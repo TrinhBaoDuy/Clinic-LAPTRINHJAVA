@@ -4,6 +4,12 @@
  */
 package com.owen.controllers;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.owen.pojo.Appointment;
 import com.owen.pojo.Medicine;
 import com.owen.pojo.Prescription;
@@ -41,7 +47,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
-import org.springframework.web.bind.annotation.RequestBody;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -138,26 +144,6 @@ public class DoctorController {
 
     }
 
-    //    @PostMapping("/doctor/khambenh")
-//    public String Updatekhambenh(Model model, Authentication authentication, @ModelAttribute(value = "chitietdichvu") @Valid ServiceItems chitietdichvu, @ModelAttribute(value = "phieubenh") @Valid Prescription m, @ModelAttribute(value = "appo") @Valid Appointment a,
-//            BindingResult rs) {
-//        if (!rs.hasErrors()) {
-//            if (this.serviceItemService.addOrUpdateServiceItem(chitietdichvu) == true) {
-//                if (this.prescriptionService.addOrUpdatePrescription(m) == true) {
-//                    a.setPrescriptionId(m);
-//                    LocalDateTime localDateTime = this.getCurrentDateTime();
-//                    ZoneId zoneId = ZoneId.systemDefault();
-//                    Date date = Date.from(localDateTime.atZone(zoneId).toInstant());
-//                    a.setMedicalappointmentDate(date);
-//                        return "redirect:/doctor";
-//
-//                }
-//
-//            }
-//        }
-//        return "doctor";
-//
-//    }
     @GetMapping("/doctor/dangkylam")
     public String dangkylam(Model model, Authentication authentication) {
 
@@ -193,16 +179,7 @@ public class DoctorController {
         }
         return "dangkylam";
     }
-//    @PostMapping("/doctor/dangkylam")
-//    public String update(@RequestBody List<ScheduleDetail> scheduleDetails, BindingResult rs) {
-//        if (!rs.hasErrors()) {
-//            if (this.scheduleService.addOrUpdateScheduleDetails(scheduleDetails)) {
-//                return "redirect:/doctor/dangkylam";
-//            }
-//        }
-//        return "dangkylam";
-//    }
-
+    
     @GetMapping("/doctor/khambenh/kethuoc")
     public String kethuoc(Model model, @RequestParam Map<String, String> params, @RequestParam(value = "PreId") int id
     ) {
@@ -250,5 +227,71 @@ public class DoctorController {
         model.addAttribute("lishsubenh", this.appointmentService.getAppointmentsbyUser(this.userService.getUserById(id)));
 
         return "lichsukham";
+    }
+
+    @GetMapping("/doctor/khambenh/kethuoc/export/{id}")
+    public void exportPDF(HttpServletResponse response, @PathVariable(value = "id") int id) {
+        // Lấy thông tin và dữ liệu cần thiết từ dịch vụ và nguồn dữ liệu của bạn
+        Appointment a = this.appointmentService.getAppointmentById(id);
+        String tenBenhnhan = a.getSickpersonId().getName();
+        String tenBacsi = a.getDoctorId().getName();
+        int idPre = a.getPrescriptionId().getId();
+        Prescription p = this.prescriptionService.getPrescriptionById(idPre);
+        String chuanDoan = p.getSymptom();
+        List<PrescriptionItem> thuoc = this.prescriptionItemService.getPrescriptionsbyIDPres(idPre);
+        
+        try {
+            // Tạo một đối tượng Document
+            Document document = new Document();
+
+            // Tạo một đối tượng PdfWriter để ghi dữ liệu vào tài liệu PDF
+            PdfWriter.getInstance(document, response.getOutputStream());
+
+            // Thiết lập tên tệp PDF đầu ra
+            response.setHeader("Content-Disposition", "attachment; filename=\"Donthuoc.pdf\"");
+
+            // Mở tài liệu
+            document.open();
+
+            // Tạo và định dạng các phần tử trong tài liệu
+            Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+            Font headerFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+            Font contentFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+//             BaseFont unicodeFont = BaseFont.createFont("path/to/unicode/font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//            Font unicodeContentFont = new Font(unicodeFont, 12, Font.NORMAL);
+
+            // Tiêu đề
+            Paragraph title = new Paragraph("PHÒNG MẠCH PISCEL", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+
+            // Thông tin bệnh nhân
+            Paragraph patientInfo = new Paragraph("Bệnh nhân: " + tenBenhnhan, headerFont);
+            document.add(patientInfo);
+
+            // Thông tin bác sĩ
+            Paragraph doctorInfo = new Paragraph("Bác sĩ: " + tenBacsi, headerFont);
+            document.add(doctorInfo);
+
+            // Chẩn đoán
+            Paragraph diagnosis = new Paragraph("Chuẩn đoán: " + chuanDoan, headerFont);
+            document.add(diagnosis);
+
+            // Danh sách thuốc
+            Paragraph prescriptionHeading = new Paragraph("Danh sách thuốc:", headerFont);
+            document.add(prescriptionHeading);
+
+            for (PrescriptionItem item : thuoc) {
+                String tenThuoc = item.getMedicineId().getName();
+                String huongDan = item.getInstructions();
+                Paragraph medication = new Paragraph("- " + tenThuoc + ": " + huongDan, contentFont);
+                document.add(medication);
+            }
+
+            // Đóng tài liệu
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

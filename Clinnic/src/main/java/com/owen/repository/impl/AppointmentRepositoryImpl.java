@@ -10,6 +10,7 @@ import com.owen.pojo.ServiceItems;
 import com.owen.pojo.User;
 import com.owen.repository.AppointmentRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -40,7 +41,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
     @Autowired
     private Environment env;
-
+    
     @Override
     public List<Appointment> getAppointments(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();
@@ -88,28 +89,6 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         return q.getResultList();
     }
 
-//    @Override
-//    public Boolean changestatus(int id, User u, int idDoctor) {
-//        Session session = this.factory.getObject().getCurrentSession();
-//        Appointment a = session.get(Appointment.class, id);
-//        User doctor = session.get(User.class, idDoctor);
-//        try {
-//            if (a.getStatus() == 1) {
-//                a.setStatus((short) 0);
-//                a.setNurseId(null);
-//                a.setDoctorId(null);
-//            } else {
-//                a.setStatus((short) 1);
-//                a.setNurseId(u);
-//                a.setDoctorId(doctor);
-//            }
-//            return true;
-//        } catch (HibernateException ex) {
-//            ex.printStackTrace();
-//        }
-//        return false;
-//
-//    }
     @Override
     public Appointment changestatus(int id, User yta) {
         Session session = this.factory.getObject().getCurrentSession();
@@ -226,6 +205,23 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         criteria.orderBy(builder.desc(root.get("appointmentDate")));
         Query query = session.createQuery(criteria);
         return query.getResultList();
+    }
+    
+    @Override
+    public boolean canAcceptAppointment(Date date) {
+//        int appointmentCount = appointmentCountMap.getOrDefault(date, 0);
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> query = builder.createQuery(Long.class);
+        Root root = query.from(Appointment.class);
+        query.select(builder.count(root));
+        query.where(builder.equal(root.get("appointmentDate"), date));
+        Query q = session.createQuery(query);
+        long appointmentCount =  Long.parseLong(q.getSingleResult().toString());
+        if( appointmentCount > 3)
+            return false;
+        else
+            return true;
     }
 
 }
