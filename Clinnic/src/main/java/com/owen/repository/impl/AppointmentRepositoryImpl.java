@@ -9,11 +9,18 @@ import com.owen.pojo.Service;
 import com.owen.pojo.ServiceItems;
 import com.owen.pojo.User;
 import com.owen.repository.AppointmentRepository;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
+import javax.persistence.Tuple;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -41,7 +48,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
     @Autowired
     private Environment env;
-    
+
     @Override
     public List<Appointment> getAppointments(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();
@@ -206,7 +213,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         Query query = session.createQuery(criteria);
         return query.getResultList();
     }
-    
+
     @Override
     public boolean canAcceptAppointment(Date date) {
 //        int appointmentCount = appointmentCountMap.getOrDefault(date, 0);
@@ -217,11 +224,46 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         query.select(builder.count(root));
         query.where(builder.equal(root.get("appointmentDate"), date));
         Query q = session.createQuery(query);
-        long appointmentCount =  Long.parseLong(q.getSingleResult().toString());
-        if( appointmentCount > 3)
+        long appointmentCount = Long.parseLong(q.getSingleResult().toString());
+        if (appointmentCount > 3) {
             return false;
-        else
+        } else {
             return true;
+        }
+    }
+
+    @Override
+    public List<Integer> getCountUserByMonth() {
+        List<Integer> monthData = new ArrayList<>();
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Tuple> query = builder.createTupleQuery();
+            Root<Appointment> root = query.from(Appointment.class);
+            query.multiselect(builder.function("MONTH", Integer.class, root.get("appointmentDate")).alias("month"), builder.count(root).alias("count"));
+            query.groupBy(builder.function("MONTH", Integer.class, root.get("appointmentDate")));
+            TypedQuery<Tuple> typedQuery = session.createQuery(query);
+            List<Tuple> results = typedQuery.getResultList();
+
+            for (int month = 1; month <= 12; month++) {
+                boolean monthFound = false;
+                for (Tuple result : results) {
+                    Integer resultMonth = result.get("month", Integer.class);
+                    if (resultMonth != null && resultMonth.equals(month)) {
+                        Long count = result.get("count", Long.class);
+                        monthData.add(count.intValue());
+                        monthFound = true;
+                        break;
+                    }
+                }
+                if (!monthFound) {
+                    monthData.add(0);
+                }
+            }
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return monthData;
     }
 
 }

@@ -5,6 +5,7 @@
 package com.owen.repository;
 
 import com.owen.pojo.ServiceItems;
+import java.util.List;
 
 /**
  *
@@ -12,4 +13,5 @@ import com.owen.pojo.ServiceItems;
  */
 public interface ServiceItemRepository {
     boolean addOrUpdateServiceItem(ServiceItems m,int id);
+    List<ServiceItems> getServicecbyAppoID(int id);
 }

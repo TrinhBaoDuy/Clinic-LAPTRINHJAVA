@@ -8,6 +8,7 @@ import com.owen.pojo.Appointment;
 import com.owen.pojo.Medicine;
 import com.owen.pojo.PrescriptionItem;
 import com.owen.repository.PrescriptionItemRepository;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -74,13 +75,14 @@ public class PrescriptionItemRepositoryImpl implements PrescriptionItemRepositor
             Medicine thuoc = session.get(Medicine.class, idthuoc);
             int slban = me.getQuantity();
             int slkho = thuoc.getQuantity();
-            int naplai = slkho +slban;
+            int naplai = slkho + slban;
             thuoc.setQuantity(naplai);
             session.delete(me);
             return true;
         } catch (HibernateException ex) {
-            ex.printStackTrace(); 
+            ex.printStackTrace();
         }
         return false;
     }
+
 }

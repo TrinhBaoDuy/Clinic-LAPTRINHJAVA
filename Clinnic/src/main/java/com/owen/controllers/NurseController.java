@@ -5,8 +5,15 @@
 package com.owen.controllers;
 
 import com.owen.pojo.Appointment;
+import com.owen.pojo.Bill;
+import com.owen.pojo.PrescriptionItem;
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
+import com.owen.service.BillService;
+import com.owen.service.PaymentService;
+import com.owen.service.PrescriptionItemService;
+import com.owen.service.ServiceItemService;
+import com.owen.service.ServiceService;
 import com.owen.service.UserService;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +70,18 @@ public class NurseController {
 
     @Autowired
     private JavaMailSender emailSender;
+
+    @Autowired
+    private PrescriptionItemService prescriptionItemService;
+
+    @Autowired
+    private ServiceItemService serviceItemService;
+
+    @Autowired
+    private BillService billService;
+
+    @Autowired
+    private PaymentService paymentService;
 
     @GetMapping("/nurse")
     public String nurseInfor(Model model, @RequestParam Map<String, String> params, Authentication authentication) {
@@ -154,8 +173,27 @@ public class NurseController {
 
         return "nurse";
     }
-    @GetMapping("/nurse/thanhtoan")
-    public String thanhtoan() {
+
+    @GetMapping("/nurse/thanhtoan/{id}")
+    public String thanhtoan(Model model, @PathVariable(value = "id") int id) {
+        model.addAttribute("appo", this.appointmentService.getAppointmentById(id));
+        Appointment a = this.appointmentService.getAppointmentById(id);
+        int idPre = a.getPrescriptionId().getId();
+        List<PrescriptionItem> thuocs = this.prescriptionItemService.getPrescriptionsbyIDPres(idPre);
+        model.addAttribute("thuoc", this.prescriptionItemService.getPrescriptionsbyIDPres(idPre));
+        model.addAttribute("dichvu", this.serviceItemService.getServicecbyAppoID(id));
+        model.addAttribute("pay", this.paymentService.getPayments());
+        model.addAttribute("bill", new Bill());
+        return "thanhtoan";
+    }
+
+    @PostMapping("/nurse/thanhtoan")
+    public String xulithanhtoan(Model model, @ModelAttribute(value = "bill") @Valid Bill bill, BindingResult rs) throws MessagingException {
+        if (!rs.hasErrors()) {
+            if (this.billService.addOrUpdateBill(bill) == true) {
+                 return "redirect:/nurse";
+            }     
+        }
         return "thanhtoan";
     }
 }

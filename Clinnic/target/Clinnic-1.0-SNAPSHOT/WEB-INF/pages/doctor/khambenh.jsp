@@ -42,6 +42,8 @@
             </div>
         </div>
     </div>
+
+
 </form:form>
 <form:form id="dichvu"  modelAttribute="chitietdichvu" method="post"  action="${action}">
     <input type="hidden" name="appoID" value="${appo.id}" />
@@ -83,22 +85,18 @@
         margin: 20px;
         width: 70px;
     }
-    .submitbooking a button{
-
-        padding: 14px;
-        height: 100px;
-        width: 200px;
-        font-size: 30px;
-        /* text-align: -webkit-auto; */
-        font-weight: bold;
-
-        border: 0px solid #ADD8E6;
-        background-color:orangered;
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
         color: white;
-        box-shadow: 0px 5px 10px 0 #ADD8E6;
-        transition: 0.3s;
-        border-radius: 6px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
 
+    button:hover {
+        background-color: #45a049;
     }
     .dkk1{
 
@@ -141,31 +139,7 @@
         border-radius: 10px;
     }
 
-    /*    .contentbooking1{
-            width: 100%;
-            padding: 45px;
-            text-align: justify;
-        }
-        .contentbooking1 img{
-            top: 0;
-            left: 0;
-            width: 100%;  
-            height: 100%;  
-            object-fit: cover;
-        }*/
-    /*.booking1{
-        position: relative;
-            width: 200px;  Độ rộng của khung chứa ảnh 
-            height: 200px;
-    }
-    .contentbooking1 img{
-         position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;  Độ rộng của ảnh 
-            height: 100%;  Chiều cao của ảnh 
-            object-fit: cover;
-    }*/
+
     .contentdkk5 input{
         width: 100%;
         border-radius: 5px;
@@ -236,55 +210,6 @@
     .contentdkk3 input:first-child{
         margin-right: 20px;
     }
-    /*    .contentdkk3 input{
-            width: 90%;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            padding: 10px;
-        }
-    
-        .contentdkk3 input:first-child{
-            margin-right: 20px;
-        }
-    
-        .contentdkk5{
-            margin-top: 10px;
-            padding-top: 10px;
-        }
-        .contentdkk5 input{
-            width: 100%;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            padding: 10px;
-        }
-        .contentdkk4{
-            margin-top: 20px;
-            font-size: 15px;
-            text-align: center;
-        }
-        .contentdkk4 select{
-            width: 100%;
-            height: 45px;
-            border: 1px solid #e0e0e0;
-            padding: 10px;
-            border-radius: 10px;
-        }*/
-
-    /*    .contentdkk6{
-            margin-top: 10px;
-            font-size: 15px;
-            padding-top: 10px;
-            text-align: center;
-        }
-        .contentdkk6 input{
-            width: 100%;
-            height: 45px;
-            border: 1px solid #e0e0e0;
-            padding: 10px;
-            border-radius: 10px;
-        }*/
 
     .submitbooking{
         margin-top:30px;

@@ -56,8 +56,9 @@
                             <th>Nút nè</th>
                         </tr>
                     </thead>
-                    <c:forEach items="${Apo}" var="p">
-                        <tbody>
+
+                    <tbody>
+                        <c:forEach items="${Apo}" var="p">
                             <tr>
                                 <td>${p.id}</td>
                                 <td>[${p.sickpersonId.id}] ${p.sickpersonId.name}</td>
@@ -84,8 +85,9 @@
                                     </a>
                                 </td>
                             </tr>
-                        </tbody>
-                    </c:forEach>
+                        </c:forEach>
+                    </tbody>
+
                 </table>
             </section>
         </nav>

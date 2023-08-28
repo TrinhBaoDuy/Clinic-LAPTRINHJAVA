@@ -5,8 +5,8 @@
 package com.owen.controllers;
 
 import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import com.owen.pojo.User;
+import com.owen.service.AppointmentService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +38,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private AppointmentService appointmentService;
 
     @Autowired
     private CustomDateEditor customDateEditor;
@@ -77,8 +80,15 @@ public class AdminController {
         }
         return "themtaikhoan";
     }
+
     @GetMapping("/admin")
     public String thanhtoan() {
         return "admin";
+    }
+
+    @GetMapping("/admin/thongke")
+    public String thongke(Model model) {
+        model.addAttribute("list", this.appointmentService.getCountUserByMonth());
+        return "thongke";
     }
 }

@@ -5,8 +5,14 @@
 package com.owen.repository.impl;
 
 import com.owen.pojo.Appointment;
+import com.owen.pojo.PrescriptionItem;
 import com.owen.pojo.ServiceItems;
 import com.owen.repository.ServiceItemRepository;
+import java.util.List;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +32,7 @@ public class ServiceItemRepositoryImpl implements ServiceItemRepository {
     private LocalSessionFactoryBean factory;
 
     @Override
-    public boolean addOrUpdateServiceItem(ServiceItems m , int id) {
+    public boolean addOrUpdateServiceItem(ServiceItems m, int id) {
         Session s = this.factory.getObject().getCurrentSession();
         Appointment a = s.get(Appointment.class, id);
         try {
@@ -43,5 +49,18 @@ public class ServiceItemRepositoryImpl implements ServiceItemRepository {
             return false;
         }
     }
+
+    @Override
+    public List<ServiceItems> getServicecbyAppoID(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ServiceItems> query = builder.createQuery(ServiceItems.class);
+        Root<ServiceItems> root = query.from(ServiceItems.class);
+
+        query.select(root).where(builder.equal(root.get("appoId"), id));
+
+        return session.createQuery(query).getResultList();
+    }
+
 
 }

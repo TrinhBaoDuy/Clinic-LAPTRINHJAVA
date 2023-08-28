@@ -35,5 +35,5 @@ public class PrescriptionItemServiceImpl implements PrescriptionItemService {
     public boolean deletePres(int id) {
         return this.prescriptionItemRepository.deletePres(id);
     }
-    
+
 }

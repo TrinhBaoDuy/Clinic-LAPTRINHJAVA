@@ -69,4 +69,9 @@ public class AppointmentServiceImpl implements AppointmentService {
            return this.appointmentRepository.canAcceptAppointment(date);
     }
 
+    @Override
+    public List<Integer> getCountUserByMonth() {
+        return this.appointmentRepository.getCountUserByMonth();
+    }
+
 }

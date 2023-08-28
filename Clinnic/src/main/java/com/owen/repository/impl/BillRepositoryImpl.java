@@ -11,8 +11,10 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -48,15 +50,53 @@ public class BillRepositoryImpl implements BillRepository {
         Session s = this.factory.getObject().getCurrentSession();
         try {
             if (m.getId() == null) {
-                s.save(m);
-            } else {
-                s.update(m);
-            }
+                if(this.isAppoIdExists(m.getAppoId().getId())==true){
+                     s.save(m);
+                }else{
+                     
+                     s.update(this.getBillByAppoId(m.getAppoId().getId()));
+                }
+            }      
             return true;
         } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;
         }
+    }
+    public Bill getBillByAppoId(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Bill> query = builder.createQuery(Bill.class);
+        Root<Bill> root = query.from(Bill.class);
+        query.where(
+                builder.and(
+                        builder.equal(root.get("appoId"), id)
+                )
+        );
+        Query q = session.createQuery(query);
+        List<Bill> results = q.getResultList();
+        return results.isEmpty() ? null : results.get(0);
+    }
+    
+    
+    public boolean isAppoIdExists(int appoId) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Bill> query = builder.createQuery(Bill.class);
+        Root<Bill> root = query.from(Bill.class);
+        query.where(
+                builder.and(
+                        builder.equal(root.get("appoId"), appoId)
+                )
+        );
+        Query q = session.createQuery(query);
+        List<Bill> results = q.getResultList();
+        if (results.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override

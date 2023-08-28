@@ -7,6 +7,7 @@ package com.owen.service.impl;
 import com.owen.pojo.ServiceItems;
 import com.owen.repository.ServiceItemRepository;
 import com.owen.service.ServiceItemService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,12 @@ public class ServiceItemServiceImpl implements ServiceItemService{
     public boolean addOrUpdateServiceItem(ServiceItems m,int id) {
         return this.serviceItemRepository.addOrUpdateServiceItem(m,id);
     }
+
+    @Override
+    public List<ServiceItems> getServicecbyAppoID(int id) {
+        return this.serviceItemRepository.getServicecbyAppoID(id);
+    }
+
     
     
 }
