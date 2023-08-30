@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -52,6 +53,26 @@ public class ScheduleDetail implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
+
+    @Transient
+    private Date[] listdate;
+    
+    @Transient
+    private Shift[] listshift;
+
+    /**
+     * @return the listdate
+     */
+    public Date[] getListdate() {
+        return listdate;
+    }
+
+    /**
+     * @param listdate the listdate to set
+     */
+    public void setListdate(Date[] listdate) {
+        this.listdate = listdate;
+    }
 
     public ScheduleDetail() {
     }
@@ -124,5 +145,20 @@ public class ScheduleDetail implements Serializable {
     public String toString() {
         return "com.owen.pojo.ScheduleDetail[ id=" + id + " ]";
     }
-    
+
+    /**
+     * @return the listshift
+     */
+    public Shift[] getListshift() {
+        return listshift;
+    }
+
+    /**
+     * @param listshift the listshift to set
+     */
+    public void setListshift(Shift[] listshift) {
+        this.listshift = listshift;
+    }
+
+
 }

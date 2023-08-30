@@ -33,57 +33,65 @@
 
         </div>
     </div>
+    <script src="<c:url value="/js/dongho.js" />"></script>
+    <div class="contentright">
+        <h1>ĐĂNG KÝ LỊCH LÀM NGÀY<p id="future-date"></p></h1>
+        <p style="display: none">Giờ hiện tại: <span id="current-time"></span></p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
 
-    <form:form method="post" action="${action}" modelAttribute="lichlam" >
-        <form:hidden path="id" />
-        <form:hidden path="userId" value="${doctor.id}" />
-        <form:hidden path="status" />
-        <script src="<c:url value="/js/dongho.js" />"></script>
-        <div class="contentright">
-            <h1>ĐĂNG KÝ LỊCH LÀM NGÀY<p id="future-date"></p></h1>
-            <p style="display: none">Giờ hiện tại: <span id="current-time"></span></p>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-
-                        <th>Ca/thứ</th>
-                        <th>THỨ 2 </th>
-                        <th>THỨ 3</th>
-                        <th>THỨ 4</th>
-                        <th>THỨ 5</th>
-                        <th>THỨ 6</th>
-                        <th>THỨ 7</th>
-                        <th>CHỦ NHẬT</th>
+                    <th>Ca/thứ</th>
+                    <th>THỨ 2 </th>
+                    <th>THỨ 3</th>
+                    <th>THỨ 4</th>
+                    <th>THỨ 5</th>
+                    <th>THỨ 6</th>
+                    <th>THỨ 7</th>
+                    <th>CHỦ NHẬT</th>
+                    <th></th>
 
 
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${lich}" var="ds" >
-
-                         <form:hidden path="shiftId" value="${ds.id}" />
-
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${lich}" var="ds" >
+                    <form:form   method="post" action="${action}" modelAttribute="lichlam" >
+                        <form:hidden path="id" />
+                        <form:hidden path="userId" value="${doctor.id}" />
+                        <form:hidden path="status" value="0"/>
+                        <form:hidden path="shiftId" value="${ds.id}" />
+                        <form:hidden path="dateSchedule"/>
                         <tr>
-                            <td>${ds.name} bắt đầu lúc ${ds.start} và kết thúc lúc ${ds.end}</td>
+                            <td>${ds.name} bắt đầu lúc ${ds.start} và kết thúc lúc </td>
                             <c:forEach items="${dateList}" var="date">
                                 <td>
-                                    <form:checkbox path="dateSchedule" value="${date}" />
-                                    <fmt:formatDate value="${date}" pattern="dd/MM/yyyy" />
+                                    <form:checkbox path="listdate" value="${date}"/>
+                                    <button type="submit"><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></button>
                                 </td>
                             </c:forEach>
+                            <td> <button class="lop" type="submit">ĐĂNG KÝ LÀM</button></td>   
+
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-            <div class="submitbooking">
-                <button type="submit">ĐĂNG KÝ LÀM</button>
-            </div>
+                    </form:form >
+                </c:forEach>
+            </tbody>
+        </table>
+        <div class="submitbooking">
+            <button onclick="submitForms()" type="submit">ĐĂNG KÝ LÀM</button>
         </div>
-    </form:form >
+    </div>
 
 </div>
-
+<script>
+    function submitForms() {
+        var forms = document.getElementsByTagName("form");
+        for (var i = 0; i < forms.length; i++) {
+            forms[i].submit();
+        }
+    }
+</script>
 <style>
     .content{
         display: flex;
@@ -168,5 +176,3 @@
 
 
 </style>
-
-

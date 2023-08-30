@@ -7,8 +7,11 @@ package com.owen.repository.impl;
 import com.owen.pojo.Prescription;
 import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.ScheduleDetail;
+import com.owen.pojo.Shift;
 import com.owen.repository.ScheduleRepository;
+import com.owen.service.ShiftService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -30,12 +33,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class ScheduleRepositoryImpl implements ScheduleRepository{
-    
+public class ScheduleRepositoryImpl implements ScheduleRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
-    
-     @Autowired
+
+    @Autowired
     private Environment env;
 
     @Override
@@ -46,32 +49,28 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         Root<ScheduleDetail> root = q.from(ScheduleDetail.class);
         q.select(root);
 
-        if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
-
-            String kw = params.get("name");
-            if (kw != null && !kw.isEmpty()) {
-                predicates.add(b.like(root.get("name"), String.format("%%%s%%", kw)));
-            }
-
-            q.where(predicates.toArray(new Predicate[predicates.size()]));
-        }
-
 //        q.orderBy(b.desc(root.get("id")));
         Query query = session.createQuery(q);
 
-        if (params != null) {
-            String page = params.get("page");
-            if (page != null && !page.isEmpty()) {
-                int p = Integer.parseInt(page);
-                int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
+        return query.getResultList();
+    }
+    
+    @Override
+    public List<ScheduleDetail> getSchedules(Date fromDate) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.select(root);
 
-                query.setMaxResults(pageSize);
-                query.setFirstResult((p - 1) * pageSize);
-            }
+        if (fromDate != null) {
+            // Tạo điều kiện lọc lịch từ ngày truyền vào trở đi
+            Predicate fromDatePredicate = builder.greaterThanOrEqualTo(root.get("dateSchedule"), fromDate);
+            query.where(fromDatePredicate);
         }
 
-        return query.getResultList();
+        Query typedQuery = session.createQuery(query);
+        return typedQuery.getResultList();
     }
 
     @Override
@@ -79,7 +78,15 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         Session s = this.factory.getObject().getCurrentSession();
         try {
             if (m.getId() == null) {
-                s.save(m);
+                for (Date date : m.getListdate()) {
+                    ScheduleDetail newScheduleDetail = new ScheduleDetail();
+                    newScheduleDetail.setDateSchedule(date);
+                    newScheduleDetail.setShiftId(m.getShiftId());
+                    newScheduleDetail.setUserId(m.getUserId());
+                    newScheduleDetail.setStatus(m.getStatus());
+
+                    s.save(newScheduleDetail);
+                }
             } else {
                 s.update(m);
             }
@@ -90,24 +97,24 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
             return false;
         }
     }
-    
+
     @Override
     public boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails) {
-    Session s = this.factory.getObject().getCurrentSession();
-    try {
-        for (ScheduleDetail scheduleDetail : scheduleDetails) {
-            if (scheduleDetail.getId() == null) {
-                s.save(scheduleDetail);
-            } else {
-                s.update(scheduleDetail);
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            for (ScheduleDetail scheduleDetail : scheduleDetails) {
+                if (scheduleDetail.getId() == null) {
+                    s.save(scheduleDetail);
+                } else {
+                    s.update(scheduleDetail);
+                }
             }
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
         }
-        return true;
-    } catch (HibernateException ex) {
-        ex.printStackTrace();
-        return false;
     }
-}
 
     @Override
     public boolean deleteScheduleDetail(int id) {
@@ -121,6 +128,5 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         }
         return false;
     }
-    
-    
+
 }

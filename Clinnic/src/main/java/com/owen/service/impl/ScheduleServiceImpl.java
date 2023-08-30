@@ -7,6 +7,7 @@ package com.owen.service.impl;
 import com.owen.pojo.ScheduleDetail;
 import com.owen.repository.ScheduleRepository;
 import com.owen.service.ScheduleService;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails) {
         return this.scheduleRepository.addOrUpdateScheduleDetails(scheduleDetails);
+    }
+
+    @Override
+    public List<ScheduleDetail> getSchedules(Date fromDate) {
+        return this.scheduleRepository.getSchedules(fromDate);
     }
     
 }

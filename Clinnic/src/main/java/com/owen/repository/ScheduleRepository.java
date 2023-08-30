@@ -5,6 +5,7 @@
 package com.owen.repository;
 
 import com.owen.pojo.ScheduleDetail;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,4 +22,6 @@ public interface ScheduleRepository {
     boolean deleteScheduleDetail(int id);
 
     boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails);
+    
+    List<ScheduleDetail> getSchedules(Date fromDate);
 }

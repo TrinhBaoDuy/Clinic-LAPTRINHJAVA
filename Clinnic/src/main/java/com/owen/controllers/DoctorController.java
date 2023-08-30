@@ -16,6 +16,7 @@ import com.owen.pojo.Prescription;
 import com.owen.pojo.PrescriptionItem;
 import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.ServiceItems;
+import com.owen.pojo.Shift;
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
 import com.owen.service.MedicineService;
@@ -26,6 +27,7 @@ import com.owen.service.ServiceItemService;
 import com.owen.service.ServiceService;
 import com.owen.service.ShiftService;
 import com.owen.service.UserService;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -157,6 +159,7 @@ public class DoctorController {
             dateList.add(calendar.getTime());
         }
         model.addAttribute("dateList", dateList);
+//        
 
 //        List<ScheduleDetail> scheduleDetails = new ArrayList<ScheduleDetail>();
         model.addAttribute("lichlam", new ScheduleDetail());
@@ -174,12 +177,13 @@ public class DoctorController {
     public String update(@ModelAttribute(value = "lichlam") @Valid ScheduleDetail scheduleDetail,
             BindingResult rs) {
         if (!rs.hasErrors()) {
-            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetail) == true);
-            return "redirect:/doctor/dangkylam";
+            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetail) == true) {
+                return "redirect:/doctor/dangkylam";
+            }
         }
         return "dangkylam";
     }
-    
+
     @GetMapping("/doctor/khambenh/kethuoc")
     public String kethuoc(Model model, @RequestParam Map<String, String> params, @RequestParam(value = "PreId") int id
     ) {
@@ -230,7 +234,8 @@ public class DoctorController {
     }
 
     @GetMapping("/doctor/khambenh/kethuoc/export/{id}")
-    public void exportPDF(HttpServletResponse response, @PathVariable(value = "id") int id) {
+    public void exportPDF(HttpServletResponse response, @PathVariable(value = "id") int id
+    ) {
         // Lấy thông tin và dữ liệu cần thiết từ dịch vụ và nguồn dữ liệu của bạn
         Appointment a = this.appointmentService.getAppointmentById(id);
         String tenBenhnhan = a.getSickpersonId().getName();
@@ -239,7 +244,7 @@ public class DoctorController {
         Prescription p = this.prescriptionService.getPrescriptionById(idPre);
         String chuanDoan = p.getSymptom();
         List<PrescriptionItem> thuoc = this.prescriptionItemService.getPrescriptionsbyIDPres(idPre);
-        
+
         try {
             // Tạo một đối tượng Document
             Document document = new Document();
