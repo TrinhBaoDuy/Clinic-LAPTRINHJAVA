@@ -99,7 +99,7 @@ public class NurseController {
 
     @GetMapping("/nurse/{id}")
     public String xuli(Model model, @PathVariable(value = "id") int id, @RequestParam Map<String, String> params, Authentication authentication, HttpServletRequest request) {
-        model.addAttribute("getbacsi", this.userService.getBacSi());
+        model.addAttribute("getbacsi", this.userService.getBacSi(id));
 //        HttpSession session = request.getSession();
 //        session.setAttribute("appoment", this.appointmentService.getAppointmentById(id));
         model.addAttribute("appoment", this.appointmentService.getAppointmentById(id));
@@ -142,7 +142,7 @@ public class NurseController {
                     helper.setText(content, true);
 
                     emailSender.send(message);
-                    model.addAttribute("successMessage", "Lịch hẹn đã được cập nhật và email đã được gửi thành công.");
+//                    model.addAttribute("successMessage", "Lịch hẹn đã được cập nhật và email đã được gửi thành công.");
                     return "redirect:/nurse";
                 }
 
@@ -166,7 +166,7 @@ public class NurseController {
                 helper.setText(content, true);
 
                 emailSender.send(message);
-                model.addAttribute("errorMessage", "Không thể đặt lịch hẹn. Phòng mạch đã đạt tối đa số lượng khách.");
+//                model.addAttribute("errorMessage", "Không thể đặt lịch hẹn. Phòng mạch đã đạt tối đa số lượng khách.");
                 return "redirect:/nurse";
             }
         }

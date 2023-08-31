@@ -50,6 +50,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.engine.internal.Versioning;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -185,11 +186,10 @@ public class DoctorController {
     }
 
     @GetMapping("/doctor/khambenh/kethuoc")
-    public String kethuoc(Model model, @RequestParam Map<String, String> params, @RequestParam(value = "PreId") int id
+    public String kethuoc(Model model, @RequestParam Map<String, String> params
     ) {
         model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
-        Appointment a = this.appointmentService.getAppointmentById(id);
-        model.addAttribute("dsthuoc", this.prescriptionItemService.getPrescriptionsbyIDPres(a.getPrescriptionId().getId()));
+        model.addAttribute("phieuthuoc", new PrescriptionItem());
         return "kethuoc";
     }
 
@@ -218,6 +218,8 @@ public class DoctorController {
                 int soluongupdate = soluongthuoc - soluongban;
                 medicine.setQuantity(soluongupdate);
                 this.medicineService.addOrUpdateMedicine(medicine); //
+                Date currentDateTime = Calendar.getInstance().getTime();
+                this.appointmentService.getAppointmentById(id).setMedicalappointmentDate(currentDateTime);
                 return "redirect:/doctor/khambenh/kethuoc/" + id;
             }
         }
@@ -292,9 +294,11 @@ public class DoctorController {
                 Paragraph medication = new Paragraph("- " + tenThuoc + ": " + huongDan, contentFont);
                 document.add(medication);
             }
-
+            Date currentDateTime = Calendar.getInstance().getTime();
+            a.setMedicalappointmentDate(currentDateTime);
             // Đóng tài liệu
             document.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

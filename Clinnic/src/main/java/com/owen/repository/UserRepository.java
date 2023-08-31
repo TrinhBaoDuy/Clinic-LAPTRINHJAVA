@@ -21,4 +21,5 @@ public interface UserRepository {
     User getUserById(int id);
     User getUserByUsername(String username);
     List<User> getBacSi();
+    List<User> getBacSi(int id);
 }

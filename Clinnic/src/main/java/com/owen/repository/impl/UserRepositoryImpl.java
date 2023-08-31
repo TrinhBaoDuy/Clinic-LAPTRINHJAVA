@@ -6,7 +6,9 @@ package com.owen.repository.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.owen.pojo.Appointment;
 import com.owen.pojo.Role;
+import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +30,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.owen.repository.UserRepository;
 import com.owen.service.impl.UserServiceImpl;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.criteria.Join;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -200,5 +204,23 @@ public class UserRepositoryImpl implements UserRepository {
         q.setParameter("doctor", this.getRoleBS());
 
         return q.getResultList();
+    }
+
+    @Override
+    public List<User> getBacSi(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+        Appointment a = session.get(Appointment.class, id);
+        Date ngaykham = a.getAppointmentDate();
+        Root<User> UserRoot = criteria.from(User.class);
+        Join<User, ScheduleDetail> scheduleDetailJoin = UserRoot.join("scheduleDetailSet");
+        
+        criteria.select(UserRoot);
+        criteria.where(builder.and(builder.equal(UserRoot.get("roleId"), 2), builder.equal(scheduleDetailJoin.get("dateSchedule"), ngaykham)));
+        criteria.distinct(true); // Loại bỏ các bản ghi trùng lặp
+        
+        List<User> results = session.createQuery(criteria).getResultList();
+        return results;
     }
 }

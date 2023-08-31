@@ -9,125 +9,130 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url value="/doctor/khambenh/kethuoc" var="action" />
 <!DOCTYPE html>
-<script src="<c:url value="/js/FunctionObject.js" />"></script>
-<div class="infor1">
-    <input type="hidden" name="PreId" value="${appo.id}" />
-    <div class="contentdkk2_main contentdkk2_main1">
-        <div class="imglogo">
-            <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692731869/zyro-image_ukyhu5.png" alt="logo">
-            <h2>Toa Thuốc</h2>
+<sec:authorize access="hasRole('ROLE_DOCTOR')">
+    <script src="<c:url value="/js/FunctionObject.js" />"></script>
+    <div class="infor1">
+        <div class="contentdkk2_main contentdkk2_main1">
+            <div class="imglogo">
+                <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692731869/zyro-image_ukyhu5.png" alt="logo">
+                <h2>Toa Thuốc</h2>
 
-        </div>
-        <hr>
-        <nav class="bookingright ">
-            <div class="dkk2">
+            </div>
+            <hr>
+            <nav class="bookingright ">
+                <div class="dkk2">
 
-                <div class="contentdkk3  "  >
+                    <div class="contentdkk3  "  >
 
-                    <div class='content1'>
-                        <h2>Tra cứu</h2>
-                        <div class = "infoMeSearch" >
-                            <form class="search-form" action="${action}">
-                                <input class="form-control me-2" type="text"   name="name" placeholder="Nhập tên thuốc..."/>
-                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
-                            </form>
-                        </div>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-
-                                    <th>Tên thuốc</th>                             
-                                    <th>Nhà sản xuất</th>
-                                    <th>Ngày hết hạn</th>
-                                    <th>Đơn vị</th>
-                                    <th> </th>
-
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${getmediciens}" var="ds">
+                        <div class='content1'>
+                            <h2>Tra cứu</h2>
+                            <div class = "infoMeSearch" >
+                                <form class="search-form" action="${action}">
+                                    <input class="form-control me-2" type="text"   name="name" placeholder="Nhập tên thuốc..."/>
+                                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
+                                </form>
+                            </div>
+                            <table class="table table-striped">
+                                <!--<input type="hidden" name="PreId" value="${appo.id}" />-->
+                                <thead>
                                     <tr>
-                                        <td>${ds.name}</td>
-                                        <td>${ds.provider}</td>
-                                        <td>${ds.expirationDate}</td>
-                                        <td>${ds.quantity} ${ds.idUnit.name}</td>
-                                        <!--                                            <button onclick="showQuantityInput()">Thêm</button>                                           -->
-                                        <td>            
-                                            <button class="showOverlayButton" >Thêm</button>
+
+                                        <th>Tên thuốc</th>                             
+                                        <th>Nhà sản xuất</th>
+                                        <th>Ngày hết hạn</th>
+                                        <th>Đơn vị</th>
+                                        <th> </th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${getmediciens}" var="ds">
+                                        <tr>
+                                            <td>${ds.name}</td>
+                                            <td>${ds.provider}</td>
+                                            <td>${ds.expirationDate}</td>
+                                            <td>${ds.quantity} ${ds.idUnit.name}</td>
+                                            <!--                                            <button onclick="showQuantityInput()">Thêm</button>                                           -->
+                                            <td>            
+                                                <button class="showOverlayButton" >Thêm</button>
 
 
-                                            <div class="overlay" style="display: none">
-                                                <form:form modelAttribute="phieuthuoc" method="post" action="${action}">
+                                                <div class="overlay" style="display: none">
+                                                    <form:form modelAttribute="phieuthuoc" method="post" action="${action}">
 
-                                                    <form:hidden path="id" />
-                                                    <form:hidden path="medicineId" value="${ds.id}"/>
-                                                    <form:hidden path="prescriptionId"/>
-                                                    <div class="overlay-content">
-                                                        <input name="PreId" value="${appo.id}" />
-                                                        <h1>${ds.id}-${ds.name}</h1>
-                                                        <div>
-                                                            <label for="quantity">Số lượng:</label>
-                                                            <form:input type="number"  path="quantity" placeholder="Nhập số lượng ${ds.idUnit.name} của ${ds.name}..."/>
+                                                        <form:hidden path="id" />
+                                                        <form:hidden path="medicineId" value="${ds.id}"/>
+                                                        <form:hidden path="prescriptionId"/>
+                                                        <div class="overlay-content">
+                                                            <input name="PreId" value="${appo.id}" />
+                                                            <h1>${ds.id}-${ds.name}</h1>
+                                                            <div>
+                                                                <label for="quantity">Số lượng:</label>
+                                                                <form:input type="number"  path="quantity" placeholder="Nhập số lượng ${ds.idUnit.name} của ${ds.name}..."/>
+                                                            </div>
+                                                            <div>
+                                                                <label for="quantity">Hướng dẫn sử dụng:</label>
+                                                                <form:input type="text"  path="instructions" />
+                                                            </div>
+                                                            <button class="addButton" type="submit">Thêm</button>
                                                         </div>
-                                                        <div>
-                                                            <label for="quantity">Hướng dẫn sử dụng:</label>
-                                                            <form:input type="text"  path="instructions" />
-                                                        </div>
-                                                        <button class="addButton" type="submit">Thêm</button>
-                                                    </div>
-                                                </form:form>
-                                            </div>
-                                        </td>
+                                                    </form:form>
+                                                </div>
+                                            </td>
 
+                                        </c:forEach>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="content2">
+                            <h2> Toa Thuốc</h2>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+
+                                        <th>Tên thuốc</th>                             
+                                        <th>Số Lượng</th>
+                                        <th>Hướng dẫn sử dụng</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${dsthuoc}" var="t">
+                                        <tr>
+                                            <td>${t.medicineId.name}</td>
+                                            <td>${t.quantity}-${t.medicineId.idUnit.name}</td>
+                                            <td>${t.instructions}</td>
+                                            <c:url value="/api/doctor/khambenh/kethuoc/${t.id}" var="apiDel" />
+                                            <td><button class="btn btn-danger" onclick="delObject('${apiDel}', ${t.id})">Xóa</button></td>
+                                        </tr>
                                     </c:forEach>
+                                </tbody>
 
+                            </table>
+                        </div> 
 
-                            </tbody>
-                        </table>
                     </div>
 
 
-                    <div class="content2">
-                        <h2> Toa Thuốc</h2>
-
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-
-                                    <th>Tên thuốc</th>                             
-                                    <th>Số Lượng</th>
-                                    <th>Hướng dẫn sử dụng</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${dsthuoc}" var="t">
-                                    <tr>
-                                        <td>${t.medicineId.name}</td>
-                                        <td>${t.quantity}-${t.medicineId.idUnit.name}</td>
-                                        <td>${t.instructions}</td>
-                                        <c:url value="/api/doctor/khambenh/kethuoc/${t.id}" var="apiDel" />
-                                        <td><button class="btn btn-danger" onclick="delObject('${apiDel}', ${t.id})">Xóa</button></td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-
-                        </table>
-                    </div> 
-
                 </div>
-
-
+            </nav>
+            <div class="submitbooking ">
+                <a href="<c:url value="/doctor/khambenh/kethuoc/export/${appo.id}"/>">XUẤT TOA THUỐC</a>
             </div>
-        </nav>
-        <div class="submitbooking ">
-            <a href="<c:url value="/doctor/khambenh/kethuoc/export/${appo.id}"/>">XUẤT TOA THUỐC</a>
+            <div class="submitbooking ">
+                <button onclick="hoi()">NEXT</button>
+            </div>
         </div>
-    </div>
 
-</form>
-</div>
+        </form>
+    </div>
+</sec:authorize>
 <script>
     // JavaScript
     var showOverlayButtons = document.getElementsByClassName("showOverlayButton");
@@ -149,6 +154,15 @@
             overlays[k].style.display = "none";
         }
     });
+
+    function hoi() {
+        if (confirm("Bạn đã hoàn thành việc khám?")) {
+            window.location.href = "<c:url value='/doctor'/>"; // Chuyển hướng đến trang "/doctor" nếu đã hoàn thành
+        } else {
+            window.location.href = "<c:url value='/doctor/khambenh/kethuoc/${appo.id}'/>"; // Chuyển hướng đến trang "/doctor/khambenh/kethuoc/{id}" nếu chưa hoàn thành
+        }
+    }
+    ;
 </script>
 
 <style>

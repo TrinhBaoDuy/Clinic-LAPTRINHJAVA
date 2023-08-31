@@ -106,6 +106,11 @@ public class UserServiceImpl implements UserService {
     public List<User> getBacSi() {
         return this.userRepo.getBacSi();
          }
+
+    @Override
+    public List<User> getBacSi(int id) {
+           return this.userRepo.getBacSi(id);
+    }
     
 
 }
