@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ScheduleDetail.findByStatus", query = "SELECT s FROM ScheduleDetail s WHERE s.status = :status")})
 public class ScheduleDetail implements Serializable {
 
+    /**
+     * @return the listdate2
+     */
     private static final long serialVersionUID = 1L;
     @Column(name = "date_schedule")
     @Temporal(TemporalType.DATE)
@@ -55,23 +58,49 @@ public class ScheduleDetail implements Serializable {
     private User userId;
 
     @Transient
-    private Date[] listdate;
-    
+    private Date[] listdate1;
     @Transient
-    private Shift[] listshift;
+    private Date[] listdate2;
+    @Transient
+    private Date[] listdate3;
 
     /**
      * @return the listdate
      */
-    public Date[] getListdate() {
-        return listdate;
+    public Date[] getListdate1() {
+        return listdate1;
     }
 
     /**
      * @param listdate the listdate to set
      */
-    public void setListdate(Date[] listdate) {
-        this.listdate = listdate;
+    public void setListdate1(Date[] listdate1) {
+        this.listdate1 = listdate1;
+    }
+
+    public Date[] getListdate2() {
+        return listdate2;
+    }
+
+    /**
+     * @param listdate2 the listdate2 to set
+     */
+    public void setListdate2(Date[] listdate2) {
+        this.listdate2 = listdate2;
+    }
+
+    /**
+     * @return the listdate3
+     */
+    public Date[] getListdate3() {
+        return listdate3;
+    }
+
+    /**
+     * @param listdate3 the listdate3 to set
+     */
+    public void setListdate3(Date[] listdate3) {
+        this.listdate3 = listdate3;
     }
 
     public ScheduleDetail() {
@@ -145,20 +174,5 @@ public class ScheduleDetail implements Serializable {
     public String toString() {
         return "com.owen.pojo.ScheduleDetail[ id=" + id + " ]";
     }
-
-    /**
-     * @return the listshift
-     */
-    public Shift[] getListshift() {
-        return listshift;
-    }
-
-    /**
-     * @param listshift the listshift to set
-     */
-    public void setListshift(Shift[] listshift) {
-        this.listshift = listshift;
-    }
-
 
 }

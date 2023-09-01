@@ -12,6 +12,7 @@
 
 <c:url value="/nurse" var="actionUpdate" />
 <sec:authorize access="hasRole('NURSE')">
+    
     <div th:if="${successMessage}" class="success-message">
         <p th:text="${successMessage}"></p>
     </div>
@@ -26,7 +27,6 @@
                     <img src="${nurse.avatar}" alt="alert"/>
                 </div>
                 <div class="contentbooking2_main">
-
                     <div class="contentbooking2">
                         <h1>Y tá ${nurse.name}</h1>
                         <h5>Mã: ${nurse.id} </h5>
@@ -91,8 +91,6 @@
                 </table>
             </section>
         </nav>
-        <<h1>${msg}</h1>
-
         <nav class="table1">
             <form:form method="post" action="${actionUpdate}" modelAttribute="appoment">
                 <form:hidden path="appointmentDate" />
@@ -142,7 +140,6 @@
 
     </div>
 </sec:authorize>
-
 <style>
     .admin_submit111{
         width: 160px;

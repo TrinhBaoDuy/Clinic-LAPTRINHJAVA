@@ -49,33 +49,47 @@
                     <th>THỨ 6</th>
                     <th>THỨ 7</th>
                     <th>CHỦ NHẬT</th>
-                    <th></th>
+
 
 
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${lich}" var="ds" >
-                    <form:form   method="post" action="${action}" modelAttribute="lichlam" >
-                        <form:hidden path="id" />
-                        <form:hidden path="userId" value="${doctor.id}" />
-                        <form:hidden path="status" value="0"/>
-                        <form:hidden path="shiftId" value="${ds.id}" />
-                        <form:hidden path="dateSchedule"/>
-                        <tr>
-                            <td>${ds.name} bắt đầu lúc ${ds.start} và kết thúc lúc </td>
-                            <c:forEach items="${dateList}" var="date">
-                                <td>
-                                    <form:checkbox path="listdate" value="${date}"/>
-                                    <button type="submit"><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></button>
-                                </td>
-                            </c:forEach>
-                            <td> <button class="lop" type="submit">ĐĂNG KÝ LÀM</button></td>   
-
-                        </tr>
-                    </form:form >
-                </c:forEach>
+                <form:form id="lichlam"  method="post" action="${action}" modelAttribute="lichlam" >
+                    <form:hidden path="id" />
+                    <form:hidden path="userId" value="${doctor.id}" />
+                    <form:hidden path="status" value="0"/>
+                    <form:hidden path="shiftId" />
+                    <form:hidden path="dateSchedule"/>
+                    <tr>
+                        <td>Ca sáng</td>
+                        <c:forEach items="${dateList}" var="date">
+                            <td>
+                                <form:checkbox path="listdate1" value="${date}"/>
+                                <label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>
+                            </td>
+                        </c:forEach>
+                    </tr>
+                    <tr>
+                        <td>Ca chiều</td>
+                        <c:forEach items="${dateList}" var="date">
+                            <td>
+                                <form:checkbox path="listdate2" value="${date}"/>
+                                <label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>
+                            </td>
+                        </c:forEach>
+                    </tr>
+                    <tr>
+                        <td>Ca đêm</td>
+                        <c:forEach items="${dateList}" var="date">
+                            <td>
+                                <form:checkbox path="listdate3" value="${date}"/>
+                                <label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>
+                            </td>
+                        </c:forEach>
+                    </tr>
+                </form:form >
             </tbody>
         </table>
         <div class="submitbooking">
@@ -86,10 +100,8 @@
 </div>
 <script>
     function submitForms() {
-        var forms = document.getElementsByTagName("form");
-        for (var i = 0; i < forms.length; i++) {
-            forms[i].submit();
-        }
+        document.getElementById("lichlam").submit();
+
     }
 </script>
 <style>

@@ -218,8 +218,6 @@ public class DoctorController {
                 int soluongupdate = soluongthuoc - soluongban;
                 medicine.setQuantity(soluongupdate);
                 this.medicineService.addOrUpdateMedicine(medicine); //
-                Date currentDateTime = Calendar.getInstance().getTime();
-                this.appointmentService.getAppointmentById(id).setMedicalappointmentDate(currentDateTime);
                 return "redirect:/doctor/khambenh/kethuoc/" + id;
             }
         }
@@ -246,7 +244,8 @@ public class DoctorController {
         Prescription p = this.prescriptionService.getPrescriptionById(idPre);
         String chuanDoan = p.getSymptom();
         List<PrescriptionItem> thuoc = this.prescriptionItemService.getPrescriptionsbyIDPres(idPre);
-
+        Date currentDateTime = Calendar.getInstance().getTime();
+        a.setMedicalappointmentDate(currentDateTime);
         try {
             // Tạo một đối tượng Document
             Document document = new Document();
@@ -294,8 +293,8 @@ public class DoctorController {
                 Paragraph medication = new Paragraph("- " + tenThuoc + ": " + huongDan, contentFont);
                 document.add(medication);
             }
-            Date currentDateTime = Calendar.getInstance().getTime();
-            a.setMedicalappointmentDate(currentDateTime);
+//            Date currentDateTime = Calendar.getInstance().getTime();
+//            a.setMedicalappointmentDate(currentDateTime);
             // Đóng tài liệu
             document.close();
 

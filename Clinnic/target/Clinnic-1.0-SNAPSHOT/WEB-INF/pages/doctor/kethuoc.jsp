@@ -158,11 +158,12 @@
     function hoi() {
         if (confirm("Bạn đã hoàn thành việc khám?")) {
             window.location.href = "<c:url value='/doctor'/>"; // Chuyển hướng đến trang "/doctor" nếu đã hoàn thành
+
         } else {
             window.location.href = "<c:url value='/doctor/khambenh/kethuoc/${appo.id}'/>"; // Chuyển hướng đến trang "/doctor/khambenh/kethuoc/{id}" nếu chưa hoàn thành
         }
     }
-    ;
+
 </script>
 
 <style>

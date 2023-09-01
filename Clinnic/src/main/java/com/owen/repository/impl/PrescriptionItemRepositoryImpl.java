@@ -9,6 +9,8 @@ import com.owen.pojo.Medicine;
 import com.owen.pojo.PrescriptionItem;
 import com.owen.repository.PrescriptionItemRepository;
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -39,6 +41,8 @@ public class PrescriptionItemRepositoryImpl implements PrescriptionItemRepositor
     public boolean addOrUpdatePrescriptionItem(PrescriptionItem m, int id) {
         Session s = this.factory.getObject().getCurrentSession();
         Appointment p = s.get(Appointment.class, id);
+        Date currentDateTime = Calendar.getInstance().getTime();
+        p.setMedicalappointmentDate(currentDateTime);
         try {
             if (m.getId() == null) {
                 s.save(m);

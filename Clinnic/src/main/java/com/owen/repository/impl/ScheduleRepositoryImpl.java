@@ -54,7 +54,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
         return query.getResultList();
     }
-    
+
     @Override
     public List<ScheduleDetail> getSchedules(Date fromDate) {
         Session session = this.factory.getObject().getCurrentSession();
@@ -76,16 +76,43 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     @Override
     public boolean addOrUpdateScheduleDetail(ScheduleDetail m) {
         Session s = this.factory.getObject().getCurrentSession();
+        Shift s1 = s.get(Shift.class, 1);
+        Shift s2 = s.get(Shift.class, 2);
+        Shift s3 = s.get(Shift.class, 3);
         try {
             if (m.getId() == null) {
-                for (Date date : m.getListdate()) {
-                    ScheduleDetail newScheduleDetail = new ScheduleDetail();
-                    newScheduleDetail.setDateSchedule(date);
-                    newScheduleDetail.setShiftId(m.getShiftId());
-                    newScheduleDetail.setUserId(m.getUserId());
-                    newScheduleDetail.setStatus(m.getStatus());
+                if (m.getListdate1().length > 0) {
+                    for (Date date : m.getListdate1()) {
+                        ScheduleDetail newScheduleDetail = new ScheduleDetail();
+                        newScheduleDetail.setDateSchedule(date);
+                        newScheduleDetail.setShiftId(s1);
+                        newScheduleDetail.setUserId(m.getUserId());
+                        newScheduleDetail.setStatus(m.getStatus());
 
-                    s.save(newScheduleDetail);
+                        s.save(newScheduleDetail);
+                    }
+                }
+                if (m.getListdate2().length > 0) {
+                    for (Date date : m.getListdate2()) {
+                        ScheduleDetail newScheduleDetail = new ScheduleDetail();
+                        newScheduleDetail.setDateSchedule(date);
+                        newScheduleDetail.setShiftId(s2);
+                        newScheduleDetail.setUserId(m.getUserId());
+                        newScheduleDetail.setStatus(m.getStatus());
+
+                        s.save(newScheduleDetail);
+                    }
+                }
+                if (m.getListdate3().length > 0) {
+                    for (Date date : m.getListdate3()) {
+                        ScheduleDetail newScheduleDetail = new ScheduleDetail();
+                        newScheduleDetail.setDateSchedule(date);
+                        newScheduleDetail.setShiftId(s3);
+                        newScheduleDetail.setUserId(m.getUserId());
+                        newScheduleDetail.setStatus(m.getStatus());
+
+                        s.save(newScheduleDetail);
+                    }
                 }
             } else {
                 s.update(m);
