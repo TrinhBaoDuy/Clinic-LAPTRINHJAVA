@@ -47,5 +47,15 @@ public class ScheduleServiceImpl implements ScheduleService{
     public List<ScheduleDetail> getSchedules(Date fromDate) {
         return this.scheduleRepository.getSchedules(fromDate);
     }
+
+    @Override
+    public List<ScheduleDetail> getSchedulesaccepted(Date fromDate) {
+        return this.scheduleRepository.getSchedulesaccepted(fromDate);
+    }
+
+    @Override
+    public ScheduleDetail getScheduleDetailById(int id) {
+        return this.scheduleRepository.getScheduleDetailById(id);
+    }
     
 }

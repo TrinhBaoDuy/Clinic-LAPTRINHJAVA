@@ -119,7 +119,8 @@ public class AdminController {
             dateList.add(calendar.getTime());
         }
         model.addAttribute("dateList", dateList);
-        model.addAttribute("lichdone", this.scheduleService.getSchedules(dateList.get(0)));
+        model.addAttribute("lichundone", this.scheduleService.getSchedules(dateList.get(0)));
+        model.addAttribute("lichdone", this.scheduleService.getSchedulesaccepted(dateList.get(0)));
         model.addAttribute("lichlam", new ScheduleDetail());
         model.addAttribute("lich", this.shiftService.getShifts());
         model.addAttribute("getdoctor", this.userService.getBacSi());
@@ -138,6 +139,16 @@ public class AdminController {
             if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetail) == true) {
                 return "redirect:/admin/saplichlam";
             }
+        }
+        return "saplichlam";
+    }
+    
+    @GetMapping("/admin/saplichlam/xatnhan/{id}")
+    public String saplichlamxatnhan(@PathVariable(value = "id") int id) {
+        ScheduleDetail s = this.scheduleService.getScheduleDetailById(id);
+        if(this.scheduleService.addOrUpdateScheduleDetail(s)==true)
+        {
+            return "redirect:/admin/saplichlam";
         }
         return "saplichlam";
     }

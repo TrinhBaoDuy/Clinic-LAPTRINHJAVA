@@ -24,4 +24,7 @@ public interface ScheduleService {
     boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails);
     
     List<ScheduleDetail> getSchedules(Date fromDate);
+    List<ScheduleDetail> getSchedulesaccepted(Date fromDate);
+    ScheduleDetail getScheduleDetailById(int id);
+    
 }

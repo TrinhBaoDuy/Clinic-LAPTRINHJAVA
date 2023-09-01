@@ -64,9 +64,36 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         query.select(root);
 
         if (fromDate != null) {
+            Predicate fromDatePredicate = builder.greaterThanOrEqualTo(root.get("dateSchedule"), fromDate);
+            Predicate statusPredicate = builder.notEqual(root.get("status"), 1);
+            Predicate finalPredicate = builder.and(fromDatePredicate, statusPredicate);
+
+            query.where(finalPredicate);
+        }
+
+        Query typedQuery = session.createQuery(query);
+        return typedQuery.getResultList();
+    }
+
+    @Override
+    public List<ScheduleDetail> getSchedulesaccepted(Date fromDate) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.select(root);
+
+        if (fromDate != null) {
             // Tạo điều kiện lọc lịch từ ngày truyền vào trở đi
             Predicate fromDatePredicate = builder.greaterThanOrEqualTo(root.get("dateSchedule"), fromDate);
-            query.where(fromDatePredicate);
+
+            // Tạo điều kiện lọc khi status bằng 1
+            Predicate statusPredicate = builder.equal(root.get("status"), 1);
+
+            // Kết hợp các điều kiện với nhau
+            Predicate finalPredicate = builder.and(fromDatePredicate, statusPredicate);
+
+            query.where(finalPredicate);
         }
 
         Query typedQuery = session.createQuery(query);
@@ -116,6 +143,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
                 }
             } else {
                 s.update(m);
+                m.setStatus((short)1);
             }
 
             return true;
@@ -154,6 +182,23 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    @Override
+    public ScheduleDetail getScheduleDetailById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.where(
+                builder.and(
+                        builder.equal(root.get("id"), id)
+                //                        builder.equal(root.get("roleId"), 2)
+                )
+        );
+        Query q = session.createQuery(query);
+        List<ScheduleDetail> results = q.getResultList();
+        return results.isEmpty() ? null : results.get(0);
     }
 
 }
