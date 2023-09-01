@@ -115,8 +115,8 @@
                        value="/WEB-INF/pages/nurse/thanhtoan.jsp" />
     </definition>
     <definition name="admin" extends="baseLayout">
-        <put-attribute name="title" value="Thanh Toán" />
+        <put-attribute name="title" value="Admin" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/admin/admin" />
+                       value="/WEB-INF/pages/admin/admin.jsp" />
     </definition>
 </tiles-definitions>

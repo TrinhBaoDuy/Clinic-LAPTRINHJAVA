@@ -57,5 +57,10 @@ public class ScheduleServiceImpl implements ScheduleService{
     public ScheduleDetail getScheduleDetailById(int id) {
         return this.scheduleRepository.getScheduleDetailById(id);
     }
+
+    @Override
+    public boolean checkLichHopLe(Date dateSchedule , int shiftId) {
+        return this.scheduleRepository.checkLichHopLe(dateSchedule,shiftId);
+    }
     
 }

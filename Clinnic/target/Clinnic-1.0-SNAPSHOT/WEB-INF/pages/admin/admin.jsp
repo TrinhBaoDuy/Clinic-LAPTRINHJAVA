@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<c:url value="/admin" var="action" />
 <main class="table">
     <div class="containe">
 
@@ -15,10 +15,10 @@
             <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1693121721/Customer_Service_Free_Avatar_User_Icon_Business_User_Icon_Users_Group_Icon_Female_User_Icon_User_Icon_Template_Download_on_Pngtree-removebg-preview_tcdrsw.png" alt="alert"/>
         </div>
         <div class="adminright">
-            <input type="submit" value="QUẢN LÝ TÀI KHOẢN">
-            <input type="submit" value="QUẢN LÝ THUỐC">
-            <input type="submit" value="QUẢN LÝ LỊCH TRỰC">
-            <input type="submit" value="THỐNG KÊ">
+            <a href="<c:url value="/admin/quanlytaikhoan" />">QUẢN LÝ TÀI KHOẢN</a>
+            <a href="<c:url value="/admin/quanlythuoc" />">QUẢN LÝ THUỐC</a>
+            <a href="<c:url value="/admin/saplichlam" />">QUẢN LÝ LỊCH TRỰC</a>
+            <a href="<c:url value="/admin/thongke" />">THỐNG KÊ</a>
             
 
         </div>
@@ -49,16 +49,8 @@
      
 
 
-    input[type="submit"] {
-        background-color: #4CAF50;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        height: 30%;
-        width: 30%;
-        MARGIN: 37PX;
+    a{
+       
     }
 
 

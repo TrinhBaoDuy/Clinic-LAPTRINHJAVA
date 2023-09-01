@@ -58,7 +58,9 @@
         </c:forEach>
     </tbody>
 </table>
+
 <h2>Lịch làm đã sát nhận</h2>
+<h1>${msg}</h1>
 <table>
     <thead>
         <tr>
@@ -77,7 +79,7 @@
                 <td>${s.dateSchedule}</td>
                 <td>${s.shiftId.name}</td>
                 <td>
-                    <a href="<c:url value="/admin/saplichlam/huy${s.id}"/>" class="btn btn-success">Hủy</a>
+                    <a href="<c:url value="/admin/saplichlam/huy/${s.id}"/>" class="btn btn-success">Hủy</a>
                 </td>
             </tr>
         </c:forEach>

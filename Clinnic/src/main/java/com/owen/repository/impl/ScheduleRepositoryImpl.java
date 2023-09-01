@@ -8,6 +8,7 @@ import com.owen.pojo.Prescription;
 import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.Shift;
+import com.owen.pojo.User;
 import com.owen.repository.ScheduleRepository;
 import com.owen.service.ShiftService;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Map;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
@@ -73,6 +75,45 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
         Query typedQuery = session.createQuery(query);
         return typedQuery.getResultList();
+    }
+
+    @Override
+    public boolean checkLichHopLe(Date dateSchedule, int shiftId) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> query = builder.createQuery(Long.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+
+        // Tạo join giữa bảng ScheduleDetail và User
+        Join<ScheduleDetail, User> userJoin = root.join("userId");
+
+        query.select(builder.count(root));
+
+        // Tạo điều kiện lọc theo ngày đặt lịch
+        Predicate datePredicate = builder.equal(root.get("dateSchedule"), dateSchedule);
+        
+        Predicate shiftPredicate = builder.equal(root.get("shiftId"), shiftId);
+
+        // Tạo điều kiện lọc khi status bằng 1
+        Predicate statusPredicate = builder.equal(root.get("status"), 1);
+
+        // Tạo điều kiện lọc khi role của User là 2
+        Predicate rolePredicate = builder.equal(userJoin.get("roleId"), 2);
+
+        // Kết hợp các điều kiện với nhau
+        Predicate finalPredicate = builder.and(datePredicate, statusPredicate, rolePredicate,shiftPredicate);
+
+        query.where(finalPredicate);
+
+        Query typedQuery = session.createQuery(query);
+        Long count = (Long) typedQuery.getSingleResult();
+
+        // Kiểm tra số lượng bác sĩ đã đăng ký
+        if (count >= 2) {
+            return false; // Trả về "fail" nếu đã có 2 bác sĩ
+        } else {
+            return true; // Trả về "true" nếu chưa đủ 2 bác sĩ
+        }
     }
 
     @Override
@@ -142,8 +183,12 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
                     }
                 }
             } else {
+                if (m.getStatus() == 0) {
+                    m.setStatus((short) 1);
+                } else {
+                    m.setStatus((short) 0);
+                }
                 s.update(m);
-                m.setStatus((short)1);
             }
 
             return true;
@@ -183,7 +228,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         }
         return false;
     }
-    
+
     @Override
     public ScheduleDetail getScheduleDetailById(int id) {
         Session session = this.factory.getObject().getCurrentSession();

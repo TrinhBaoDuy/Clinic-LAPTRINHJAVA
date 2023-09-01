@@ -46,7 +46,7 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private AppointmentService appointmentService;
 
@@ -55,13 +55,12 @@ public class AdminController {
 
     @Autowired
     private Environment env;
-    
+
     @Autowired
     private ShiftService shiftService;
-    
+
     @Autowired
     private ScheduleService scheduleService;
-
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -97,7 +96,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String thanhtoan() {
+    public String admin() {
         return "admin";
     }
 
@@ -106,10 +105,10 @@ public class AdminController {
         model.addAttribute("list", this.appointmentService.getCountUserByMonth());
         return "thongke";
     }
-    
+
     @GetMapping("/admin/saplichlam")
-    public String lichlam(Model model,Authentication authentication) {
-         List<Date> dateList = new ArrayList<>();
+    public String lichlam(Model model, Authentication authentication) {
+        List<Date> dateList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Đặt ngày là thứ Hai
         calendar.add(Calendar.WEEK_OF_YEAR, 1);
@@ -132,6 +131,7 @@ public class AdminController {
         }
         return "saplichlam";
     }
+
     @PostMapping("/admin/saplichlam")
     public String saplichlam(@ModelAttribute(value = "lichlam") @Valid ScheduleDetail scheduleDetail,
             BindingResult rs) {
@@ -142,12 +142,26 @@ public class AdminController {
         }
         return "saplichlam";
     }
-    
+
     @GetMapping("/admin/saplichlam/xatnhan/{id}")
-    public String saplichlamxatnhan(@PathVariable(value = "id") int id) {
+    public String saplichlamxatnhan(Model model,@PathVariable(value = "id") int id) {
         ScheduleDetail s = this.scheduleService.getScheduleDetailById(id);
-        if(this.scheduleService.addOrUpdateScheduleDetail(s)==true)
-        {
+        if (this.scheduleService.checkLichHopLe(s.getDateSchedule(),s.getShiftId().getId()) == true) {
+            if (this.scheduleService.addOrUpdateScheduleDetail(s) == true) {
+                return "redirect:/admin/saplichlam";
+            }
+        }else{
+            model.addAttribute("msg", "Đã quá số lượng nhân viên làm trong ngày" + s.getDateSchedule());
+            return "redirect:/admin/saplichlam";
+            
+        }
+        return "saplichlam";
+    }
+
+    @GetMapping("/admin/saplichlam/huy/{id}")
+    public String saplichlamhuy(@PathVariable(value = "id") int id) {
+        ScheduleDetail s = this.scheduleService.getScheduleDetailById(id);
+        if (this.scheduleService.addOrUpdateScheduleDetail(s) == true) {
             return "redirect:/admin/saplichlam";
         }
         return "saplichlam";
