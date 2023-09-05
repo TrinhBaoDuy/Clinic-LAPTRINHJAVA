@@ -7,8 +7,11 @@ package com.owen.service.impl;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.owen.pojo.Role;
+import com.owen.pojo.ScheduleDetail;
+import com.owen.pojo.Shift;
 import com.owen.pojo.User;
 import com.owen.repository.RoleReponsitory;
+import com.owen.repository.ScheduleRepository;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +52,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ScheduleRepository scheduleRepository;
 
     @Override
     public List<User> getUsers(Map<String, String> params) {
@@ -107,10 +113,53 @@ public class UserServiceImpl implements UserService {
         if (u == null) {
             throw new UsernameNotFoundException("Invalid");
         }
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority(u.getRoleId().getName()));
-        return new org.springframework.security.core.userdetails.User(
-                u.getUsername(), u.getPassword(), authorities);
+        boolean canLogin = true;
+//        boolean canLogin = false;
+//
+//        List<ScheduleDetail> listTgTruc = this.scheduleRepository.getScheduleDetailsByTaiKhoan(u);
+//
+//        if (listTgTruc.isEmpty()) {
+//            canLogin = true;
+//        } else {
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+//
+//            Date currentDate = new Date();
+//            Date currentTime = new Date();
+//
+//            String formattedDate = formatter.format(currentDate);
+//            String currentTimeStr = timeFormat.format(currentTime);
+//
+//            try {
+//                Date ngayHienTai = formatter.parse(formattedDate);
+//                Date gioHienTai = timeFormat.parse(currentTimeStr);
+//
+//                for (ScheduleDetail chiTiet : listTgTruc) {
+//
+//                    Shift thoiGianTruc = chiTiet.getShiftId();
+//
+//                    Date startTime = thoiGianTruc.getStart();
+//                    Date endTime = thoiGianTruc.getEnd();
+//
+//                    Date ngayDkyTruc = chiTiet.getDateSchedule();
+//
+//                    if (ngayDkyTruc.equals(ngayHienTai) && gioHienTai.after(startTime) && gioHienTai.before(endTime)) {
+//                        canLogin = true;
+//                        break;
+//                    }
+//                }
+//            } catch (ParseException ex) {
+//                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, "Lỗi khi phân tích ngày tháng", ex);
+//            }
+//        }
+        if (canLogin) {
+            Set<GrantedAuthority> authorities = new HashSet<>();
+            authorities.add(new SimpleGrantedAuthority(u.getRoleId().getName()));
+            return new org.springframework.security.core.userdetails.User(
+                    u.getUsername(), u.getPassword(), authorities);
+        } else {
+            throw new UsernameNotFoundException("Không thể đăng nhập vào lúc này!");
+        }
     }
 
     @Override
@@ -170,7 +219,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getBacSi(int id) {
-    return this.userRepo.getBacSi(id);
+        return this.userRepo.getBacSi(id);
     }
 
 }

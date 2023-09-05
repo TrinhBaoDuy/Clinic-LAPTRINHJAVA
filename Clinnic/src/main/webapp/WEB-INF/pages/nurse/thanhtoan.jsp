@@ -1,7 +1,7 @@
- <%-- 
-    Document   : thanhtoan
-    Created on : Aug 15, 2023, 1:27:23 PM
-    Author     : hung
+<%-- 
+   Document   : thanhtoan
+   Created on : Aug 15, 2023, 1:27:23 PM
+   Author     : hung
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -95,11 +95,16 @@
                     <label>Tiền Trả khách:</label>
                     <input type="text" id="change-amount" readonly />
                 </div>
+
+
                 <button type="submit">Thanh toán</button>
             </div>
         </form:form>
 
-
+        <a href="/Clinnic/paymomo?id=${appo.id}" target="_blank">
+            sdasd
+        </a>
+         <input type="hidden" name="id" value="${appo.id}" />
     </div>
 </div>
 

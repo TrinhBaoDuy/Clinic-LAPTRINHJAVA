@@ -78,7 +78,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public boolean checkLichHopLe(Date dateSchedule, int shiftId) {
+    public boolean checkLichHopLe(Date dateSchedule, int shiftId, int role) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);
@@ -91,17 +91,17 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
         // Tạo điều kiện lọc theo ngày đặt lịch
         Predicate datePredicate = builder.equal(root.get("dateSchedule"), dateSchedule);
-        
+
         Predicate shiftPredicate = builder.equal(root.get("shiftId"), shiftId);
 
         // Tạo điều kiện lọc khi status bằng 1
         Predicate statusPredicate = builder.equal(root.get("status"), 1);
 
         // Tạo điều kiện lọc khi role của User là 2
-        Predicate rolePredicate = builder.equal(userJoin.get("roleId"), 2);
+        Predicate rolePredicate = builder.equal(userJoin.get("roleId"), role);
 
         // Kết hợp các điều kiện với nhau
-        Predicate finalPredicate = builder.and(datePredicate, statusPredicate, rolePredicate,shiftPredicate);
+        Predicate finalPredicate = builder.and(datePredicate, statusPredicate, rolePredicate, shiftPredicate);
 
         query.where(finalPredicate);
 
@@ -246,6 +246,13 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         return results.isEmpty() ? null : results.get(0);
     }
 
+    @Override
+    public List<ScheduleDetail> getScheduleDetailsByTaiKhoan(User user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createQuery("FROM ScheduleDetail WHERE userId = :idTk");
+        query.setParameter("idTk", user);
+        List<ScheduleDetail> resultList = query.getResultList();
+        return resultList;
+    }
+
 }
-
-

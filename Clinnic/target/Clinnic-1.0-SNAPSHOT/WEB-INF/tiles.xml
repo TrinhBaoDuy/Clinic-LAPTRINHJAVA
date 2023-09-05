@@ -91,6 +91,11 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/doctor/dangkylam.jsp" />
     </definition>
+     <definition name="dangkylamviec" extends="baseLayout">
+        <put-attribute name="title" value="Dang ky lam" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/nurse/dangkylam.jsp" />
+    </definition>
     <definition name="kethuoc" extends="baseLayout">
         <put-attribute name="title" value="Ke thuoc" />
         <put-attribute name="content"
@@ -119,6 +124,7 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/admin/saplichlam.jsp" />
     </definition>
+    
 
 
     

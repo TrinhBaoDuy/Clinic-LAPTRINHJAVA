@@ -5,6 +5,7 @@
 package com.owen.repository;
 
 import com.owen.pojo.ScheduleDetail;
+import com.owen.pojo.User;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,8 @@ public interface ScheduleRepository {
     List<ScheduleDetail> getSchedules(Date fromDate);
     List<ScheduleDetail> getSchedulesaccepted(Date fromDate);
     ScheduleDetail getScheduleDetailById(int id);
-    boolean checkLichHopLe(Date dateSchedule, int shiftId);
+    boolean checkLichHopLe(Date dateSchedule, int shiftId,int role);
+    List<ScheduleDetail> getScheduleDetailsByTaiKhoan(User user);
 
 
 }

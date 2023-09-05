@@ -4,13 +4,21 @@
  */
 package com.owen.service.impl;
 
+import com.cloudinary.utils.ObjectUtils;
 import com.owen.pojo.Appointment;
 import com.owen.pojo.User;
 import com.owen.repository.AppointmentRepository;
+import com.owen.repository.UserRepository;
+import com.owen.repository.impl.UserRepositoryImpl;
 import com.owen.service.AppointmentService;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +31,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
+    
+    @Autowired
+    private UserRepository UserRepository;
 
     @Override
     public List<Appointment> getAppointments(Map<String, String> params) {
@@ -88,7 +99,24 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Integer> getCountUserByQuarter() {
         return this.appointmentRepository.getCountUserByQuarter();
     }
+    
+    @Override
+    public Appointment dangkykham(Map<String, String> params){
+        Appointment a = new Appointment();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedDate = null;
 
+        try {
+            parsedDate = dateFormat.parse(params.get("appointmentDate"));
+        } catch (ParseException ex) {
+            Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        User nguoibenh = this.UserRepository.getUserById(Integer.parseInt(params.get("sickpersonId")));
+        a.setAppointmentDate(parsedDate);
+        a.setSickpersonId(nguoibenh);
+        this.appointmentRepository.addOrUpdateAppointment(a);
+        return a;
+    }
 }
 
 

@@ -7,14 +7,25 @@ package com.owen.controllers;
 import com.owen.pojo.Appointment;
 import com.owen.pojo.Bill;
 import com.owen.pojo.PrescriptionItem;
+import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
 import com.owen.service.BillService;
 import com.owen.service.PaymentService;
 import com.owen.service.PrescriptionItemService;
+import com.owen.service.ScheduleService;
 import com.owen.service.ServiceItemService;
 import com.owen.service.ServiceService;
+import com.owen.service.ShiftService;
 import com.owen.service.UserService;
+import com.springmvc.dto.momoclasses.PaymentResponse;
+import com.springmvc.enums.RequestType;
+import com.springmvc.momoprocessor.CreateOrderMoMo;
+import com.springmvc.share.utils.LogUtils;
+import com.springmvc.dto.momoclasses.Environment;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +35,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -55,9 +65,6 @@ public class NurseController {
     @Autowired
     private CustomDateEditor customDateEditor;
 
-    @Autowired
-    private Environment env;
-
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, customDateEditor);
@@ -70,6 +77,12 @@ public class NurseController {
 
     @Autowired
     private JavaMailSender emailSender;
+    
+    @Autowired
+    private ScheduleService scheduleService;
+    
+    @Autowired
+    private ShiftService shiftService;
 
     @Autowired
     private PrescriptionItemService prescriptionItemService;
@@ -186,16 +199,82 @@ public class NurseController {
         model.addAttribute("bill", new Bill());
         return "thanhtoan";
     }
+    
+    
+    @GetMapping("/paymomo")
+    public String momoPay(Model model,@RequestParam(value = "id") int id) throws Exception {
+//        Bill hd = this.thanhToanService.getHoaDonById(id);
+
+//        BigDecimal tienThuoc = BigDecimal.valueOf(hd.getTienThuoc());
+//        BigDecimal tienDv = BigDecimal.valueOf(hd.getTienDv());
+//        BigDecimal tienKham = BigDecimal.valueOf(hd.getTienKham().getTienKham());
+
+//        BigDecimal tongTien = tienThuoc.add(tienDv).add(tienKham);
+
+        LogUtils.init();
+        String requestId = String.valueOf(System.currentTimeMillis());
+        String orderId = String.valueOf(System.currentTimeMillis());
+        long amount = 51123;
+
+        String orderInfo = "Thanh toán hóa đơn";
+        String returnURL = "redirect:nurse/thanhtoan/"+id;
+        String notifyURL = "redirect:nurse/thanhtoan/"+id;
+        Environment environment = Environment.selectEnv("dev");
+        model.addAttribute("nhap", "nhap");
+        PaymentResponse captureWalletMoMoResponse = CreateOrderMoMo.process(environment, orderId, requestId, Long.toString(amount), orderInfo, returnURL, notifyURL, "", RequestType.CAPTURE_WALLET, Boolean.TRUE);
+        String url = captureWalletMoMoResponse.getPayUrl();
+        return "redirect:" + url;
+
+    }
+    
 
     @PostMapping("/nurse/thanhtoan")
     public String xulithanhtoan(Model model, @ModelAttribute(value = "bill") @Valid Bill bill, BindingResult rs) throws MessagingException {
         if (!rs.hasErrors()) {
             if (this.billService.addOrUpdateBill(bill) == true) {
-                 return "redirect:/nurse";
+//                 return "redirect:/nurse";
             }     
         }
         return "thanhtoan";
     }
+    @GetMapping("/nurse/dangkylam")
+    public String dangkylam(Model model, Authentication authentication) {
+
+        List<Date> dateList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Đặt ngày là thứ Hai
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        dateList.add(calendar.getTime()); // Thêm ngày thứ Hai gần nhất vào danh sách
+        for (int i = 0; i < 6; i++) { // Thêm các ngày từ thứ Ba đến Chủ nhật
+            calendar.add(Calendar.DAY_OF_WEEK, 1);
+            dateList.add(calendar.getTime());
+        }
+        model.addAttribute("dateList", dateList);
+//        
+
+//        List<ScheduleDetail> scheduleDetails = new ArrayList<ScheduleDetail>();
+        model.addAttribute("lichlam", new ScheduleDetail());
+        model.addAttribute("lich", this.shiftService.getShifts());
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("nurse", u);
+
+        }
+        return "dangkylamviec";
+    }
+
+    @PostMapping("/nurse/dangkylam")
+    public String update(@ModelAttribute(value = "lichlam") @Valid ScheduleDetail scheduleDetail,
+            BindingResult rs) {
+        if (!rs.hasErrors()) {
+            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetail) == true) {
+                return "redirect:/nurse/dangkylam";
+            }
+        }
+        return "dangkylamviec";
+    }
+
 }
 
 

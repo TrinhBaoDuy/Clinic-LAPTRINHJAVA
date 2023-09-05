@@ -152,7 +152,8 @@ public class AdminController {
     @GetMapping("/admin/saplichlam/xatnhan/{id}")
     public String saplichlamxatnhan(Model model,@PathVariable(value = "id") int id) {
         ScheduleDetail s = this.scheduleService.getScheduleDetailById(id);
-        if (this.scheduleService.checkLichHopLe(s.getDateSchedule(),s.getShiftId().getId()) == true) {
+        User u = this.userService.getUserById(s.getUserId().getId());
+        if (this.scheduleService.checkLichHopLe(s.getDateSchedule(),s.getShiftId().getId(),u.getRoleId().getId()) == true) {
             if (this.scheduleService.addOrUpdateScheduleDetail(s) == true) {
                 return "redirect:/admin/saplichlam";
             }

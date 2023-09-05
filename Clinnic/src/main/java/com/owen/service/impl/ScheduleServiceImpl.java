@@ -5,6 +5,7 @@
 package com.owen.service.impl;
 
 import com.owen.pojo.ScheduleDetail;
+import com.owen.pojo.User;
 import com.owen.repository.ScheduleRepository;
 import com.owen.service.ScheduleService;
 import java.util.Date;
@@ -59,8 +60,13 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public boolean checkLichHopLe(Date dateSchedule , int shiftId) {
-        return this.scheduleRepository.checkLichHopLe(dateSchedule,shiftId);
+    public boolean checkLichHopLe(Date dateSchedule , int shiftId,int role) {
+        return this.scheduleRepository.checkLichHopLe(dateSchedule,shiftId,role);
+    }
+
+    @Override
+    public List<ScheduleDetail> getScheduleDetailsByTaiKhoan(User user) {
+        return this.scheduleRepository.getScheduleDetailsByTaiKhoan(user);
     }
     
 }
