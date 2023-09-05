@@ -17,6 +17,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class AppConfig{
     @Bean
     public CustomSuccessHandler cusstomSuccessHandler(){
-        return new CustomSuccessHandler();
+        return new CustomSuccessHandler(); 
     }
 }
