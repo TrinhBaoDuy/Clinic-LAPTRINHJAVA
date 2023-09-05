@@ -74,4 +74,19 @@ public class AppointmentServiceImpl implements AppointmentService {
         return this.appointmentRepository.getCountUserByMonth();
     }
 
+    @Override
+    public Integer getCountUserByOneMonth(int month) {
+        return this.appointmentRepository.getCountUserByOneMonth(month);
+    }
+
+    @Override
+    public List<Integer> getCountUserByQuarter(List<Integer> months) {
+        return this.appointmentRepository.getCountUserByQuarter(months);
+    }
+
+    @Override
+    public List<Integer> getCountUserByQuarter() {
+        return this.appointmentRepository.getCountUserByQuarter();
+    }
+
 }

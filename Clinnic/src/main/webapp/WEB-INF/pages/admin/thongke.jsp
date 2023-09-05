@@ -10,6 +10,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
+<c:url value="/admin/thongke" var="action" />
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -17,28 +18,46 @@
 
     <h1>Thống kê doanh thu</h1>
 
-    <h2>Thống kê theo tháng</h2>
-    <div>
-        <label for="month">Chọn tháng:</label>
-        <select id="month">
-            <option value="1">Tháng 1</option>
-            <option value="2">Tháng 2</option>
-            <option value="3">Tháng 3</option>
-            <!-- Thêm các option cho các tháng còn lại -->
-        </select>
-        <button onclick="showMonthlyRevenue()">Xem</button>
-    </div>
+    <h2>Thống kê theo tháng </h2>
+<!--    <form  action="${action}">
+        <div>
+            <label for="month">Chọn tháng:</label>
+            <select name="thang" id="month">
+                <option value="1">Tháng 1</option>
+                <option value="2">Tháng 2</option>
+                <option value="3">Tháng 3</option>
+                <option value="4">Tháng 4</option>
+                <option value="5">Tháng 5</option>
+                <option value="6">Tháng 6</option>
+                <option value="7">Tháng 7</option>
+                <option value="8">Tháng 8</option>
+                <option value="9">Tháng 9</option>
+                <option value="10">Tháng 10</option>
+                <option value="11">Tháng 11</option>
+                <option value="12">Tháng 12</option>
+            </select>
+            <button type="submit" >Xem</button>
+        </div>
+    </form>-->
     <canvas id="monthlyRevenueChart"></canvas>
-
-    <h2>test theo thang</h2>
-    <div>
-        <c:forEach items="${list}" var="t">
-            <h3>${t}</h3>
-        </c:forEach>
-    </div>
-    <canvas id="chart"></canvas>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Số lượng người dùng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${list}" var="t" varStatus="loop">
+                <tr>
+                    <td>Tháng ${loop.index+1}</td>
+                    <td>${t}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
     <h2>Thống kê theo quý</h2>
-    <div>
+<!--    <div action="${action}">
         <label for="quarter">Chọn quý:</label>
         <select id="quarter">
             <option value="1">Quý 1</option>
@@ -47,7 +66,23 @@
             <option value="4">Quý 4</option>
         </select>
         <button onclick="showQuarterlyRevenue()">Xem</button>
-    </div>
+    </div>-->
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Số lượng người dùng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${listq}" var="t" varStatus="loop">
+                <tr>
+                    <td>Quý ${loop.index+1}</td>
+                    <td>${t}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
     <canvas id="quarterlyRevenueChart"></canvas>
 
     <h2>Thống kê theo năm</h2>
@@ -66,43 +101,16 @@
     <!----------------------------------------------------> 
 
     <script>
-         // Lấy dữ liệu từ model
-    const monthData = ${list}
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    // Tạo biểu đồ bằng Chart.js
-    const ctx = document.getElementById('chart').getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: months,
-        datasets: [{
-          label: 'Số lượng bệnh nhân đến khám',
-          data: monthData,
-          borderColor: 'blue',
-          fill: false
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-        
-        
-        
-        
+        // Lấy dữ liệu từ model
+        const monthData = ${list}
+        const quarterData = ${listq}
 //        Phước------------------------------------------------------------------
         // Dữ liệu doanh thu theo tháng, quý và năm
         const monthlyRevenueData = {
-            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4'],
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
                     label: 'Doanh thu',
-                    data: [100, 150, 120, 180, 200, 170],
+                    data: monthData,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
@@ -113,7 +121,7 @@
             labels: ['Quý 1', 'Quý 2', 'Quý 3', 'Quý 4'],
             datasets: [{
                     label: 'Doanh thu',
-                    data: [/* Dữ liệu doanh thu quý 1, quý 2, quý 3, quý 4 */],
+                    data: quarterData,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
@@ -133,6 +141,8 @@
 
         // Biểu đồ doanh thu theo tháng
         const monthlyRevenueChart = new Chart(document.getElementById('monthlyRevenueChart'), {
+//            type: 'polarArea',
+//            type: 'pie',
             type: 'bar',
             data: monthlyRevenueData,
             options: {
@@ -174,13 +184,34 @@
         function showMonthlyRevenue() {
             const selectedMonth = document.getElementById('month').value;
             // Xử lý dữ liệu và hiển thị chỉ số doanh thu của tháng tương ứng
+
             let monthlyRevenueDataSubset = [];
-            // Lấy dữ liệu doanh thu của tháng tương ứng từ dữ liệu gốc
-            // Ví dụ: monthlyRevenueDataSubset = monthlyRevenueData.datasets[0].data.slice(0, 3);
 
             // Cập nhật dữ liệu và hiển thị biểu đồ doanh thu theo tháng
             monthlyRevenueChart.update();
         }
+
+//        function showMonthlyRevenue() {
+//            const selectedMonth = document.getElementById('month').value;
+//
+//            // Xử lý dữ liệu và hiển thị chỉ số doanh thu của tháng tương ứng
+//            let monthlyRevenueDataSubset = [];
+//
+//            // Lấy chỉ số (index) của tháng được chọn trong mảng labels
+//            const monthIndex = ${mothang};
+//
+//            // Lấy doanh thu của tháng được chọn từ mảng data trong datasets
+//            const selectedMonthRevenue = monthlyRevenueData.datasets[0].data[monthIndex];
+//            const selectedMonthRevenue = monthlyRevenueData.labels[0].data[monthIndex];
+//
+//            // Thêm doanh thu của tháng được chọn vào mảng monthlyRevenueDataSubset
+//            monthlyRevenueDataSubset.push(selectedMonthRevenue);
+//
+//            // Cập nhật dữ liệu và hiển thị biểu đồ doanh thu theo tháng
+//            monthlyRevenueChart.data.datasets[0].data = monthlyRevenueDataSubset;
+//            monthlyRevenueChart.data.labels = [monthlyRevenueData.labels[monthIndex]];
+//            monthlyRevenueChart.update();
+//        }
 
         // Xử lý sự kiện khi người dùng chọn quý và nhấn nút "Xem"
         function showQuarterlyRevenue() {

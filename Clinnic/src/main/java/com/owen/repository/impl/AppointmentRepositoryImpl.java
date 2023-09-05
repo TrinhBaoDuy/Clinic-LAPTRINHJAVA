@@ -232,6 +232,39 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         }
     }
 
+//    @Override
+//    public List<Integer> getCountUserByMonth() {
+//        List<Integer> monthData = new ArrayList<>();
+//        try {
+//            Session session = this.factory.getObject().getCurrentSession();
+//            CriteriaBuilder builder = session.getCriteriaBuilder();
+//            CriteriaQuery<Tuple> query = builder.createTupleQuery();
+//            Root<Appointment> root = query.from(Appointment.class);
+//            query.multiselect(builder.function("MONTH", Integer.class, root.get("appointmentDate")).alias("month"), builder.count(root).alias("count"));
+//            query.groupBy(builder.function("MONTH", Integer.class, root.get("appointmentDate")));
+//            TypedQuery<Tuple> typedQuery = session.createQuery(query);
+//            List<Tuple> results = typedQuery.getResultList();
+//
+//            for (int month = 1; month <= 12; month++) {
+//                boolean monthFound = false;
+//                for (Tuple result : results) {
+//                    Integer resultMonth = result.get("month", Integer.class);
+//                    if (resultMonth != null && resultMonth.equals(month)) {
+//                        Long count = result.get("count", Long.class);
+//                        monthData.add(count.intValue());
+//                        monthFound = true;
+//                        break;
+//                    }
+//                }
+//                if (!monthFound) {
+//                    monthData.add(0);
+//                }
+//            }
+//        } catch (HibernateException e) {
+//            e.printStackTrace();
+//        }
+//        return monthData;
+//    }
     @Override
     public List<Integer> getCountUserByMonth() {
         List<Integer> monthData = new ArrayList<>();
@@ -240,7 +273,10 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Tuple> query = builder.createTupleQuery();
             Root<Appointment> root = query.from(Appointment.class);
-            query.multiselect(builder.function("MONTH", Integer.class, root.get("appointmentDate")).alias("month"), builder.count(root).alias("count"));
+            query.multiselect(
+                    builder.function("MONTH", Integer.class, root.get("appointmentDate")).alias("month"),
+                    builder.countDistinct(root.get("sickpersonId")).alias("count")
+            );
             query.groupBy(builder.function("MONTH", Integer.class, root.get("appointmentDate")));
             TypedQuery<Tuple> typedQuery = session.createQuery(query);
             List<Tuple> results = typedQuery.getResultList();
@@ -260,10 +296,104 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
                     monthData.add(0);
                 }
             }
+
         } catch (HibernateException e) {
             e.printStackTrace();
         }
         return monthData;
     }
 
+    @Override
+    public Integer getCountUserByOneMonth(int month) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> query = builder.createQuery(Long.class);
+            Root<Appointment> root = query.from(Appointment.class);
+            query.select(builder.countDistinct(root.get("sickpersonId")));
+            query.where(builder.equal(builder.function("MONTH", Integer.class, root.get("appointmentDate")), month));
+            TypedQuery<Long> typedQuery = session.createQuery(query);
+            Long count = typedQuery.getSingleResult();
+            return count.intValue();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public List<Integer> getCountUserByQuarter() {
+        List<Integer> quarterData = new ArrayList<>();
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Tuple> query = builder.createTupleQuery();
+            Root<Appointment> root = query.from(Appointment.class);
+            query.multiselect(
+                    builder.function("QUARTER", Integer.class, root.get("appointmentDate")).alias("quarter"),
+                    builder.countDistinct(root.get("sickpersonId")).alias("count")
+            );
+            query.groupBy(builder.function("QUARTER", Integer.class, root.get("appointmentDate")));
+            TypedQuery<Tuple> typedQuery = session.createQuery(query);
+            List<Tuple> results = typedQuery.getResultList();
+
+            for (int quarter = 1; quarter <= 4; quarter++) {
+                boolean quarterFound = false;
+                for (Tuple result : results) {
+                    Integer resultQuarter = result.get("quarter", Integer.class);
+                    if (resultQuarter != null && resultQuarter.equals(quarter)) {
+                        Long count = result.get("count", Long.class);
+                        quarterData.add(count.intValue());
+                        quarterFound = true;
+                        break;
+                    }
+                }
+                if (!quarterFound) {
+                    quarterData.add(0);
+                }
+            }
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return quarterData;
+    }
+
+    @Override
+    public List<Integer> getCountUserByQuarter(List<Integer> months) {
+        List<Integer> monthData = new ArrayList<>();
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Tuple> query = builder.createTupleQuery();
+            Root<Appointment> root = query.from(Appointment.class);
+            query.multiselect(
+                    builder.function("MONTH", Integer.class, root.get("appointmentDate")).alias("month"),
+                    builder.countDistinct(root.get("sickpersonId")).alias("count")
+            );
+            query.groupBy(builder.function("MONTH", Integer.class, root.get("appointmentDate")));
+            query.where(builder.function("MONTH", Integer.class, root.get("appointmentDate")).in(months));
+            TypedQuery<Tuple> typedQuery = session.createQuery(query);
+            List<Tuple> results = typedQuery.getResultList();
+
+            for (Integer month : months) {
+                boolean monthFound = false;
+                for (Tuple result : results) {
+                    Integer resultMonth = result.get("month", Integer.class);
+                    if (resultMonth != null && resultMonth.equals(month)) {
+                        Long count = result.get("count", Long.class);
+                        monthData.add(count.intValue());
+                        monthFound = true;
+                        break;
+                    }
+                }
+                if (!monthFound) {
+                    monthData.add(0);
+                }
+            }
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return monthData;
+    }
 }

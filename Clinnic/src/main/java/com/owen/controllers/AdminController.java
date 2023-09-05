@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.owen.service.UserService;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -101,8 +102,13 @@ public class AdminController {
     }
 
     @GetMapping("/admin/thongke")
-    public String thongke(Model model) {
+    public String thongke(Model model,@RequestParam Map<String, String> params) {
         model.addAttribute("list", this.appointmentService.getCountUserByMonth());
+        model.addAttribute("listq", this.appointmentService.getCountUserByQuarter());
+//        int thang = Integer.parseInt(params.get("thang"));
+//        model.addAttribute("motthang", this.appointmentService.getCountUserByOneMonth(thang));
+        List<Integer> months = Arrays.asList(7, 8, 9); 
+        model.addAttribute("motquy", this.appointmentService.getCountUserByQuarter(months));
         return "thongke";
     }
 

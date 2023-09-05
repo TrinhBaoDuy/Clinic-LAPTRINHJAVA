@@ -35,4 +35,7 @@ public interface AppointmentService {
      boolean canAcceptAppointment(Date date);
      
      List<Integer> getCountUserByMonth();
+     List<Integer> getCountUserByQuarter();
+     Integer getCountUserByOneMonth(int month);
+     List<Integer> getCountUserByQuarter(List<Integer> months);
 }
