@@ -1,6 +1,8 @@
 com\owen\pojo\ScheduleDetail_.class
 com\owen\service\PaymentService.class
 com\owen\repository\PaymentRepository.class
+com\owen\configs\JwtSecurityConfig.class
+com\owen\filters\CustomAccessDeniedHandler.class
 com\owen\pojo\User_.class
 com\owen\controllers\SickPersonController.class
 com\owen\service\ScheduleService.class
@@ -36,13 +38,16 @@ com\owen\service\RoleService.class
 com\owen\pojo\Appointment_.class
 com\owen\pojo\ScheduleDetail.class
 com\owen\service\impl\UnitServiceImpl.class
+com\owen\filters\RestAuthenticationEntryPoint.class
 com\owen\repository\ServiceItemRepository.class
+com\owen\filters\JwtAuthenticationTokenFilter.class
 com\owen\service\PrescriptionService.class
 com\owen\service\BillService.class
 com\owen\service\impl\UserServiceImpl.class
 com\owen\repository\ServiceRepository.class
 com\owen\repository\ShiftRepository.class
 com\owen\configs\DispatcherServletInit.class
+com\owen\components\JwtService.class
 com\owen\service\impl\ShiftServiceImpl.class
 com\owen\repository\impl\BillRepositoryImpl.class
 com\owen\controllers\ApiUserController.class

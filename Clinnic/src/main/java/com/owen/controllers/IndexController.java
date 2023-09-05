@@ -42,13 +42,6 @@ public class IndexController {
     @RequestMapping("/")
     @Transactional
     public String index(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("countuser", this.userService.countUser());
-        model.addAttribute("getuser",this.userService.getUsers(params));
-//        model.addAttribute("msg", "Nhap");
-        
-        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-        long count = this.userService.countUser();
-        model.addAttribute("counter", Math.ceil(count*1.0/pageSize));
         
         return "index";
     }

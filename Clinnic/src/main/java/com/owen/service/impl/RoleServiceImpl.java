@@ -25,5 +25,10 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> getRoles() {
         return this.roleReponsitory.getRoles();
     }
+
+    @Override
+    public Role getRoleById(int id) {
+        return this.roleReponsitory.getRoleById(id);
+    }
     
 }

@@ -4,6 +4,7 @@
  */
 package com.owen.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -60,7 +61,7 @@ public class User implements Serializable {
     @Size(max = 1000)
     @Column(name = "password")
     private String password;
-    @Size(max = 100)
+    @Size(max = 1000)
     @Column(name = "avatar")
     private String avatar;
     @Size(max = 45)
@@ -70,10 +71,10 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "phone")
     private String phone;
-    @Size(max = 45)
+    @Size(max = 100)
     @Column(name = "address")
     private String address;
-    @Size(max = 45)
+    @Size(max = 100)
     @Column(name = "emaill")
     private String emaill;
     @Column(name = "dod")
@@ -83,18 +84,26 @@ public class User implements Serializable {
     @Column(name = "sex")
     private String sex;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<ScheduleDetail> scheduleDetailSet;
     @OneToMany(mappedBy = "doctorId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet;
     @OneToMany(mappedBy = "nurseId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet1;
     @OneToMany(mappedBy = "sickpersonId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet2;
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Role roleId;
+    
+    
     @Transient
+    @JsonIgnore
     private MultipartFile file;
+    
 
     /**
      * @return the file
@@ -265,5 +274,9 @@ public class User implements Serializable {
     public String toString() {
         return "com.owen.pojo.User[ id=" + id + " ]";
     }
+
+//    public String getUserRole() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
 
 }

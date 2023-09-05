@@ -205,8 +205,21 @@ public class UserRepositoryImpl implements UserRepository {
 
         return q.getResultList();
     }
+    
+    @Override
+    public boolean authUser(String username, String password) {
+        User  u = this.getUserByUsername(username);
+        return this.passwordEncoder.matches(password, u.getPassword());
+    }
 
     @Override
+    public User addUser(User user) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(user);
+
+        return user;
+    }
+     @Override
     public List<User> getBacSi(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -223,4 +236,6 @@ public class UserRepositoryImpl implements UserRepository {
         List<User> results = session.createQuery(criteria).getResultList();
         return results;
     }
+
+
 }

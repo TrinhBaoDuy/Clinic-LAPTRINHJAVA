@@ -16,7 +16,6 @@ import com.owen.pojo.Prescription;
 import com.owen.pojo.PrescriptionItem;
 import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.ServiceItems;
-import com.owen.pojo.Shift;
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
 import com.owen.service.MedicineService;
@@ -27,7 +26,6 @@ import com.owen.service.ServiceItemService;
 import com.owen.service.ServiceService;
 import com.owen.service.ShiftService;
 import com.owen.service.UserService;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -50,7 +48,6 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.engine.internal.Versioning;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -147,45 +144,8 @@ public class DoctorController {
 
     }
 
-    @GetMapping("/doctor/dangkylam")
-    public String dangkylam(Model model, Authentication authentication) {
 
-        List<Date> dateList = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Đặt ngày là thứ Hai
-        calendar.add(Calendar.WEEK_OF_YEAR, 1);
-        dateList.add(calendar.getTime()); // Thêm ngày thứ Hai gần nhất vào danh sách
-        for (int i = 0; i < 6; i++) { // Thêm các ngày từ thứ Ba đến Chủ nhật
-            calendar.add(Calendar.DAY_OF_WEEK, 1);
-            dateList.add(calendar.getTime());
-        }
-        model.addAttribute("dateList", dateList);
-//        
-
-//        List<ScheduleDetail> scheduleDetails = new ArrayList<ScheduleDetail>();
-        model.addAttribute("lichlam", new ScheduleDetail());
-        model.addAttribute("lich", this.shiftService.getShifts());
-        if (authentication != null) {
-            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
-            User u = this.userService.getUserByUsername(user.getUsername());
-            model.addAttribute("doctor", u);
-
-        }
-        return "dangkylam";
-    }
-
-    @PostMapping("/doctor/dangkylam")
-    public String update(@ModelAttribute(value = "lichlam") @Valid ScheduleDetail scheduleDetail,
-            BindingResult rs) {
-        if (!rs.hasErrors()) {
-            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetail) == true) {
-                return "redirect:/doctor/dangkylam";
-            }
-        }
-        return "dangkylam";
-    }
-
-    @GetMapping("/doctor/khambenh/kethuoc")
+   @GetMapping("/doctor/khambenh/kethuoc")
     public String kethuoc(Model model, @RequestParam Map<String, String> params
     ) {
         model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
@@ -224,6 +184,7 @@ public class DoctorController {
         return "doctor";
     }
 
+
     @GetMapping("/doctor/lichsukham/{id}")
     public String lichsukham(Model model, @PathVariable(value = "id") int id
     ) {
@@ -234,8 +195,7 @@ public class DoctorController {
     }
 
     @GetMapping("/doctor/khambenh/kethuoc/export/{id}")
-    public void exportPDF(HttpServletResponse response, @PathVariable(value = "id") int id
-    ) {
+    public void exportPDF(HttpServletResponse response, @PathVariable(value = "id") int id) {
         // Lấy thông tin và dữ liệu cần thiết từ dịch vụ và nguồn dữ liệu của bạn
         Appointment a = this.appointmentService.getAppointmentById(id);
         String tenBenhnhan = a.getSickpersonId().getName();
@@ -244,8 +204,7 @@ public class DoctorController {
         Prescription p = this.prescriptionService.getPrescriptionById(idPre);
         String chuanDoan = p.getSymptom();
         List<PrescriptionItem> thuoc = this.prescriptionItemService.getPrescriptionsbyIDPres(idPre);
-        Date currentDateTime = Calendar.getInstance().getTime();
-        a.setMedicalappointmentDate(currentDateTime);
+
         try {
             // Tạo một đối tượng Document
             Document document = new Document();
@@ -293,13 +252,50 @@ public class DoctorController {
                 Paragraph medication = new Paragraph("- " + tenThuoc + ": " + huongDan, contentFont);
                 document.add(medication);
             }
-//            Date currentDateTime = Calendar.getInstance().getTime();
-//            a.setMedicalappointmentDate(currentDateTime);
+
             // Đóng tài liệu
             document.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    @GetMapping("/doctor/dangkylam")
+    public String dangkylam(Model model, Authentication authentication) {
+
+        List<Date> dateList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Đặt ngày là thứ Hai
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        dateList.add(calendar.getTime()); // Thêm ngày thứ Hai gần nhất vào danh sách
+        for (int i = 0; i < 6; i++) { // Thêm các ngày từ thứ Ba đến Chủ nhật
+            calendar.add(Calendar.DAY_OF_WEEK, 1);
+            dateList.add(calendar.getTime());
+        }
+        model.addAttribute("dateList", dateList);
+//        
+
+//        List<ScheduleDetail> scheduleDetails = new ArrayList<ScheduleDetail>();
+        model.addAttribute("lichlam", new ScheduleDetail());
+        model.addAttribute("lich", this.shiftService.getShifts());
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("doctor", u);
+
+        }
+        return "dangkylam";
+    }
+
+    @PostMapping("/doctor/dangkylam")
+    public String update(@ModelAttribute(value = "lichlam") @Valid ScheduleDetail scheduleDetail,
+            BindingResult rs) {
+        if (!rs.hasErrors()) {
+            if (this.scheduleService.addOrUpdateScheduleDetail(scheduleDetail) == true) {
+                return "redirect:/doctor/dangkylam";
+            }
+        }
+        return "dangkylam";
+    }
+
 }

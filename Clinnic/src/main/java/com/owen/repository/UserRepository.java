@@ -21,5 +21,7 @@ public interface UserRepository {
     User getUserById(int id);
     User getUserByUsername(String username);
     List<User> getBacSi();
+    boolean authUser(String username, String password);
+    User addUser(User user);
     List<User> getBacSi(int id);
 }

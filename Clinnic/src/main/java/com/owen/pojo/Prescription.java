@@ -4,6 +4,7 @@
  */
 package com.owen.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -58,8 +59,10 @@ public class Prescription implements Serializable {
     @Column(name = "conclusion")
     private String conclusion;
     @OneToMany(mappedBy = "prescriptionId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet;
     @OneToMany(mappedBy = "prescriptionId")
+    @JsonIgnore
     private Set<PrescriptionItem> prescriptionItemSet;
 
     public Prescription() {

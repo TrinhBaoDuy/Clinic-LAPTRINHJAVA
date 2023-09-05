@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface RoleReponsitory {
     List<Role> getRoles();
+    Role getRoleById(int id);
 }

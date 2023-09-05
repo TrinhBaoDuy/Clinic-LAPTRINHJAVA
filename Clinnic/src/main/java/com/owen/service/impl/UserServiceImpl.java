@@ -6,7 +6,9 @@ package com.owen.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.owen.pojo.Role;
 import com.owen.pojo.User;
+import com.owen.repository.RoleReponsitory;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,29 +16,37 @@ import org.springframework.stereotype.Service;
 import com.owen.repository.UserRepository;
 import com.owen.service.UserService;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Session;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author Trinh Bao Duy //
  */
 @Service("userDetailsService")
-//@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private Cloudinary cloudinary;
+
     @Autowired
     private UserRepository userRepo;
-    
+
+    @Autowired
+    private RoleReponsitory roleRepo;
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -62,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addOrUpdateUser(User u) {
-        if (u.getId()== null) {
+        if (u.getId() == null) {
             String pass = u.getPassword();
             u.setPassword(this.passwordEncoder.encode(pass));
         }
@@ -78,6 +88,12 @@ public class UserServiceImpl implements UserService {
             }
         }
         return this.userRepo.addOrUpdateUser(u);
+    }
+
+    @Override
+    public boolean authUser(String username, String password) {
+        User u = this.getUserByUsername(username);
+        return this.passwordEncoder.matches(password, u.getPassword());
     }
 
     @Override
@@ -99,18 +115,62 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String username) {
-           return  this.userRepo.getUserByUsername(username);
-      }
+        return this.userRepo.getUserByUsername(username);
+    }
 
     @Override
     public List<User> getBacSi() {
         return this.userRepo.getBacSi();
-         }
+    }
+
+    @Override
+    public User addUser(Map<String, String> params, MultipartFile avatar) {
+        User u = new User();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedDate = null;
+
+        try {
+            parsedDate = dateFormat.parse(params.get("dod"));
+        } catch (ParseException ex) {
+            Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        u.setUsername(params.get("username"));
+        u.setEmaill(params.get("email"));
+        u.setPhone(params.get("phone"));
+        u.setName(params.get("name"));
+        u.setAddress(params.get("address"));
+        u.setPassword(this.passwordEncoder.encode(params.get("password")));
+        u.setSex(params.get("sex"));
+        u.setDod(parsedDate);
+        u.setRoleId(this.roleRepo.getRoleById(4));
+//        List<Role> listRole = this.roleRepo.getRoles();
+//        String role = params.get("role");
+//        for (Role r : listRole) {
+//            if (role.equals("ROLE_SICKPERSON")) {
+//                if (r.getId() == 4) {
+//                    u.setRoleId(r);
+//                }
+//            }
+//
+//        }
+
+        if (!avatar.isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
+                        ObjectUtils.asMap("resource_type", "auto"));
+                u.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                System.err.println("ERROR");
+            }
+        }
+
+        this.userRepo.addUser(u);
+        return u;
+    }
 
     @Override
     public List<User> getBacSi(int id) {
-           return this.userRepo.getBacSi(id);
+    return this.userRepo.getBacSi(id);
     }
-    
 
 }

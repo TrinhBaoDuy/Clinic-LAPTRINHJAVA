@@ -23,7 +23,7 @@ public class MedicineServiceImpl implements MedicineService{
     private MedicineRepository medicineRepository;
 
     @Override
-    public List<Medicine> getMediciness(Map<String, String> params) {
+    public List<Object> getMediciness(Map<String, String> params) {
         return this.medicineRepository.getMediciness(params);
     }
 

@@ -36,9 +36,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ScheduleDetail.findByStatus", query = "SELECT s FROM ScheduleDetail s WHERE s.status = :status")})
 public class ScheduleDetail implements Serializable {
 
-    /**
-     * @return the listdate2
-     */
     private static final long serialVersionUID = 1L;
     @Column(name = "date_schedule")
     @Temporal(TemporalType.DATE)
@@ -56,7 +53,6 @@ public class ScheduleDetail implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
-
     @Transient
     private Date[] listdate1;
     @Transient
@@ -102,6 +98,8 @@ public class ScheduleDetail implements Serializable {
     public void setListdate3(Date[] listdate3) {
         this.listdate3 = listdate3;
     }
+
+
 
     public ScheduleDetail() {
     }
@@ -174,5 +172,5 @@ public class ScheduleDetail implements Serializable {
     public String toString() {
         return "com.owen.pojo.ScheduleDetail[ id=" + id + " ]";
     }
-
+    
 }

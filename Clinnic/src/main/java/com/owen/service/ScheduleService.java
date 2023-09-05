@@ -14,7 +14,6 @@ import java.util.Map;
  * @author Trinh Bao Duy
  */
 public interface ScheduleService {
-    
     List<ScheduleDetail> getSchedules(Map<String, String> params);
 
     boolean addOrUpdateScheduleDetail(ScheduleDetail m);
@@ -26,6 +25,7 @@ public interface ScheduleService {
     List<ScheduleDetail> getSchedules(Date fromDate);
     List<ScheduleDetail> getSchedulesaccepted(Date fromDate);
     ScheduleDetail getScheduleDetailById(int id);
-    boolean checkLichHopLe(Date dateSchedule,int shiftId);
-    
+    boolean checkLichHopLe(Date dateSchedule, int shiftId);
+
+
 }

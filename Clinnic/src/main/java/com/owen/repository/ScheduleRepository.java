@@ -14,7 +14,6 @@ import java.util.Map;
  * @author Trinh Bao Duy
  */
 public interface ScheduleRepository {
-
     List<ScheduleDetail> getSchedules(Map<String, String> params);
 
     boolean addOrUpdateScheduleDetail(ScheduleDetail m);
@@ -27,4 +26,6 @@ public interface ScheduleRepository {
     List<ScheduleDetail> getSchedulesaccepted(Date fromDate);
     ScheduleDetail getScheduleDetailById(int id);
     boolean checkLichHopLe(Date dateSchedule, int shiftId);
+
+
 }

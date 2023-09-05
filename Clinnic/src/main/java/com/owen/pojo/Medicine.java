@@ -4,6 +4,7 @@
  */
 package com.owen.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -71,6 +72,7 @@ public class Medicine implements Serializable {
     @ManyToOne
     private Unit idUnit;
     @OneToMany(mappedBy = "medicineId")
+    @JsonIgnore
     private Set<PrescriptionItem> prescriptionItemSet;
 
     public Medicine() {

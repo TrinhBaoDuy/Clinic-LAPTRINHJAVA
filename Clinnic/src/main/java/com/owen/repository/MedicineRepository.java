@@ -12,7 +12,7 @@ import java.util.Map;
  * @author Trinh Bao Duy
  */
 public interface MedicineRepository {
-    List<Medicine> getMediciness(Map<String, String> params);
+    List<Object> getMediciness(Map<String, String> params);
     boolean addOrUpdateMedicine(Medicine m);
     boolean deleteMedicine(int id);
     Medicine getMedicineById(int id);

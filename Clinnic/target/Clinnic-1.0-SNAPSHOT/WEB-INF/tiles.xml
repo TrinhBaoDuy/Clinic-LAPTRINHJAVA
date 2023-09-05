@@ -61,11 +61,6 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/admin/quanlythuoc.jsp" />
     </definition>
-    <definition name="saplichlam" extends="baseLayout">
-        <put-attribute name="title" value="Lich lam" />
-        <put-attribute name="content"
-                       value="/WEB-INF/pages/admin/saplichlam.jsp" />
-    </definition>
     <definition name="xemlichkham" extends="baseLayout">
         <put-attribute name="title" value="Xem Lich Kham" />
         <put-attribute name="content"
@@ -115,8 +110,16 @@
                        value="/WEB-INF/pages/nurse/thanhtoan.jsp" />
     </definition>
     <definition name="admin" extends="baseLayout">
-        <put-attribute name="title" value="Admin" />
+        <put-attribute name="title" value="Thanh Toán" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/admin/admin.jsp" />
     </definition>
+    <definition name="saplichlam" extends="baseLayout">
+        <put-attribute name="title" value="Lich lam" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/admin/saplichlam.jsp" />
+    </definition>
+
+
+    
 </tiles-definitions>

@@ -32,5 +32,11 @@ public class RoleRepositoryImpl implements  RoleReponsitory{
         
         return q.getResultList();
     }
+
+    @Override
+    public Role getRoleById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Role.class, id);
+    }
 }
 

@@ -8,6 +8,7 @@ import com.owen.pojo.User;
 import java.util.List;
 import java.util.Map;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -27,7 +28,13 @@ public interface UserService extends UserDetailsService{
     boolean addOrUpdateUser(User d);
 
     User getUserById(int id);
+    
     User getUserByUsername(String username);
+    
     List<User> getBacSi();
+
+    boolean authUser(String username, String password);
+    
+    User addUser(Map<String, String> params, MultipartFile avatar);
     List<User> getBacSi(int id);
 }

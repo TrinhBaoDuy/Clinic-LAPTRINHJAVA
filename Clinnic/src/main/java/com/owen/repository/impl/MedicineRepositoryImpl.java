@@ -37,7 +37,7 @@ public class MedicineRepositoryImpl implements MedicineRepository{
     private Environment env;
     
     @Override
-    public List<Medicine> getMediciness(Map<String, String> params) {   
+    public List<Object> getMediciness(Map<String, String> params) {   
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = session.getCriteriaBuilder();
         CriteriaQuery<Medicine> q = b.createQuery(Medicine.class);

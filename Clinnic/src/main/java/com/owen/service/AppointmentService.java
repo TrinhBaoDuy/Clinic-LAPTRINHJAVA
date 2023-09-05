@@ -39,3 +39,5 @@ public interface AppointmentService {
      Integer getCountUserByOneMonth(int month);
      List<Integer> getCountUserByQuarter(List<Integer> months);
 }
+
+
