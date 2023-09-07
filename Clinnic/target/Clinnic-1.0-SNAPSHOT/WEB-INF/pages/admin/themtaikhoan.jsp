@@ -87,7 +87,7 @@
         padding: 20px;
         border: 0.5px solid #5AAC4E;
         border-radius: 30px;
-        margin: 20px;
+         background-color: #F5FFFA;
 
     }
     .content{
@@ -138,3 +138,5 @@
         margin-top: 50px;
     }
 </style>
+
+

@@ -26,6 +26,7 @@ com\owen\service\ShiftService.class
 com\owen\repository\ScheduleRepository.class
 com\owen\repository\impl\PrescriptionItemRepositoryImpl.class
 com\owen\pojo\PrescriptionItem.class
+environment.class
 com\owen\fomatters\PrescriptionFomatter.class
 com\owen\pojo\Shift_.class
 com\owen\pojo\Bill.class

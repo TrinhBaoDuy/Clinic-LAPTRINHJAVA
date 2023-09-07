@@ -16,4 +16,5 @@ public interface ServiceRepository {
     List<Service> getServices(Map<String, String> params);
     boolean addOrUpdateService(Service m);
     boolean deleteService(int id);
+    long tiencuadichvu(int s);
 }

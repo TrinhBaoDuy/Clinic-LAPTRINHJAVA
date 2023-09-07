@@ -90,5 +90,11 @@ public class ServiceRepositoryImpl implements ServiceRepository {
         }
         return false;
     }
+    @Override
+    public long tiencuadichvu(int s){
+        Session session = this.factory.getObject().getCurrentSession();
+        Service dichvu = session.get(Service.class, s);
+        return dichvu.getPrice();
+    }
 
 }

@@ -8,9 +8,9 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.owen.pojo.Appointment;
+import com.owen.pojo.Bill;
 import com.owen.pojo.Medicine;
 import com.owen.pojo.Prescription;
 import com.owen.pojo.PrescriptionItem;
@@ -18,6 +18,7 @@ import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.ServiceItems;
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
+import com.owen.service.BillService;
 import com.owen.service.MedicineService;
 import com.owen.service.PrescriptionItemService;
 import com.owen.service.PrescriptionService;
@@ -88,6 +89,8 @@ public class DoctorController {
     private CustomDateEditor customDateEditor;
 
     @Autowired
+    private BillService billService;
+    @Autowired
     private Environment env;
 
     @InitBinder
@@ -144,8 +147,7 @@ public class DoctorController {
 
     }
 
-
-   @GetMapping("/doctor/khambenh/kethuoc")
+    @GetMapping("/doctor/khambenh/kethuoc")
     public String kethuoc(Model model, @RequestParam Map<String, String> params
     ) {
         model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
@@ -157,6 +159,7 @@ public class DoctorController {
     public String kethuocid(Model model, Authentication authentication,
             @RequestParam Map<String, String> params, @PathVariable(value = "id") int id
     ) {
+        model.addAttribute("hoadonmoi", new Bill());
         model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
         model.addAttribute("appo", this.appointmentService.getAppointmentById(id));
         model.addAttribute("phieuthuoc", new PrescriptionItem());
@@ -184,6 +187,18 @@ public class DoctorController {
         return "doctor";
     }
 
+    @PostMapping("/doctor/khambenh/kethuoc/taohoahon")
+    public String taohoadon(@ModelAttribute(value = "hoadonmoi")
+            @Valid Bill m,
+            BindingResult rs
+    ) {
+        if (!rs.hasErrors()) {
+            if (this.billService.addOrUpdateBill(m) == true) {
+                return "redirect:/doctor";
+            }
+        }
+        return "doctor";
+    }
 
     @GetMapping("/doctor/lichsukham/{id}")
     public String lichsukham(Model model, @PathVariable(value = "id") int id

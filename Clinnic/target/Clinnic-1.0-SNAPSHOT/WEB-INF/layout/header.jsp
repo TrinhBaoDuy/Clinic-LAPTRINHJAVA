@@ -25,7 +25,7 @@
                
                 <c:choose>
                     <c:when test="${pageContext.request.userPrincipal.name != null}">
-                        <img style="height: 40px; width: auto" src="<c:url value="${}"/>" alt="Avatar">
+                        <img style="height: 40px; width: auto" src="<c:url value="${nurse.avatar}"/>" alt="Avatar">
                         <li class="nav-item">
                             <a class="nav-link" href="<c:url value="/" />">${pageContext.request.userPrincipal.name}</a>
                         </li>
@@ -40,11 +40,6 @@
                     </c:otherwise>
                 </c:choose>
             </ul>
-
-<!--            <form class="d-flex" action="${action}">
-                <input class="form-control me-2" type="text" name="kw" placeholder="Nhập từ khóa...">
-                <button class="btn btn-primary" type="submit">Tìm</button>
-            </form>-->
         </div>
     </div>
 </nav>

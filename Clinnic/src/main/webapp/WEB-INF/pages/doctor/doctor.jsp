@@ -36,13 +36,13 @@
                 </div>
             </nav>
         </form:form>
-        <<script src="<c:url value="/js/dongho.js" />"></script>
+        <script src="<c:url value="/js/dongho.js" />"></script>
         <div class="bookingright" onload="updateCurrentTime()">
             <div class="schedule">
                 <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692119292/Download_free_vector_of_Heart_with_a_red_cross_symbol_vector_by_Ning_about_plus_sign_plus_symbol_healthcare_heart_hospital_and_plus_icon_sign_516146_jafq4t.jpg" alt="Image Description">
                 <h1>Lịch khám</h1>
                 <!-- Hiển thị giờ hiện tại -->
-                <p>Giờ hiện tại: <span id="current-time"></span></p>
+                <p class="time" > Giờ hiện tại: <span id="current-time"></span></p>
             </div>
 
             <div class="content1">
@@ -159,6 +159,25 @@
         align-items: center;
         overflow: hidden;
     }
+    p.time  {
+/*  border: 2px solid #ccc;*/
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  display: inline-block;
+  height: 30px;
+  margin-top: 48px;
+    /* margin-right: 50%; */
+    margin-left: 27%;
+    padding: 5px;
+}
+
+span#current-time {
+  font-weight: bold;
+  font-size: 18px;
+  height: 20px;
+  line-height: 20px;
+}
     .booking1 img{
         padding: 5px;
         /* border-radius: 20px; */
@@ -168,31 +187,7 @@
         object-fit: cover;
     }
 
-    /*    .contentbooking1{
-            width: 100%;
-            padding: 45px;
-            text-align: justify;
-        }
-        .contentbooking1 img{
-            top: 0;
-            left: 0;
-            width: 100%;  
-            height: 100%;  
-            object-fit: cover;
-        }*/
-    /*.booking1{
-        position: relative;
-            width: 200px;  Độ rộng của khung chứa ảnh 
-            height: 200px;
-    }
-    .contentbooking1 img{
-         position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;  Độ rộng của ảnh 
-            height: 100%;  Chiều cao của ảnh 
-            object-fit: cover;
-    }*/
+     
     .contentdkk1 h3{
         font-size: 18px;
         color: white;
@@ -277,19 +272,12 @@
         border-radius: 10px;
     }
 
-    /*    .contentdkk6{
-            margin-top: 10px;
-            font-size: 15px;
-            padding-top: 10px;
-            text-align: center;
-        }
-        .contentdkk6 input{
-            width: 100%;
-            height: 45px;
-            border: 1px solid #e0e0e0;
-            padding: 10px;
-            border-radius: 10px;
-        }*/
+    tr > td > a{
+            text-decoration: none;
+    font-weight: bold;
+    color: #078d4e;
+
+    }
 
     .submitbooking{
         margin-top:30px;

@@ -35,6 +35,11 @@
                         <h5>Địa chỉ: ${nurse.address}</h5>
                         <h5>Email: ${nurse.emaill}</h5>
                         <h5>Giới tính: ${nurse.sex}</h5>
+                        <div>
+                            <c:forEach items="${thanhtoan}" var="tk">
+                                <h1>Hóa đơn ${tk.id} vừa khám xong <a><a href="<c:url value="/nurse/thanhtoan/${tk.id}" />">nhấn</a> để thanh toán hóa đơn</h1>
+                            </c:forEach>
+                        </div>
                     </div>
 
                 </div>
@@ -77,12 +82,16 @@
                                     </c:choose>
                                 </td>
                                 <td>
-                                    <a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success">
-                                        <c:choose>
-                                            <c:when test="${p.status == 0}">Xác nhận</c:when>
-                                            <c:otherwise>Hủy</c:otherwise>
-                                        </c:choose>
-                                    </a>
+                                                                        
+                                    <c:choose>
+                                        <c:when test="${p.status == 0 }"><a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success xacnhan">Xác nhận </a></c:when>
+                                        <c:when test="${p.status == 1 && p.nurseId.id == nurse.id}"><a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success">Hủy </a></c:when>
+                                        <c:otherwise >Đã được xát nhận từ y tá ${p.nurseId.name}</c:otherwise>
+                                    </c:choose>
+
+                                    
+
+                                     
                                 </td>
                             </tr>
                         </c:forEach>
@@ -93,56 +102,78 @@
         </nav>
         <<h1>${msg}</h1>
 
-        <nav class="table1">
-            <form:form method="post" action="${actionUpdate}" modelAttribute="appoment">
-                <form:hidden path="appointmentDate" />
-                <form:hidden path="medicalappointmentDate" />
-                <form:hidden path="status" />
-                <form:hidden path="prescriptionId" />
+                <nav class="table1">
+        <form:form method="post" action="${actionUpdate}" modelAttribute="appoment">
+            <form:hidden path="appointmentDate" />
+            <form:hidden path="medicalappointmentDate" />
+            <form:hidden path="status" />
+            <form:hidden path="prescriptionId" />
 
-                <div class="form-floating mb-3 mt-3">
-                    <form:input type="text" class="form-control" 
-                                path="id" id="id"/>
-                    <label for="name">Mã</label>
+            <div class="form-floating mb-3 mt-3">
+            <form:input type="text" class="form-control" 
+                        path="id" id="id"/>
+            <label for="name">Mã</label>
 
-                </div>
-                <div class="form-floating mb-3 mt-3">
-                    <form:input type="text" class="form-control" 
-                                path="sickpersonId" id="sickpersonId"/>
-                    <label for="name">Mã thằng bệnh</label>
+        </div>
+        <div class="form-floating mb-3 mt-3">
+            <form:input type="text" class="form-control" 
+                        path="sickpersonId" id="sickpersonId"/>
+            <label for="name">Mã thằng bệnh</label>
 
-                </div>
-                <div class="form-floating mb-3 mt-3">
-                    <form:input value="${nurse.id}" type="text" class="form-control" 
-                                path="nurseId" id="nurseId"/>
-                    <label for="name">Mã y tá</label>
+        </div>
+        <div class="form-floating mb-3 mt-3">
+            <form:input value="${nurse.id}" type="text" class="form-control" 
+                        path="nurseId" id="nurseId"/>
+            <label for="name">Mã y tá</label>
 
-                </div>
-                <div class="form-floating mb-3 mt-3">
-                    <form:select class="form-select" id="role" name="doctorId" path="doctorId">
-                        <c:forEach items="${getbacsi}" var="r">
-                            <c:choose>
-                                <c:when test="${r.id == appoment.doctorId.id}">
-                                    <option value="${r.id}" selected>${r.name}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="${r.id}">${r.name}</option>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </form:select>
-                    <label for="category" class="form-label">Chọn Bác Sĩ:</label>
-                </div>
-                <div class="form-floating mb-3 mt-3">
-                    <button class="btn btn-info" type="submit">Thêm Bác Sĩ</button>
-                </div>
+        </div>
+        <div class="form-floating mb-3 mt-3">
+            <form:select class="form-select" id="role" name="doctorId" path="doctorId">
+                <c:forEach items="${getbacsi}" var="r">
+                    <c:choose>
+                        <c:when test="${r.id == appoment.doctorId.id}">
+                            <option value="${r.id}" selected>${r.name}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${r.id}">${r.name}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </form:select>
+            <label for="category" class="form-label">Chọn Bác Sĩ:</label>
+        </div>
+        <div class="form-floating mb-3 mt-3">
+            <button class="btn btn-info" type="submit">Thêm Bác Sĩ</button>
+        </div>
 
-            </form:form>
-        </nav>
+        </form:form>
+    </nav>
+        
 
     </div>
-</sec:authorize>
 
+</sec:authorize>
+ <script>
+    // Lấy tham chiếu đến các phần tử DOM
+    var confirmBtn = document.querySelector('.xacnhan');
+    var submitBtn = document.querySelector('.btn-info');
+    var table = document.querySelector('.table1');
+
+    // Ẩn bảng khi trang được tải
+    table.style.display = 'none';
+
+    // Xử lý sự kiện khi nhấp vào nút "Xác nhận"
+    confirmBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        table.style.display = 'block';
+    });
+
+    // Xử lý sự kiện khi nhấp vào nút "Thêm Bác Sĩ"
+    submitBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        table.style.display = 'none';
+    });
+</script>
 <style>
     .admin_submit111{
         width: 160px;
@@ -153,6 +184,13 @@
         background-color: rgb(130, 201, 30);
         padding: 10px;
         box-shadow: 0px 5px 10px 0 rgba(130, 201, 30, 0.1);
+    }
+    .table1 {
+        display: none;
+    }
+
+    .show-table {
+        display: block !important;
     }
 
 

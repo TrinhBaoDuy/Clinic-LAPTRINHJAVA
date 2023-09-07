@@ -34,10 +34,11 @@ public interface AppointmentRepository {
     
     boolean canAcceptAppointment(Date date);
     
-    List<Integer> getCountUserByMonth();
-    List<Integer> getCountUserByQuarter();
+    List<Integer> getCountUserByMonth(int year);
+    List<Integer> getCountUserByQuarter(int year);
     Integer getCountUserByOneMonth(int month);
     List<Integer> getCountUserByQuarter(List<Integer> months);
+    List<Appointment> getAppointmentcantPay();
 }
 
 

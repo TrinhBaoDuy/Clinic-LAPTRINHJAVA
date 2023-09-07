@@ -1,4 +1,4 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -15,7 +15,6 @@ import com.owen.service.PaymentService;
 import com.owen.service.PrescriptionItemService;
 import com.owen.service.ScheduleService;
 import com.owen.service.ServiceItemService;
-import com.owen.service.ServiceService;
 import com.owen.service.ShiftService;
 import com.owen.service.UserService;
 import com.springmvc.dto.momoclasses.PaymentResponse;
@@ -23,7 +22,6 @@ import com.springmvc.enums.RequestType;
 import com.springmvc.momoprocessor.CreateOrderMoMo;
 import com.springmvc.share.utils.LogUtils;
 import com.springmvc.dto.momoclasses.Environment;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -77,10 +75,10 @@ public class NurseController {
 
     @Autowired
     private JavaMailSender emailSender;
-    
+
     @Autowired
     private ScheduleService scheduleService;
-    
+
     @Autowired
     private ShiftService shiftService;
 
@@ -102,6 +100,7 @@ public class NurseController {
         model.addAttribute("Apo", this.appointmentService.getAppointments(params));
         model.addAttribute("appoment", new Appointment());
         model.addAttribute("UnApo", this.appointmentService.getAppointmentsunfished());
+        model.addAttribute("thanhtoan", this.appointmentService.getAppointmentcantPay());
         if (authentication != null) {
             UserDetails user = this.userService.loadUserByUsername(authentication.getName());
             User u = this.userService.getUserByUsername(user.getUsername());
@@ -134,7 +133,7 @@ public class NurseController {
         if (!rs.hasErrors()) {
             Date ngaykham = a.getAppointmentDate();
             if (this.appointmentService.canAcceptAppointment(ngaykham) == true) {
-                if (this.appointmentService.addOrUpdateAppointment(a)) {
+                if (this.appointmentService.addOrUpdateAppointment(a) == true) {
                     MimeMessage message = emailSender.createMimeMessage();
                     MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
                     String nguoinhan = this.userService.getUserById(a.getSickpersonId().getId()).getEmaill();
@@ -192,33 +191,27 @@ public class NurseController {
         model.addAttribute("appo", this.appointmentService.getAppointmentById(id));
         Appointment a = this.appointmentService.getAppointmentById(id);
         int idPre = a.getPrescriptionId().getId();
+        int tongtien = this.billService.tinhtien(this.billService.getBillByApoId(id));
+        model.addAttribute("tongtien", tongtien);
         List<PrescriptionItem> thuocs = this.prescriptionItemService.getPrescriptionsbyIDPres(idPre);
         model.addAttribute("thuoc", this.prescriptionItemService.getPrescriptionsbyIDPres(idPre));
         model.addAttribute("dichvu", this.serviceItemService.getServicecbyAppoID(id));
         model.addAttribute("pay", this.paymentService.getPayments());
-        model.addAttribute("bill", new Bill());
+        model.addAttribute("bill", this.billService.getBillByApoId(id));
         return "thanhtoan";
     }
-    
-    
-    @GetMapping("/paymomo")
-    public String momoPay(Model model,@RequestParam(value = "id") int id) throws Exception {
-//        Bill hd = this.thanhToanService.getHoaDonById(id);
 
-//        BigDecimal tienThuoc = BigDecimal.valueOf(hd.getTienThuoc());
-//        BigDecimal tienDv = BigDecimal.valueOf(hd.getTienDv());
-//        BigDecimal tienKham = BigDecimal.valueOf(hd.getTienKham().getTienKham());
-
-//        BigDecimal tongTien = tienThuoc.add(tienDv).add(tienKham);
-
+    @GetMapping("/paymomo/{id}")
+    public String momoPay(Model model, @PathVariable(value = "id") int id) throws Exception {
+        Bill b = this.billService.getBillById(id);
         LogUtils.init();
         String requestId = String.valueOf(System.currentTimeMillis());
         String orderId = String.valueOf(System.currentTimeMillis());
-        long amount = 51123;
+        long amount = b.getPayMoney();
 
         String orderInfo = "Thanh toán hóa đơn";
-        String returnURL = "redirect:nurse/thanhtoan/"+id;
-        String notifyURL = "redirect:nurse/thanhtoan/"+id;
+        String returnURL = "redirect:nurse/thanhtoan/" + id;
+        String notifyURL = "redirect:nurse/thanhtoan/" + id;
         Environment environment = Environment.selectEnv("dev");
         model.addAttribute("nhap", "nhap");
         PaymentResponse captureWalletMoMoResponse = CreateOrderMoMo.process(environment, orderId, requestId, Long.toString(amount), orderInfo, returnURL, notifyURL, "", RequestType.CAPTURE_WALLET, Boolean.TRUE);
@@ -226,17 +219,34 @@ public class NurseController {
         return "redirect:" + url;
 
     }
-    
 
     @PostMapping("/nurse/thanhtoan")
-    public String xulithanhtoan(Model model, @ModelAttribute(value = "bill") @Valid Bill bill, BindingResult rs) throws MessagingException {
+    public String xulithanhtoan(Model model, @ModelAttribute(value = "bill") @Valid Bill bill, BindingResult rs) throws MessagingException, Exception {
         if (!rs.hasErrors()) {
             if (this.billService.addOrUpdateBill(bill) == true) {
-//                 return "redirect:/nurse";
-            }     
+                if (bill.getPayId().getId() == 1) {
+                    return "redirect:/nurse";
+                }
+                if (bill.getPayId().getId() == 2) {
+                    LogUtils.init();
+                    String requestId = String.valueOf(System.currentTimeMillis());
+                    String orderId = String.valueOf(System.currentTimeMillis());
+                    long amount = bill.getPayMoney();
+
+                    String orderInfo = "Thanh toán hóa đơn";
+                    String returnURL = "redirect:nurse/thanhtoan/" + bill.getId();
+                    String notifyURL = "redirect:nurse/thanhtoan/" + bill.getId();
+                    Environment environment = Environment.selectEnv("dev");
+                    model.addAttribute("nhap", "nhap");
+                    PaymentResponse captureWalletMoMoResponse = CreateOrderMoMo.process(environment, orderId, requestId, Long.toString(amount), orderInfo, returnURL, notifyURL, "", RequestType.CAPTURE_WALLET, Boolean.TRUE);
+                    String url = captureWalletMoMoResponse.getPayUrl();
+                    return "redirect:" + url;
+                }
+            }
         }
         return "thanhtoan";
     }
+
     @GetMapping("/nurse/dangkylam")
     public String dangkylam(Model model, Authentication authentication) {
 
@@ -276,5 +286,3 @@ public class NurseController {
     }
 
 }
-
-

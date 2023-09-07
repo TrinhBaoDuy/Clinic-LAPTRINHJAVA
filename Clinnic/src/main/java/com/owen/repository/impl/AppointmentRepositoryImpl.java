@@ -1,10 +1,11 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.owen.repository.impl;
 
 import com.owen.pojo.Appointment;
+import com.owen.pojo.Bill;
 import com.owen.pojo.Service;
 import com.owen.pojo.ServiceItems;
 import com.owen.pojo.User;
@@ -24,6 +25,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
@@ -156,6 +158,23 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     }
 
     @Override
+    public List<Appointment> getAppointmentcantPay() {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
+
+        Root<Appointment> appointmentRoot = criteria.from(Appointment.class);
+        Join<Appointment, Bill> billJoin = appointmentRoot.join("billSet");
+        criteria.select(appointmentRoot);
+        criteria.where(builder.and(builder.isNotNull(appointmentRoot.get("medicalappointmentDate")),
+                builder.isNull(billJoin.get("payId"))
+        ));
+
+        List<Appointment> results = session.createQuery(criteria).getResultList();
+        return results;
+    }
+
+    @Override
     public boolean addOrUpdateAppointment(Appointment m) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
@@ -232,41 +251,8 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         }
     }
 
-//    @Override
-//    public List<Integer> getCountUserByMonth() {
-//        List<Integer> monthData = new ArrayList<>();
-//        try {
-//            Session session = this.factory.getObject().getCurrentSession();
-//            CriteriaBuilder builder = session.getCriteriaBuilder();
-//            CriteriaQuery<Tuple> query = builder.createTupleQuery();
-//            Root<Appointment> root = query.from(Appointment.class);
-//            query.multiselect(builder.function("MONTH", Integer.class, root.get("appointmentDate")).alias("month"), builder.count(root).alias("count"));
-//            query.groupBy(builder.function("MONTH", Integer.class, root.get("appointmentDate")));
-//            TypedQuery<Tuple> typedQuery = session.createQuery(query);
-//            List<Tuple> results = typedQuery.getResultList();
-//
-//            for (int month = 1; month <= 12; month++) {
-//                boolean monthFound = false;
-//                for (Tuple result : results) {
-//                    Integer resultMonth = result.get("month", Integer.class);
-//                    if (resultMonth != null && resultMonth.equals(month)) {
-//                        Long count = result.get("count", Long.class);
-//                        monthData.add(count.intValue());
-//                        monthFound = true;
-//                        break;
-//                    }
-//                }
-//                if (!monthFound) {
-//                    monthData.add(0);
-//                }
-//            }
-//        } catch (HibernateException e) {
-//            e.printStackTrace();
-//        }
-//        return monthData;
-//    }
     @Override
-    public List<Integer> getCountUserByMonth() {
+    public List<Integer> getCountUserByMonth(int year) {
         List<Integer> monthData = new ArrayList<>();
         try {
             Session session = this.factory.getObject().getCurrentSession();
@@ -276,6 +262,9 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
             query.multiselect(
                     builder.function("MONTH", Integer.class, root.get("appointmentDate")).alias("month"),
                     builder.countDistinct(root.get("sickpersonId")).alias("count")
+            );
+            query.where(
+                    builder.equal(builder.function("YEAR", Integer.class, root.get("appointmentDate")), year)
             );
             query.groupBy(builder.function("MONTH", Integer.class, root.get("appointmentDate")));
             TypedQuery<Tuple> typedQuery = session.createQuery(query);
@@ -322,7 +311,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     }
 
     @Override
-    public List<Integer> getCountUserByQuarter() {
+    public List<Integer> getCountUserByQuarter(int year) {
         List<Integer> quarterData = new ArrayList<>();
         try {
             Session session = this.factory.getObject().getCurrentSession();
@@ -332,6 +321,9 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
             query.multiselect(
                     builder.function("QUARTER", Integer.class, root.get("appointmentDate")).alias("quarter"),
                     builder.countDistinct(root.get("sickpersonId")).alias("count")
+            );
+            query.where(
+                    builder.equal(builder.function("YEAR", Integer.class, root.get("appointmentDate")), year)
             );
             query.groupBy(builder.function("QUARTER", Integer.class, root.get("appointmentDate")));
             TypedQuery<Tuple> typedQuery = session.createQuery(query);
@@ -397,5 +389,3 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         return monthData;
     }
 }
-
-

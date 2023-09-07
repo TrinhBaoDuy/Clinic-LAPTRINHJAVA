@@ -1,7 +1,7 @@
- <%-- 
-    Document   : thongke
-    Created on : Aug 28, 2023, 2:20:37 PM
-    Author     : hung
+<%-- 
+   Document   : thongke
+   Created on : Aug 28, 2023, 2:20:37 PM
+   Author     : hung
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,30 +16,22 @@
 </head>
 <main class="table">
 
-    <h1>Thống kê doanh thu</h1>
+    <h1>Thống kê</h1>
 
-    <h2>Thống kê theo tháng </h2>
-<!--    <form  action="${action}">
-        <div>
-            <label for="month">Chọn tháng:</label>
-            <select name="thang" id="month">
-                <option value="1">Tháng 1</option>
-                <option value="2">Tháng 2</option>
-                <option value="3">Tháng 3</option>
-                <option value="4">Tháng 4</option>
-                <option value="5">Tháng 5</option>
-                <option value="6">Tháng 6</option>
-                <option value="7">Tháng 7</option>
-                <option value="8">Tháng 8</option>
-                <option value="9">Tháng 9</option>
-                <option value="10">Tháng 10</option>
-                <option value="11">Tháng 11</option>
-                <option value="12">Tháng 12</option>
-            </select>
-            <button type="submit" >Xem</button>
-        </div>
-    </form>-->
+    <form action="${action}" method="post">
+        <h2>Thống kê bệnh nhân theo tháng</h2>
+        <label for="year">Chọn năm</label>
+        <select id="year" name="yearofndm">
+            <c:forEach var="year" begin="2020" end="2030">
+                <option value="${year}">${year}</option>
+            </c:forEach>
+        </select>
+
+        <button type="submit" >Thống kê</button>
+    </form>
+
     <canvas id="monthlyRevenueChart"></canvas>
+
     <table>
         <thead>
             <tr>
@@ -56,17 +48,19 @@
             </c:forEach>
         </tbody>
     </table>
-    <h2>Thống kê theo quý</h2>
-<!--    <div action="${action}">
-        <label for="quarter">Chọn quý:</label>
-        <select id="quarter">
-            <option value="1">Quý 1</option>
-            <option value="2">Quý 2</option>
-            <option value="3">Quý 3</option>
-            <option value="4">Quý 4</option>
+
+<!--    <form action="${action}" method="post">
+        <h2>Thống kê bệnh nhân theo quý</h2>
+        <label for="year">Chọn năm</label>
+        <select id="year" name="yearofndq">
+            <c:forEach var="year" begin="2020" end="2030">
+                <option value="${year}">${year}</option>
+            </c:forEach>
         </select>
-        <button onclick="showQuarterlyRevenue()">Xem</button>
-    </div>-->
+
+        <button type="submit" >Thống kê</button>
+    </form>
+    <canvas id="quarterlyRevenueChart"></canvas>
     <table>
         <thead>
             <tr>
@@ -83,20 +77,40 @@
             </c:forEach>
         </tbody>
     </table>
-    <canvas id="quarterlyRevenueChart"></canvas>
 
-    <h2>Thống kê theo năm</h2>
-    <div>
-        <label for="year">Chọn năm:</label>
-        <select id="year">
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <!-- Thêm các option cho các năm còn lại -->
+
+    <form action="${action}" method="post">
+        <h2>Thống kê doanh thu theo tháng</h2>
+        <label for="year">Chọn năm</label>
+        <select id="year" name="yearofdtm">
+            <c:forEach var="year" begin="2020" end="2030">
+                <option value="${year}">${year}</option>
+            </c:forEach>
         </select>
-        <button onclick="showYearlyRevenue()">Xem</button>
-    </div>
-    <canvas id="yearlyRevenueChart"></canvas>
+
+        <button type="submit" >Thống kê</button>
+    </form>
+    <canvas id="monthlyRevenueChart"></canvas>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Số lượng doanh thu</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${listdoanhthu}" var="t" varStatus="loop">
+                <tr>
+                    <td>Tháng ${loop.index+1}</td>
+                    <td>${t}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    <canvas id="yearlyRevenueChart"></canvas>-->
+
+
+
 
     <!----------------------------------------------------> 
 
@@ -104,12 +118,13 @@
         // Lấy dữ liệu từ model
         const monthData = ${list}
         const quarterData = ${listq}
+        const monthData2 = ${listdoanhthu}
 //        Phước------------------------------------------------------------------
         // Dữ liệu doanh thu theo tháng, quý và năm
         const monthlyRevenueData = {
             labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
-                    label: 'Doanh thu',
+                    label: 'Số người dùng',
                     data: monthData,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -129,10 +144,10 @@
         };
 
         const yearlyRevenueData = {
-            labels: ['2021', '2022', '2023', /* Thêm các năm còn lại */],
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
                     label: 'Doanh thu',
-                    data: [/* Dữ liệu doanh thu năm 2021, năm 2022, năm 2023, ... */],
+                    data: monthData2,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
@@ -191,29 +206,6 @@
             monthlyRevenueChart.update();
         }
 
-//        function showMonthlyRevenue() {
-//            const selectedMonth = document.getElementById('month').value;
-//
-//            // Xử lý dữ liệu và hiển thị chỉ số doanh thu của tháng tương ứng
-//            let monthlyRevenueDataSubset = [];
-//
-//            // Lấy chỉ số (index) của tháng được chọn trong mảng labels
-//            const monthIndex = ${mothang};
-//
-//            // Lấy doanh thu của tháng được chọn từ mảng data trong datasets
-//            const selectedMonthRevenue = monthlyRevenueData.datasets[0].data[monthIndex];
-//            const selectedMonthRevenue = monthlyRevenueData.labels[0].data[monthIndex];
-//
-//            // Thêm doanh thu của tháng được chọn vào mảng monthlyRevenueDataSubset
-//            monthlyRevenueDataSubset.push(selectedMonthRevenue);
-//
-//            // Cập nhật dữ liệu và hiển thị biểu đồ doanh thu theo tháng
-//            monthlyRevenueChart.data.datasets[0].data = monthlyRevenueDataSubset;
-//            monthlyRevenueChart.data.labels = [monthlyRevenueData.labels[monthIndex]];
-//            monthlyRevenueChart.update();
-//        }
-
-        // Xử lý sự kiện khi người dùng chọn quý và nhấn nút "Xem"
         function showQuarterlyRevenue() {
             const selectedQuarter = document.getElementById('quarter').value;
             // Xử lý dữ liệu và hiển thị chỉ số doanh thu của quý tương ứng

@@ -63,11 +63,11 @@
         <form:form method="post" action="${action}" modelAttribute="bill">
             <div class="payment-section">
                 <h2>Phần thanh toán</h2>
-                <form:hidden id="payMoney" path="payMoney"/>
+                <form:hidden id="payMoney" path="payMoney" value = "${tongtien}"/>
                 <form:hidden path="id"/>
-                <form:hidden id="tienkham" path="tienkham" value="1"/>
-                <form:hidden id="appoId" path="appoId" value="${appo.id}"/>
-                <p>Tổng tiền: <span id="total-amount"> </span></p>
+                <form:hidden id="tienkham" path="tienkham"/>
+                <form:hidden id="appoId" path="appoId"/>
+                <p>Tổng tiền: <span id="total-amount">${tongtien} VNĐ</span></p>
 
                 <div class="payment-method">
                     <label>Phương thức thanh toán:</label>
@@ -100,48 +100,13 @@
                 <button type="submit">Thanh toán</button>
             </div>
         </form:form>
-
-        <a href="/Clinnic/paymomo?id=${appo.id}" target="_blank">
-            sdasd
-        </a>
-         <input type="hidden" name="id" value="${appo.id}" />
+        <input type="hidden" value = "/Clinnic/paymomo?id=${bill.id}"  name="momo"/> 
+         <input type="hidden" name="id" value="${bill.id}" />
     </div>
 </div>
 
 <script>
-    // Lấy giá trị các cột "Tổng tiền" của thuốc và dịch vụ
-    var thuocTotalElements = document.querySelectorAll('#thuoc-table tbody tr td:nth-child(5)');
-    var dichvuTotalElements = document.querySelectorAll('#dichvu-table tbody tr td:nth-child(2)');
 
-    // Tính tổng giá trị các thuốc
-    var thuocTotal = 0;
-    for (var i = 0; i < thuocTotalElements.length; i++) {
-        var thuocTotalValue = parseFloat(thuocTotalElements[i].textContent);
-        thuocTotal += thuocTotalValue;
-    }
-
-    // Tính tổng giá trị dịch vụ
-    var dichvuTotal = 0;
-    for (var i = 0; i < dichvuTotalElements.length; i++) {
-        var dichvuTotalValue = parseFloat(dichvuTotalElements[i].textContent);
-        dichvuTotal += dichvuTotalValue;
-    }
-
-    // Cập nhật tổng tiền
-    var totalAmountElement = document.getElementById('total-amount');
-    var totalAmount = thuocTotal + dichvuTotal;
-    totalAmountElement.textContent = totalAmount + " VNĐ";
-
-    // Gán giá trị vào thuộc tính value của phần tử payMoney
-    var payMoneyElement = document.getElementById('payMoney');
-    payMoneyElement.value = totalAmount;
-
-//    function calculateChange() {
-//        var customerPayment = parseFloat(document.getElementById('customer-payment').value);
-//        var totalAmount = parseFloat(document.getElementById('total-amount').textContent);
-//        var changeAmount = customerPayment - totalAmount;
-//        document.getElementById('change-amount').value = changeAmount.toFixed(2);
-//    }
     function calculateChange() {
         var customerPayment = parseFloat(document.getElementById('customer-payment').value);
         var totalAmount = parseFloat(document.getElementById('total-amount').textContent);

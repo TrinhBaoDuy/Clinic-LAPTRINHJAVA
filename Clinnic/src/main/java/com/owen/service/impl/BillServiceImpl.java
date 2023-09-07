@@ -4,6 +4,7 @@
  */
 package com.owen.service.impl;
 
+import com.owen.pojo.Appointment;
 import com.owen.pojo.Bill;
 import com.owen.repository.BillRepository;
 import com.owen.service.BillService;
@@ -38,7 +39,27 @@ public class BillServiceImpl implements BillService{
     
     @Override
     public Bill getBillById(int id) {
-        return this.getBillById(id);
+        return this.billRepository.getBillById(id);
     }
-    
+
+    @Override
+    public int tinhtien(Bill m) {
+        return this.billRepository.tinhtien(m);
+    }
+
+    @Override
+    public Bill getBillByApoId(int id) {
+        return this.billRepository.getBillByApoId(id);
+    }
+
+    @Override
+    public List<Integer> getRevenueByMonth(int year) {
+        return this.billRepository.getRevenueByMonth(year);
+    }
+
+    @Override
+    public List<Integer> getRevenueByQuarter(int year) {
+        return this.getRevenueByQuarter(year);
+    }
+
 }

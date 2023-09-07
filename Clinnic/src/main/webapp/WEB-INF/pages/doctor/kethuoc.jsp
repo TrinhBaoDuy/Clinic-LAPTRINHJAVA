@@ -1,13 +1,14 @@
- <%-- 
-    Document   : kethuoc
-    Created on : Aug 23, 2023, 12:24:04 AM
-    Author     : hung
+<%-- 
+   Document   : kethuoc
+   Created on : Aug 23, 2023, 12:24:04 AM
+   Author     : hung
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url value="/doctor/khambenh/kethuoc" var="action" />
+<c:url value="/doctor/khambenh/kethuoc/taohoahon" var="actionhd" />
 <!DOCTYPE html>
 <sec:authorize access="hasRole('ROLE_DOCTOR')">
     <script src="<c:url value="/js/FunctionObject.js" />"></script>
@@ -123,15 +124,31 @@
                 </div>
             </nav>
             <div class="submitbooking ">
-                <a href="<c:url value="/doctor/khambenh/kethuoc/export/${appo.id}"/>">XUẤT TOA THUỐC</a>
+                <button class="btsearch1">
+                    <a href="<c:url value="/doctor/khambenh/kethuoc/export/${appo.id}"/>">XUẤT TOA THUỐC</a>
+                </button>
+                
             </div>
             <div class="submitbooking ">
-                <button onclick="hoi()">NEXT</button>
+                <button class="btsearch2" onclick="hoi()">NEXT</button>
+            </div>
+            <div>
+                <form:form id="taohoadon"  method="post" modelAttribute="hoadonmoi" action="${actionhd}">
+                    <form:hidden path="id" />
+                    <form:hidden path="payMoney"/>
+                    <form:hidden path="appoId" value="${appo.id}" />
+                    <form:hidden path="payId" />
+                    <form:hidden path="tienkham" value="1"/>
+                    <input type="hidden" name="PreId" value="${appo.id}" />
+                    <div class="submitbooking ">
+                        <button>Tạo hóa đơn và rời khỏi </button>
+                    </div>
+                </form:form>
             </div>
         </div>
-
         </form>
     </div>
+
 </sec:authorize>
 <script>
     // JavaScript
@@ -157,16 +174,20 @@
 
     function hoi() {
         if (confirm("Bạn đã hoàn thành việc khám?")) {
-            window.location.href = "<c:url value='/doctor'/>"; // Chuyển hướng đến trang "/doctor" nếu đã hoàn thành
+            window.location.href = "<c:url value='/doctor'/>";
 
         } else {
-            window.location.href = "<c:url value='/doctor/khambenh/kethuoc/${appo.id}'/>"; // Chuyển hướng đến trang "/doctor/khambenh/kethuoc/{id}" nếu chưa hoàn thành
+            window.location.href = "<c:url value='/doctor/khambenh/kethuoc/${appo.id}'/>";
         }
     }
 
 </script>
 
 <style>
+
+
+
+
     CSS cho trang đè
     .overlay {
         display: none;
@@ -410,6 +431,7 @@
         justify-content: center;
     }
 
+
     .submitbooking a button{
 
         padding: 14px;
@@ -428,5 +450,24 @@
         width: 100%;
         height: 70px;
     }
+     .btsearch2{
+        background-color: #099956;
+        border-color: #099956;
+        height: 40px;
+        border: none;
+        padding: 13px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: wheat;
+        font-weight: bold;
+    }
+    .btsearch2 a{
+        text-decoration: none;
+        color: wheat;
+        font-weight: bold;
+    }
+
+
+
 </style>
 

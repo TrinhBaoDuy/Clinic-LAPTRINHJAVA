@@ -5,8 +5,10 @@
 package com.owen.controllers;
 
 import com.owen.pojo.Medicine;
+import com.owen.pojo.User;
 import com.owen.service.MedicineService;
 import com.owen.service.UnitService;
+import com.owen.service.UserService;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -48,6 +51,9 @@ public class MedicineController {
 
     @Autowired
     private Environment env;
+    
+     @Autowired
+    private UserService userService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -63,10 +69,16 @@ public class MedicineController {
     }
 
     @GetMapping("/admin/quanlythuoc")
-    public String quanlythuoc(Model model, @RequestParam Map<String, String> params) {
+    public String quanlythuoc(Model model, @RequestParam Map<String, String> params,Authentication authentication) {
         model.addAttribute("medicien", new Medicine());
         model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
         model.addAttribute("units", this.unitService.getUnits());
+         if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("admin", u);
+
+        }
         return "quanlythuoc";
     }
 

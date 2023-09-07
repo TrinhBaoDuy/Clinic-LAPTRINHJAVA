@@ -173,7 +173,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUser(Map<String, String> params, MultipartFile avatar) {
+    public User addUser(Map<String, String> params,
+             MultipartFile avatar) {
         User u = new User();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedDate = null;
@@ -191,17 +192,17 @@ public class UserServiceImpl implements UserService {
         u.setPassword(this.passwordEncoder.encode(params.get("password")));
         u.setSex(params.get("sex"));
         u.setDod(parsedDate);
-        u.setRoleId(this.roleRepo.getRoleById(4));
-//        List<Role> listRole = this.roleRepo.getRoles();
-//        String role = params.get("role");
-//        for (Role r : listRole) {
-//            if (role.equals("ROLE_SICKPERSON")) {
-//                if (r.getId() == 4) {
-//                    u.setRoleId(r);
-//                }
-//            }
+//        u.setRoleId(this.roleRepo.getRoleById(4));
+        List<Role> listRole = this.roleRepo.getRoles();
+        String role = params.get("role");
+        for (Role r : listRole) {
+            if (role.equals("ROLE_SICKPERSON")) {
+                if (r.getId() == 4) {
+                    u.setRoleId(r);
+                }
+            }
 //
-//        }
+        }
 
         if (!avatar.isEmpty()) {
             try {
@@ -223,3 +224,6 @@ public class UserServiceImpl implements UserService {
     }
 
 }
+
+
+

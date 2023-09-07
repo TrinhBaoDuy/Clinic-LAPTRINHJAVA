@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.User;
 import com.owen.service.AppointmentService;
+import com.owen.service.BillService;
 import com.owen.service.ScheduleService;
 import com.owen.service.ShiftService;
 import javax.validation.Valid;
@@ -21,12 +22,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.owen.service.UserService;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
@@ -63,17 +66,26 @@ public class AdminController {
     @Autowired
     private ScheduleService scheduleService;
 
+    @Autowired
+    private BillService BillService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, customDateEditor);
     }
 
     @GetMapping("/admin/quanlytaikhoan")
-    public String quanlytaikhoan(Model model, @RequestParam Map<String, String> params) {
+    public String quanlytaikhoan(Model model, @RequestParam Map<String, String> params, Authentication authentication) {
         model.addAttribute("user", this.userService.getUsers(params));
+         if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("admin", u);
+
+        }
         return "quanlytaikhoan";
     }
-
+    
     @GetMapping("/admin/quanlytaikhoan/themtaikhoan")
     public String themtaikhoan(Model model) {
         model.addAttribute("nguoidung", new User());
@@ -97,19 +109,35 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String admin() {
+    public String admin(Model model,Authentication authentication) {
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("admin", u);
+
+        }
         return "admin";
     }
 
     @GetMapping("/admin/thongke")
-    public String thongke(Model model,@RequestParam Map<String, String> params) {
-        model.addAttribute("list", this.appointmentService.getCountUserByMonth());
-        model.addAttribute("listq", this.appointmentService.getCountUserByQuarter());
-//        int thang = Integer.parseInt(params.get("thang"));
-//        model.addAttribute("motthang", this.appointmentService.getCountUserByOneMonth(thang));
-        List<Integer> months = Arrays.asList(7, 8, 9); 
+    public String thongke(Model model) {
+        model.addAttribute("list", this.appointmentService.getCountUserByMonth(2020));
+        model.addAttribute("listq", this.appointmentService.getCountUserByQuarter(2023));
+        model.addAttribute("listdoanhthu", this.BillService.getRevenueByMonth(2023));
+        List<Integer> months = Arrays.asList(7, 8, 9);
         model.addAttribute("motquy", this.appointmentService.getCountUserByQuarter(months));
         return "thongke";
+    }
+
+    @PostMapping("/admin/thongke")
+    public String thongkexuli(Model model, @RequestParam("yearofndm") int yearofrevenuebymonth) {
+//        int yearofrevenuebymonth = Integer.parseInt(request.getParameter("yearofndm"));
+//        int yearofuserbyqua = Integer.parseInt(params.get("yearofndq"));
+//        int yearofuserbymonth = Integer.parseInt(params.get("yearofndm"));
+//        model.addAttribute("list", this.appointmentService.getCountUserByMonth(yearofuserbymonth));
+//        model.addAttribute("listq", this.appointmentService.getCountUserByQuarter(yearofuserbyqua));
+        model.addAttribute("listdoanhthu", this.BillService.getRevenueByMonth(yearofrevenuebymonth));
+        return "redirect:/admin/thongke";
     }
 
     @GetMapping("/admin/saplichlam")
@@ -150,17 +178,17 @@ public class AdminController {
     }
 
     @GetMapping("/admin/saplichlam/xatnhan/{id}")
-    public String saplichlamxatnhan(Model model,@PathVariable(value = "id") int id) {
+    public String saplichlamxatnhan(Model model, @PathVariable(value = "id") int id) {
         ScheduleDetail s = this.scheduleService.getScheduleDetailById(id);
         User u = this.userService.getUserById(s.getUserId().getId());
-        if (this.scheduleService.checkLichHopLe(s.getDateSchedule(),s.getShiftId().getId(),u.getRoleId().getId()) == true) {
+        if (this.scheduleService.checkLichHopLe(s.getDateSchedule(), s.getShiftId().getId(), u.getRoleId().getId()) == true) {
             if (this.scheduleService.addOrUpdateScheduleDetail(s) == true) {
                 return "redirect:/admin/saplichlam";
             }
-        }else{
+        } else {
             model.addAttribute("msg", "Đã quá số lượng nhân viên làm trong ngày" + s.getDateSchedule());
             return "redirect:/admin/saplichlam";
-            
+
         }
         return "saplichlam";
     }
@@ -174,5 +202,3 @@ public class AdminController {
         return "saplichlam";
     }
 }
-
-

@@ -19,4 +19,5 @@ public interface ServiceService {
     boolean addOrUpdateService(Service m);
 
     boolean deleteService(int id);
+    long tiencuadichvu(int s);
 }

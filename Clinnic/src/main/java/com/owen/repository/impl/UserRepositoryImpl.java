@@ -73,11 +73,6 @@ public class UserRepositoryImpl implements UserRepository {
                 predicates.add(b.like(root.get("name"), String.format("%%%s%%", kw)));
             }
 
-            String roleId = params.get("roleId");
-            if (roleId != null && !roleId.isEmpty()) {
-                predicates.add(b.equal(root.get("roleId"), Integer.parseInt(roleId)));
-            }
-
             q.where(predicates.toArray(new Predicate[predicates.size()]));
         }
 
@@ -239,3 +234,6 @@ public class UserRepositoryImpl implements UserRepository {
 
 
 }
+
+
+

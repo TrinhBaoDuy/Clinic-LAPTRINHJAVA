@@ -81,8 +81,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Integer> getCountUserByMonth() {
-        return this.appointmentRepository.getCountUserByMonth();
+    public List<Integer> getCountUserByMonth(int year) {
+        return this.appointmentRepository.getCountUserByMonth(year);
     }
 
     @Override
@@ -96,8 +96,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Integer> getCountUserByQuarter() {
-        return this.appointmentRepository.getCountUserByQuarter();
+    public List<Integer> getCountUserByQuarter(int year) {
+        return this.appointmentRepository.getCountUserByQuarter(year);
     }
     
     @Override
@@ -116,6 +116,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         a.setSickpersonId(nguoibenh);
         this.appointmentRepository.addOrUpdateAppointment(a);
         return a;
+    }
+
+    @Override
+    public List<Appointment> getAppointmentcantPay() {
+        return this.appointmentRepository.getAppointmentcantPay();
     }
 }
 

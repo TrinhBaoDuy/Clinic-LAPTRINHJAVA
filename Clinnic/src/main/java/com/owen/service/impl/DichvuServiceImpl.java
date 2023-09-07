@@ -37,5 +37,10 @@ public class DichvuServiceImpl implements  ServiceService{
     public boolean deleteService(int id) {
         return this.serviceRepository.deleteService(id);
     }
+
+    @Override
+    public long tiencuadichvu(int s) {
+        return this.serviceRepository.tiencuadichvu(s);
+    }
     
 }

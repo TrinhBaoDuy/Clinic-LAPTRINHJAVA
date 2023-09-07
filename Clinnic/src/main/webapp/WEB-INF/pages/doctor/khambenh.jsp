@@ -62,7 +62,7 @@
 </div>
 <script>
     function submitForms() {
-        document.getElementById("dichvu").submit();
+            document.getElementById("dichvu").submit();
         document.getElementById("phieubenh").submit();
     }
 </script>

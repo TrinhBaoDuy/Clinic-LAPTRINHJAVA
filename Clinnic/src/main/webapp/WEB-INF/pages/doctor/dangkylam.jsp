@@ -19,7 +19,7 @@
             <div class="contentbooking2_main">
 
                 <div class="contentbooking2">
-                    <h1>Bác sĩ ${doctor.name}</h1>
+                    <h3>Bác sĩ ${doctor.name}</h3>
                     <h5>Ngày sinh: ${doctor.dod}</h5>
                     <h5>Số điện Thoại: ${doctor.phone}</h5>
                     <h5>Địa chỉ: ${doctor.address}</h5>
@@ -35,9 +35,9 @@
     </div>
     <script src="<c:url value="/js/dongho.js" />"></script>
     <div class="contentright">
-        <h1>ĐĂNG KÝ LỊCH LÀM NGÀY<p id="future-date"></p></h1>
+        <h1>ĐĂNG KÝ LỊCH LÀM TỪ NGÀY<p id="future-date"></p></h1>
         <p style="display: none">Giờ hiện tại: <span id="current-time"></span></p>
-        <table class="table table-striped">
+        <table class=" table ">
             <thead>
                 <tr>
 
@@ -51,8 +51,7 @@
                     <th>CHỦ NHẬT</th>
 
 
-
-                    <th></th>
+ 
                 </tr>
             </thead>
             <tbody>
@@ -66,8 +65,8 @@
                         <td>Ca sáng</td>
                         <c:forEach items="${dateList}" var="date">
                             <td>
-                                <form:checkbox path="listdate1" value="${date}"/>
-                                <label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>
+                                <form:checkbox class="checkbox1" path="listdate1" value="${date}"/>
+                                <!--<label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>-->
                             </td>
                         </c:forEach>
                     </tr>
@@ -75,8 +74,8 @@
                         <td>Ca chiều</td>
                         <c:forEach items="${dateList}" var="date">
                             <td>
-                                <form:checkbox path="listdate2" value="${date}"/>
-                                <label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>
+                                <form:checkbox class="checkbox2" path="listdate2" value="${date}"/>
+                                <!--<label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>-->
                             </td>
                         </c:forEach>
                     </tr>
@@ -84,8 +83,8 @@
                         <td>Ca đêm</td>
                         <c:forEach items="${dateList}" var="date">
                             <td>
-                                <form:checkbox path="listdate3" value="${date}"/>
-                                <label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>
+                                <form:checkbox class="checkbox3" path="listdate3" value="${date}"/>
+                                <!--<label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>-->
                             </td>
                         </c:forEach>
                     </tr>
@@ -105,6 +104,10 @@
     }
 </script>
 <style>
+    .checkbox1,.checkbox2,.checkbox3{
+        margin: 0 20px;
+    }
+    
     .content{
         display: flex;
         padding: 20px;
@@ -183,9 +186,21 @@
     .submitbooking button[type="submit"]:hover {
         background-color: #45a049;
     }
+    .booking1 img{
+        width: 50%;
+    margin-top: 20px;
+    }
+    th {
+    background-color: red;
+  }
+  .table>:not(caption)>*>* {
+      padding: 0.2rem 0.4rem;
+  }
 
 
 
 
 </style>
+
+
 
