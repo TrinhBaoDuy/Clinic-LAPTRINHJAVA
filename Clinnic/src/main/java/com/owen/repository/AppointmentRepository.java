@@ -39,6 +39,7 @@ public interface AppointmentRepository {
     Integer getCountUserByOneMonth(int month);
     List<Integer> getCountUserByQuarter(List<Integer> months);
     List<Appointment> getAppointmentcantPay();
+    List<Appointment> getAppointmentsUserbyDate(int userId, int day, int month, int year);
 }
 
 

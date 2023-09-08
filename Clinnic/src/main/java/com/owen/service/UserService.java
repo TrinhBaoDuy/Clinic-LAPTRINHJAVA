@@ -37,4 +37,6 @@ public interface UserService extends UserDetailsService{
     
     User addUser(Map<String, String> params, MultipartFile avatar);
     List<User> getBacSi(int id);
+    User getUserByEmail(String mail);
+    boolean changePassword(User user, String newPassword);
 }

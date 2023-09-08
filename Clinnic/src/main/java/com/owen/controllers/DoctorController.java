@@ -139,9 +139,23 @@ public class DoctorController {
         if (!rs.hasErrors()) {
             if (this.serviceItemService.addOrUpdateServiceItem(chitietdichvu, appoId) == true) {
                 if (this.prescriptionService.addOrUpdatePrescription(p, appoId) == true) {
-                    return "redirect:/doctor/khambenh/kethuoc/" + appoId;
-                }
+                return "redirect:/doctor/khambenh/kethuoc/" + appoId;
             }
+            }
+        }
+        return "index";
+
+    }
+
+    @PostMapping("/doctor/khambenh/dichvu")
+    public String Updatekhambenhtest(Model mode,@ModelAttribute(value = "chitietdichvu") @Valid ServiceItems chitietdichvu, @RequestParam(value = "appoID") int appoId,
+            BindingResult rs) {
+        if (!rs.hasErrors()) {
+            if (this.serviceItemService.addOrUpdateServiceItem(chitietdichvu, appoId) == true) {
+//                if (this.prescriptionService.addOrUpdatePrescription(p, appoId) == true) {
+                return "redirect:/doctor/khambenh/" + appoId;
+            }
+//            }
         }
         return "index";
 

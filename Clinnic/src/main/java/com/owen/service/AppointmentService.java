@@ -40,6 +40,7 @@ public interface AppointmentService {
      List<Integer> getCountUserByQuarter(List<Integer> months);
      Appointment dangkykham(Map<String, String> params);
      List<Appointment> getAppointmentcantPay();
+     List<Appointment> getAppointmentsUserbyDate(int userId, int day, int month, int year);
 }
 
 

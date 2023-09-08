@@ -200,10 +200,10 @@ public class UserRepositoryImpl implements UserRepository {
 
         return q.getResultList();
     }
-    
+
     @Override
     public boolean authUser(String username, String password) {
-        User  u = this.getUserByUsername(username);
+        User u = this.getUserByUsername(username);
         return this.passwordEncoder.matches(password, u.getPassword());
     }
 
@@ -214,7 +214,8 @@ public class UserRepositoryImpl implements UserRepository {
 
         return user;
     }
-     @Override
+
+    @Override
     public List<User> getBacSi(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -223,17 +224,46 @@ public class UserRepositoryImpl implements UserRepository {
         Date ngaykham = a.getAppointmentDate();
         Root<User> UserRoot = criteria.from(User.class);
         Join<User, ScheduleDetail> scheduleDetailJoin = UserRoot.join("scheduleDetailSet");
-        
+
         criteria.select(UserRoot);
         criteria.where(builder.and(builder.equal(UserRoot.get("roleId"), 2), builder.equal(scheduleDetailJoin.get("dateSchedule"), ngaykham)));
         criteria.distinct(true); // Loại bỏ các bản ghi trùng lặp
-        
+
         List<User> results = session.createQuery(criteria).getResultList();
         return results;
     }
 
+    @Override
+    public User getUserByEmail(String mail) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.where(
+                builder.and(
+                        builder.equal(root.get("emaill"), mail)
+                //                        builder.equal(root.get("roleId"), 2)
+                )
+        );
+        Query q = session.createQuery(query);
+        List<User> results = q.getResultList();
+        return results.isEmpty() ? null : results.get(0);
+    }
+
+    
+    @Override
+    public boolean changePassword(User user, String newPassword) {
+        Session session = this.factory.getObject().getCurrentSession();
+        boolean passwordChanged = false;
+        User existingUser = getUserByEmail(user.getEmaill());
+        
+        if (existingUser != null) {
+            existingUser.setPassword(this.passwordEncoder.encode(newPassword));
+            session.update(existingUser);
+            passwordChanged = true;
+        }
+
+        return passwordChanged;
+    }
 
 }
-
-
-

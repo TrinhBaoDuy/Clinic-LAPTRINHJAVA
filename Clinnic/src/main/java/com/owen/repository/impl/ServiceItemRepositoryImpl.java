@@ -6,6 +6,7 @@ package com.owen.repository.impl;
 
 import com.owen.pojo.Appointment;
 import com.owen.pojo.PrescriptionItem;
+import com.owen.pojo.Service;
 import com.owen.pojo.ServiceItems;
 import com.owen.repository.ServiceItemRepository;
 import java.util.List;
@@ -37,8 +38,19 @@ public class ServiceItemRepositoryImpl implements ServiceItemRepository {
         Appointment a = s.get(Appointment.class, id);
         try {
             if (m.getId() == null) {
-                s.save(m);
-                m.setAppoId(a);
+                if (m.getListdichvu().length > 0) {
+                    for (Service dichvu : m.getListdichvu()) {
+                        ServiceItems ser = new ServiceItems();
+                        ser.setAppoId(a);
+                        ser.setDateSer(m.getDateSer());
+                        ser.setServiceId(dichvu);
+                        s.save(ser);
+                    }
+                   
+                }else {
+                    m.setAppoId(a);
+                    s.save(m);           
+                }
             } else {
                 s.update(m);
             }
@@ -61,6 +73,5 @@ public class ServiceItemRepositoryImpl implements ServiceItemRepository {
 
         return session.createQuery(query).getResultList();
     }
-
 
 }

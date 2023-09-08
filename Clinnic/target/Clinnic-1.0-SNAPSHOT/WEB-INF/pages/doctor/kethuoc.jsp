@@ -60,13 +60,15 @@
 
 
                                                 <div class="overlay" style="display: none">
-                                                    <form:form modelAttribute="phieuthuoc" method="post" action="${action}">
 
+
+                                                    <form:form modelAttribute="phieuthuoc" method="post" action="${action}">
                                                         <form:hidden path="id" />
                                                         <form:hidden path="medicineId" value="${ds.id}"/>
                                                         <form:hidden path="prescriptionId"/>
                                                         <div class="overlay-content">
-                                                            <input name="PreId" value="${appo.id}" />
+                                                            <a class="huy" href="<c:url value="/doctor/khambenh/kethuoc/${appo.id}" />">X</a>
+                                                            <input name="PreId" value="${appo.id}" type="hidden"/>
                                                             <h1>${ds.id}-${ds.name}</h1>
                                                             <div>
                                                                 <label for="quantity">Số lượng:</label>
@@ -76,7 +78,7 @@
                                                                 <label for="quantity">Hướng dẫn sử dụng:</label>
                                                                 <form:input type="text"  path="instructions" />
                                                             </div>
-                                                            <button class="addButton" type="submit">Thêm</button>
+                                                            <button class="addButton2" type="submit">Thêm</button>
                                                         </div>
                                                     </form:form>
                                                 </div>
@@ -124,10 +126,10 @@
                 </div>
             </nav>
             <div class="submitbooking ">
-                <button class="btsearch1">
+                <button class="btsearch2">
                     <a href="<c:url value="/doctor/khambenh/kethuoc/export/${appo.id}"/>">XUẤT TOA THUỐC</a>
                 </button>
-                
+
             </div>
             <div class="submitbooking ">
                 <button class="btsearch2" onclick="hoi()">NEXT</button>
@@ -450,7 +452,7 @@
         width: 100%;
         height: 70px;
     }
-     .btsearch2{
+    .btsearch2{
         background-color: #099956;
         border-color: #099956;
         height: 40px;
@@ -465,6 +467,10 @@
         text-decoration: none;
         color: wheat;
         font-weight: bold;
+    }
+    .addButton2{
+        padding-left:40px;
+        margin-left: 35%!important;
     }
 
 

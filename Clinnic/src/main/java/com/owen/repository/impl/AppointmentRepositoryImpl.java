@@ -156,6 +156,30 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         List<Object[]> results = session.createQuery(criteria).getResultList();
         return results;
     }
+    @Override
+    public List<Appointment> getAppointmentsUserbyDate(int userId, int day, int month, int year) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
+        Root<Appointment> root = criteria.from(Appointment.class);
+
+        Predicate userPredicate = builder.equal(root.get("sickpersonId").get("id"), userId);
+        Predicate datePredicate = builder.and(
+                builder.equal(builder.function("day", Integer.class, root.get("appointmentDate")), day),
+                builder.equal(builder.function("month", Integer.class, root.get("appointmentDate")), month),
+                builder.equal(builder.function("year", Integer.class, root.get("appointmentDate")), year)
+        );
+        Predicate statusPredicate = builder.equal(root.get("status"), 1);
+        Predicate prescriptionPredicate = builder.isNotNull(root.get("prescriptionId"));
+
+        Predicate finalPredicate = builder.and(userPredicate, datePredicate, statusPredicate, prescriptionPredicate);
+
+        criteria.select(root).where(finalPredicate);
+        criteria.orderBy(builder.desc(root.get("appointmentDate")));
+        Query query = session.createQuery(criteria);
+        return query.getResultList();
+    }
 
     @Override
     public List<Appointment> getAppointmentcantPay() {

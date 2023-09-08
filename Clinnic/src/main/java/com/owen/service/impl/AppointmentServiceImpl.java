@@ -122,6 +122,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Appointment> getAppointmentcantPay() {
         return this.appointmentRepository.getAppointmentcantPay();
     }
+
+    @Override
+    public List<Appointment> getAppointmentsUserbyDate(int userId, int day, int month, int year) {
+        return this.getAppointmentsUserbyDate(userId, day, month, year);
+    }
 }
 
 

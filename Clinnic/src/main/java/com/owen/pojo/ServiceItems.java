@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ServiceItems.findByDateSer", query = "SELECT s FROM ServiceItems s WHERE s.dateSer = :dateSer"),
     @NamedQuery(name = "ServiceItems.findById", query = "SELECT s FROM ServiceItems s WHERE s.id = :id")})
 public class ServiceItems implements Serializable {
+
+
 
     private static final long serialVersionUID = 1L;
     @Column(name = "date_ser")
@@ -49,7 +52,22 @@ public class ServiceItems implements Serializable {
     @JoinColumn(name = "service_id", referencedColumnName = "id")
     @ManyToOne
     private Service serviceId;
+    @Transient
+    private Service[] listdichvu;
+        /**
+     * @return the listdichvu
+     */
+    public Service[] getListdichvu() {
+        return listdichvu;
+    }
 
+    /**
+     * @param listdichvu the listdichvu to set
+     */
+    public void setListdichvu(Service[] listdichvu) {
+        this.listdichvu = listdichvu;
+    }
+    
     public ServiceItems() {
     }
 

@@ -223,6 +223,16 @@ public class UserServiceImpl implements UserService {
         return this.userRepo.getBacSi(id);
     }
 
+    @Override
+    public User getUserByEmail(String mail) {
+        return this.userRepo.getUserByEmail(mail);
+    }
+
+    @Override
+    public boolean changePassword(User user, String newPassword) {
+        return this.userRepo.changePassword(user, newPassword);
+    }
+
 }
 
 

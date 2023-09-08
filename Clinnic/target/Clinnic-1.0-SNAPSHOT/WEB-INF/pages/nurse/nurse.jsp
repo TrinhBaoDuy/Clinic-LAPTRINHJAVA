@@ -45,136 +45,123 @@
                 </div>
             </div>
         </nav>
+        <div class="tb1"   >    
 
-        <nav class="table1">
-            <section class="table__body1">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>ID Bệnh nhân</th>
-                            <th>Email</th>
-                            <th>Ngày đăng ký</th>
-                            <th>Y tá</th>
-                            <th>Bác sĩ</th>
-                            <th>Trạng thái</th>
-                            <th>Nút nè</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <c:forEach items="${Apo}" var="p">
+            <nav class="table1">
+                <section class="table__body1">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>${p.id}</td>
-                                <td>[${p.sickpersonId.id}] ${p.sickpersonId.name}</td>
-                                <td>${p.sickpersonId.emaill}</td>      
-                                <td>${p.appointmentDate}</td>
-                                <td>${p.nurseId.name}</td>
-                                <td>${p.doctorId.name}</td>
-                                <td>
-                                    <c:choose>
-                                        <c:when test="${p.status.toString() eq 0}">
-                                            <p id="xacnhan">Chưa xác nhận</p>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p id="xacnhan1">Đã xác nhận </p>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                                <td>
-                                                                        
-                                    <c:choose>
-                                        <c:when test="${p.status == 0 }"><a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success xacnhan">Xác nhận </a></c:when>
-                                        <c:when test="${p.status == 1 && p.nurseId.id == nurse.id}"><a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success">Hủy </a></c:when>
-                                        <c:otherwise >Đã được xát nhận từ y tá ${p.nurseId.name}</c:otherwise>
-                                    </c:choose>
-
-                                    
-
-                                     
-                                </td>
+                                <th>ID</th>
+                                <th>ID Bệnh nhân</th>
+                                <!--                            <th>Email</th>-->
+                                <th>Ngày đăng ký</th>
+                                <th>Y tá</th>
+                                <th>Bác sĩ</th>
+                                <th>Trạng thái</th>
+                                <th></th>
                             </tr>
-                        </c:forEach>
-                    </tbody>
+                        </thead>
 
-                </table>
-            </section>
-        </nav>
-        <<h1>${msg}</h1>
+                        <tbody>
+                            <c:forEach items="${Apo}" var="p">
+                                <tr>
+                                    <td>${p.id}</td>
+                                    <td>[${p.sickpersonId.id}] ${p.sickpersonId.name}</td>
+    <!--                                <td>${p.sickpersonId.emaill}</td>      -->
+                                    <td>${p.appointmentDate}</td>
+                                    <td>${p.nurseId.name}</td>
+                                    <td>${p.doctorId.name}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${p.status.toString() eq 0}">
+                                                <p id="xacnhan">Chưa xác nhận</p>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p id="xacnhan1">Đã xác nhận </p>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
 
-                <nav class="table1">
-        <form:form method="post" action="${actionUpdate}" modelAttribute="appoment">
-            <form:hidden path="appointmentDate" />
-            <form:hidden path="medicalappointmentDate" />
-            <form:hidden path="status" />
-            <form:hidden path="prescriptionId" />
+                                        <c:choose>
+                                            <c:when test="${p.status == 0 }"><a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success xacnhan">Xác nhận </a></c:when>
+                                            <c:when test="${p.status == 1 && p.nurseId.id == nurse.id}"><a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success">Hủy </a></c:when>
+                                            <c:otherwise >Đã được xát nhận từ y tá ${p.nurseId.name}</c:otherwise>
+                                        </c:choose>
 
-            <div class="form-floating mb-3 mt-3">
-            <form:input type="text" class="form-control" 
-                        path="id" id="id"/>
-            <label for="name">Mã</label>
 
-        </div>
-        <div class="form-floating mb-3 mt-3">
-            <form:input type="text" class="form-control" 
-                        path="sickpersonId" id="sickpersonId"/>
-            <label for="name">Mã thằng bệnh</label>
 
-        </div>
-        <div class="form-floating mb-3 mt-3">
-            <form:input value="${nurse.id}" type="text" class="form-control" 
-                        path="nurseId" id="nurseId"/>
-            <label for="name">Mã y tá</label>
 
-        </div>
-        <div class="form-floating mb-3 mt-3">
-            <form:select class="form-select" id="role" name="doctorId" path="doctorId">
-                <c:forEach items="${getbacsi}" var="r">
-                    <c:choose>
-                        <c:when test="${r.id == appoment.doctorId.id}">
-                            <option value="${r.id}" selected>${r.name}</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${r.id}">${r.name}</option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </form:select>
-            <label for="category" class="form-label">Chọn Bác Sĩ:</label>
-        </div>
-        <div class="form-floating mb-3 mt-3">
-            <button class="btn btn-info" type="submit">Thêm Bác Sĩ</button>
-        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
 
-        </form:form>
-    </nav>
-        
+                    </table>
+                </section>
+            </nav>
+            <h1>${msg}</h1>
+
+            <nav class=" border ">
+
+                <form:form method="post" action="${actionUpdate}" modelAttribute="appoment">
+                    <form:hidden path="appointmentDate" />
+                    <form:hidden path="medicalappointmentDate" />
+                    <form:hidden path="status" />
+                    <form:hidden path="prescriptionId" />
+                    <label class="chonbacsi" >CHỌN BÁC SĨ </label>
+
+                    <div class="form-floating mb-3 mt-3">
+                        <form:input type="text" class="form-control" 
+                                    path="id" id="id"/>
+                        <label for="name">Mã</label>
+
+                    </div>
+                    <div class="form-floating mb-3 mt-3">
+                        <form:input type="text" class="form-control" 
+                                    path="sickpersonId" id="sickpersonId"/>
+                        <label for="name">Mã thằng bệnh</label>
+
+                    </div>
+                    <div class="form-floating mb-3 mt-3">
+                        <form:input value="${nurse.id}" type="text" class="form-control" 
+                                    path="nurseId" id="nurseId"/>
+                        <label for="name">Mã y tá</label>
+
+                    </div>
+                    <div class="form-floating mb-3 mt-3">
+                        <form:select class="form-select" id="role" name="doctorId" path="doctorId">
+                            <c:forEach items="${getbacsi}" var="r">
+                                <c:choose>
+                                    <c:when test="${r.id == appoment.doctorId.id}">
+                                        <option  value="${r.id}" selected>${r.name}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${r.id}">${r.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </form:select>
+                        <label for="category" class="form-label">Chọn Bác Sĩ:</label>
+                    </div>
+                    <div class="form-floating mb-3 mt-3">
+                        <button class="btn btn-success" type="submit">Thêm Bác Sĩ</button>
+                    </div>
+
+                </form:form>
+            </nav>
+
+        </div> 
 
     </div>
 
 </sec:authorize>
- <script>
-    // Lấy tham chiếu đến các phần tử DOM
-    var confirmBtn = document.querySelector('.xacnhan');
-    var submitBtn = document.querySelector('.btn-info');
-    var table = document.querySelector('.table1');
 
-    // Ẩn bảng khi trang được tải
-    table.style.display = 'none';
-
-    // Xử lý sự kiện khi nhấp vào nút "Xác nhận"
-    confirmBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        table.style.display = 'block';
-    });
-
-    // Xử lý sự kiện khi nhấp vào nút "Thêm Bác Sĩ"
-    submitBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        table.style.display = 'none';
-    });
-</script>
 <style>
+    .tb1{
+        display: flex;
+    }
     .admin_submit111{
         width: 160px;
         text-align: center;
@@ -282,31 +269,6 @@
         object-fit: cover;
     }
 
-    /*    .contentbooking1{
-            width: 100%;
-            padding: 45px;
-            text-align: justify;
-        }
-        .contentbooking1 img{
-            top: 0;
-            left: 0;
-            width: 100%;  
-            height: 100%;  
-            object-fit: cover;
-        }*/
-    /*.booking1{
-        position: relative;
-            width: 200px;  Độ rộng của khung chứa ảnh 
-            height: 200px;
-    }
-    .contentbooking1 img{
-         position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;  Độ rộng của ảnh 
-            height: 100%;  Chiều cao của ảnh 
-            object-fit: cover;
-    }*/
     .contentdkk1 h3{
         font-size: 18px;
         color: white;
@@ -604,6 +566,27 @@
         border: 0px solid #ced4da;
         box-shadow: 0px 5px 10px 0 rgba(130, 201, 30, 0.5);
     }
+    .border{
+        display: flex;
+        border: 0.5px solid #5AAC4E;
+        border-radius: 30px;
+
+        background-color: #F5FFFA;
+
+        margin: 10px;
+        width: 30%;
+        padding: 20px;
+        height: 550px;
+    }
+    .chonbacsi{
+        font-weight: bold;
+    }
+    .btaddbacsi{
+        background-color: green;
+    }
+
+    
+
 
 
 </style>
