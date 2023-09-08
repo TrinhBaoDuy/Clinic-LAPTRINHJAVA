@@ -127,6 +127,20 @@ public class NurseController {
         return "nurse";
     }
 
+    @GetMapping("/nurse/huy{id}")
+    public String xulihuy(Model model, @PathVariable(value = "id") int id, Authentication authentication, HttpServletRequest request) {
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("nurse", u);
+            this.appointmentService.changestatus(id, u); 
+            return "redirect:/nurse";
+
+        }
+//        }
+        return "nurse";
+    }
+
     @PostMapping("/nurse")
     public String Update(Model model, Authentication authentication, @ModelAttribute(value = "appoment") @Valid Appointment a,
             BindingResult rs) throws MessagingException {

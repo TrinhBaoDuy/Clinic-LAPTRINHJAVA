@@ -86,7 +86,7 @@
 
                                         <c:choose>
                                             <c:when test="${p.status == 0 }"><a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success xacnhan">Xác nhận </a></c:when>
-                                            <c:when test="${p.status == 1 && p.nurseId.id == nurse.id}"><a href="<c:url value="/nurse/${p.id}"/>" class="btn btn-success">Hủy </a></c:when>
+                                            <c:when test="${p.status == 1 && p.nurseId.id == nurse.id}"><a href="<c:url value="/nurse/huy${p.id}"/>" class="btn btn-success">Hủy </a></c:when>
                                             <c:otherwise >Đã được xát nhận từ y tá ${p.nurseId.name}</c:otherwise>
                                         </c:choose>
 
