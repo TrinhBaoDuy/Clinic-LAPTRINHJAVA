@@ -9,54 +9,51 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-    <div class="infor1">
+<div class="infor1">
 
-        <div class="contentdkk2_main contentdkk2_main1">
-            <div class="imglogo">
-                <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692731869/zyro-image_ukyhu5.png" alt="logo">
-                <h2>LỊCH SỬ KHÁM</h2>
-
-            </div>
-            <hr>
-
-            <div class="search-container">
-                <input type="text" placeholder="Nhập ngày cần tìm" class="search-input">
-                <button type="submit" class="search-button">Tìm kiếm</button>
-            </div>
-
-
-
-
-            <section class="table__body1 table__body11">
-                <div class="content2">
-                    <h2>${benhnhan.name}</h2>
-
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-
-                                <th>Ngày khám</th> 
-                                <th>Bác Sĩ Khám</th> 
-                                <th>Triệu chứng</th>
-                                <th>Kết luận</th>
-                            </tr>
-                        </thead>
-                         <c:forEach items="${lishsubenh}" var="ds">
-                            <tr>
-                                <td><fmt:formatDate value="${ds.appointmentDate}" pattern="dd/MM/yyyy" /></td>
-                                <td>${ds.doctorId.name}</td>
-                                <td>${ds.prescriptionId.conclusion}</td>
-                                <td>${ds.prescriptionId.symptom}</td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </div>    
-            </section>
+    <div class="contentdkk2_main contentdkk2_main1">
+        <div class="imglogo">
+            <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692731869/zyro-image_ukyhu5.png" alt="logo">
+            <h2>LỊCH SỬ KHÁM</h2>
 
         </div>
+        <hr>
+        <form class="search-form" action="<c:url value="/doctor/lichsukham/${benhnhan.id}"/>" method="post">
+            <div class="search-container">
+                <input name="date" type="date" placeholder="Nhập ngày cần tìm" class="search-input">
+                <button type="submit" class="search-button">Tìm kiếm</button>
+            </div>
+        </form>
+        <section class="table__body1 table__body11">
+            <div class="content2">
+                <h2>${benhnhan.name}</h2>
 
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>Ngày khám</th> 
+                            <th>Bác Sĩ Khám</th> 
+                            <th>Triệu chứng</th>
+                            <th>Kết luận</th>
+                        </tr>
+                    </thead>
+                    <c:forEach items="${lishsubenh}" var="ds">
+                        <tr>
+                            <td><fmt:formatDate value="${ds.appointmentDate}" pattern="dd/MM/yyyy" /></td>
+                            <td>${ds.doctorId.name}</td>
+                            <td>${ds.prescriptionId.conclusion}</td>
+                            <td>${ds.prescriptionId.symptom}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>    
+        </section>
 
     </div>
+
+
+</div>
 <style>
 
     .infor1{

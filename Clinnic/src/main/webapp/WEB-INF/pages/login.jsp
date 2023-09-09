@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:if test="${param.error != null}">
     <div class="alert alert-danger">
-        Tài khoản hoặc mật khẩu của bạn nhập sai !!! Vui lòng nhập lại ...!
+        Tài khoản, mật khẩu của bạn nhập sai hoặc bạn chưa đến giờ làm !!! Vui lòng nhập lại ...!
     </div>
 </c:if>
 <c:if test="${param.accessDenied}">

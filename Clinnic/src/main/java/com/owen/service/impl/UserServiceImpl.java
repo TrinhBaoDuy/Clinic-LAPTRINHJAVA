@@ -21,6 +21,9 @@ import com.owen.service.UserService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -161,6 +164,64 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("Không thể đăng nhập vào lúc này!");
         }
     }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User u = this.userRepo.getUserByUsername(username);
+//        if (u == null) {
+//            throw new UsernameNotFoundException("Invalid");
+//        }
+//
+//        boolean canLogin = false;
+//
+//        List<ScheduleDetail> listTgTruc = this.scheduleRepository.getScheduleDetailsByTaiKhoan(u);
+//
+//        if (listTgTruc.isEmpty()) {
+//            canLogin = true;
+//        } else {
+//            LocalDate currentDate = LocalDate.now();
+//            LocalTime currentTime = LocalTime.now();
+//            Calendar calendar = Calendar.getInstance();
+//
+//            for (ScheduleDetail chiTiet : listTgTruc) {
+//                Shift thoiGianTruc = chiTiet.getShiftId();
+//
+//                Date dateDkyTruc = chiTiet.getDateSchedule();
+//                calendar.setTime(dateDkyTruc);
+//                int year = calendar.get(Calendar.YEAR);
+//                int month = calendar.get(Calendar.MONTH) + 1;
+//                int day = calendar.get(Calendar.DAY_OF_MONTH);
+//                LocalDate ngayDkyTruc = LocalDate.of(year, month, day);
+//
+//                Date start = thoiGianTruc.getStart();
+//                calendar.setTime(start);
+//                int startHour = calendar.get(Calendar.HOUR_OF_DAY);
+//                int startMinute = calendar.get(Calendar.MINUTE);
+//                int startSecond = calendar.get(Calendar.SECOND);
+//                LocalTime startTime = LocalTime.of(startHour, startMinute, startSecond);
+//
+//                Date end = thoiGianTruc.getEnd();
+//                calendar.setTime(end);
+//                int endHour = calendar.get(Calendar.HOUR_OF_DAY);
+//                int endMinute = calendar.get(Calendar.MINUTE);
+//                int endSecond = calendar.get(Calendar.SECOND);
+//                LocalTime endTime = LocalTime.of(endHour, endMinute, endSecond);
+//
+//                if (ngayDkyTruc.equals(currentDate) && currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
+//                    canLogin = true;
+//                    break;
+//                }
+//            }
+//        }
+//
+//        if (canLogin) {
+//            Set<GrantedAuthority> authorities = new HashSet<>();
+//            authorities.add(new SimpleGrantedAuthority(u.getRoleId().getName()));
+//            return new org.springframework.security.core.userdetails.User(
+//                    u.getUsername(), u.getPassword(), authorities);
+//        } else {
+//            throw new UsernameNotFoundException("Không thể đăng nhập vào lúc này!");
+//        }
+//    }
 
     @Override
     public User getUserByUsername(String username) {
@@ -174,15 +235,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(Map<String, String> params,
-             MultipartFile avatar) {
+            MultipartFile avatar) {
         User u = new User();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedDate = null;
 
         try {
             parsedDate = dateFormat.parse(params.get("dod"));
+
         } catch (ParseException ex) {
-            Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserServiceImpl.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         u.setUsername(params.get("username"));
         u.setEmaill(params.get("email"));
@@ -234,6 +297,3 @@ public class UserServiceImpl implements UserService {
     }
 
 }
-
-
-

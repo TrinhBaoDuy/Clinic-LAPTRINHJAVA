@@ -29,18 +29,27 @@ public interface AppointmentService {
     Appointment getAppointmentById(int id);
 
     boolean addOrUpdateAppointment(Appointment m);
-    
-    List<Appointment> getAppointmentsbyUser(User u);
-    
-     boolean canAcceptAppointment(Date date);
-     
-     List<Integer> getCountUserByMonth(int year);
-     List<Integer> getCountUserByQuarter(int year);
-     Integer getCountUserByOneMonth(int month);
-     List<Integer> getCountUserByQuarter(List<Integer> months);
-     Appointment dangkykham(Map<String, String> params);
-     List<Appointment> getAppointmentcantPay();
-     List<Appointment> getAppointmentsUserbyDate(int userId, int day, int month, int year);
+
+    List<Appointment> getAppointmentsbyUser(User u, Date date);
+
+    boolean canAcceptAppointment(Date date);
+
+    List<Integer> getCountUserByMonth(int year);
+
+    List<Integer> getCountUserByQuarter(int year);
+
+    Integer getCountUserByOneMonth(int month);
+
+    List<Integer> getCountUserByQuarter(List<Integer> months);
+
+    Appointment dangkykham(Map<String, String> params);
+
+    List<Appointment> getAppointmentcantPay();
+
+    List<Appointment> getAppointmentsUserbyDate(int userId, int day, int month, int year);
+
+    List<Appointment> getAppointmentsbySickperson(int id);
+
+    boolean deleteAppo(int id);
+
 }
-
-

@@ -52,7 +52,15 @@
                 <a href="<c:url value="/admin/thongke" />">
                     <button>
                         <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1692731869/zyro-image_ukyhu5.png" alt="Icon">
-                        <h3>Thống Kê</h3>
+                        <h3>Thống Kê Bệnh Nhân</h3>
+                    </button>
+                </a>
+            </div>
+            <div class="btadmin">
+                <a href="<c:url value="/admin/thongkedoanhthu" />">
+                    <button>
+                        <img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1692731869/zyro-image_ukyhu5.png" alt="Icon">
+                        <h3>Thống Kê Doanh Thu</h3>
                     </button>
                 </a>
             </div>

@@ -30,7 +30,7 @@ public interface AppointmentRepository {
     
     Appointment getAppointmentById(int id);
     
-    List<Appointment> getAppointmentsbyUser(User u);
+    List<Appointment> getAppointmentsbyUser(User u,Date date);
     
     boolean canAcceptAppointment(Date date);
     
@@ -40,6 +40,10 @@ public interface AppointmentRepository {
     List<Integer> getCountUserByQuarter(List<Integer> months);
     List<Appointment> getAppointmentcantPay();
     List<Appointment> getAppointmentsUserbyDate(int userId, int day, int month, int year);
+    List<Appointment> getAppointmentsbySickperson(User u);
+    boolean deleteAppo(int id);
+
+
 }
 
 

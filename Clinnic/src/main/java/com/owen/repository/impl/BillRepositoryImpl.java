@@ -242,44 +242,23 @@ public class BillRepositoryImpl implements BillRepository {
     public List<Integer> getRevenueByQuarter(int year) {
         List<Integer> revenueData = new ArrayList<>();
         try {
-            Session session = this.factory.getObject().getCurrentSession();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Tuple> query = builder.createTupleQuery();
-            Root<Appointment> appointmentRoot = query.from(Appointment.class);
-            Root<Bill> billRoot = query.from(Bill.class);
+            // Lấy danh sách doanh thu theo tháng
+            List<Integer> monthlyRevenueData = getRevenueByMonth(year);
 
-            query.multiselect(
-                    builder.function("QUARTER", Integer.class, appointmentRoot.get("medicalappointmentDate")).alias("quarter"),
-                    builder.sum(billRoot.get("payMoney")).alias("revenue")
-            );
-
-            Predicate joinCondition = builder.equal(appointmentRoot.get("id"), billRoot.get("appoId"));
-            query.where(
-                    joinCondition,
-                    builder.equal(builder.function("YEAR", Integer.class, appointmentRoot.get("medicalappointmentDate")), year)
-            );
-
-            query.groupBy(builder.function("QUARTER", Integer.class, appointmentRoot.get("medicalappointmentDate")));
-
-            TypedQuery<Tuple> typedQuery = session.createQuery(query);
-            List<Tuple> results = typedQuery.getResultList();
-
+            // Tính toán doanh thu theo quý
             for (int quarter = 1; quarter <= 4; quarter++) {
-                boolean quarterFound = false;
-                for (Tuple result : results) {
-                    Integer resultQuarter = result.get("quarter", Integer.class);
-                    if (resultQuarter != null && resultQuarter.equals(quarter)) {
-                        Long revenue = result.get("revenue", Long.class);
-                        revenueData.add(revenue.intValue());
-                        quarterFound = true;
-                        break;
-                    }
+                int startIndex = (quarter - 1) * 3;
+                int endIndex = startIndex + 3;
+                int quarterlyRevenue = 0;
+
+                // Tính tổng doanh thu của các tháng trong quý
+                for (int i = startIndex; i < endIndex; i++) {
+                    quarterlyRevenue += monthlyRevenueData.get(i);
                 }
-                if (!quarterFound) {
-                    revenueData.add(0);
-                }
+
+                revenueData.add(quarterlyRevenue);
             }
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return revenueData;

@@ -18,6 +18,7 @@
         <p>Ngày khám: <span id="appointment-date"><fmt:formatDate value="${appo.appointmentDate}" pattern="dd/MM/yyyy" /></span></p>
         <p>Tên bệnh nhân: <span id="patient-name">${appo.sickpersonId.name}</span></p>
         <p>Số điện thoại: <span id="phone-number">${appo.sickpersonId.phone}</span></p>
+        <hr/>
 
         <h2>Thông tin thuốc đã mua</h2>
         <table id="thuoc-table">
@@ -60,6 +61,7 @@
                 </c:forEach>
             </tbody>
         </table>
+        <hr/>
         <form:form method="post" action="${action}" modelAttribute="bill">
             <div class="payment-section">
                 <h2>Phần thanh toán</h2>
@@ -97,11 +99,11 @@
                 </div>
 
 
-                <button type="submit">Thanh toán</button>
+                <button class="bt1" type="submit">Thanh toán</button>
             </div>
         </form:form>
         <input type="hidden" value = "/Clinnic/paymomo?id=${bill.id}"  name="momo"/> 
-         <input type="hidden" name="id" value="${bill.id}" />
+        <input type="hidden" name="id" value="${bill.id}" />
     </div>
 </div>
 
@@ -142,8 +144,12 @@
         border: 0.5px solid #5AAC4E;
         border-radius: 30px;
         overflow: auto;
-        max-height: 400px;
+        
 
+
+    }
+    .main{
+        margin-bottom: 10%;
     }
 
     h1 {
@@ -159,6 +165,7 @@
         margin-top: 20px;
         margin-bottom: 40px;
         table-layout: fixed;
+        width: 100%;
     }
     thead {
         color: white;
@@ -203,5 +210,27 @@
     .hidden {
         display: none;
     }
+
+     
+    .bt1 {
+        background-color: #4CAF50;  
+        border: none;  
+        color: white;  
+        padding: 10px 20px;  
+        text-align: center;  
+        text-decoration: none;  
+        display: inline-block;  
+        font-size: 16px;  
+        margin: 4px 2px;  
+        cursor: pointer;  
+        border-radius: 4px;  
+    }
+ 
+    .bt1:hover {
+        background-color: #45a049;  
+    }
+
+     
+
 </style>
 

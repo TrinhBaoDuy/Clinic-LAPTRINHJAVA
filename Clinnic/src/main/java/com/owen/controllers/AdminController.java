@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.owen.service.UserService;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,7 +79,7 @@ public class AdminController {
     @GetMapping("/admin/quanlytaikhoan")
     public String quanlytaikhoan(Model model, @RequestParam Map<String, String> params, Authentication authentication) {
         model.addAttribute("user", this.userService.getUsers(params));
-         if (authentication != null) {
+        if (authentication != null) {
             UserDetails user = this.userService.loadUserByUsername(authentication.getName());
             User u = this.userService.getUserByUsername(user.getUsername());
             model.addAttribute("admin", u);
@@ -85,7 +87,7 @@ public class AdminController {
         }
         return "quanlytaikhoan";
     }
-    
+
     @GetMapping("/admin/quanlytaikhoan/themtaikhoan")
     public String themtaikhoan(Model model) {
         model.addAttribute("nguoidung", new User());
@@ -109,7 +111,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String admin(Model model,Authentication authentication) {
+    public String admin(Model model, Authentication authentication) {
         if (authentication != null) {
             UserDetails user = this.userService.loadUserByUsername(authentication.getName());
             User u = this.userService.getUserByUsername(user.getUsername());
@@ -120,24 +122,56 @@ public class AdminController {
     }
 
     @GetMapping("/admin/thongke")
-    public String thongke(Model model) {
-        model.addAttribute("list", this.appointmentService.getCountUserByMonth(2020));
+    public String thongke(Model model, Authentication authentication) {
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("admin", u);
+        }
+        model.addAttribute("um", 2023);
+        model.addAttribute("list", this.appointmentService.getCountUserByMonth(2023));
         model.addAttribute("listq", this.appointmentService.getCountUserByQuarter(2023));
         model.addAttribute("listdoanhthu", this.BillService.getRevenueByMonth(2023));
-        List<Integer> months = Arrays.asList(7, 8, 9);
-        model.addAttribute("motquy", this.appointmentService.getCountUserByQuarter(months));
         return "thongke";
     }
 
     @PostMapping("/admin/thongke")
-    public String thongkexuli(Model model, @RequestParam("yearofndm") int yearofrevenuebymonth) {
-//        int yearofrevenuebymonth = Integer.parseInt(request.getParameter("yearofndm"));
-//        int yearofuserbyqua = Integer.parseInt(params.get("yearofndq"));
-//        int yearofuserbymonth = Integer.parseInt(params.get("yearofndm"));
-//        model.addAttribute("list", this.appointmentService.getCountUserByMonth(yearofuserbymonth));
-//        model.addAttribute("listq", this.appointmentService.getCountUserByQuarter(yearofuserbyqua));
-        model.addAttribute("listdoanhthu", this.BillService.getRevenueByMonth(yearofrevenuebymonth));
-        return "redirect:/admin/thongke";
+    public String thongkexuli(Model model, @RequestParam("yearofnd") int yearofrevenuebymonth, Authentication authentication) {
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("admin", u);
+        }
+        model.addAttribute("um", yearofrevenuebymonth);
+        model.addAttribute("list", this.appointmentService.getCountUserByMonth(yearofrevenuebymonth));
+        model.addAttribute("listq", this.appointmentService.getCountUserByQuarter(yearofrevenuebymonth));
+        return "thongke";
+    }
+
+    @GetMapping("/admin/thongkedoanhthu")
+    public String thongkedoanhthu(Model model, Authentication authentication) {
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("admin", u);
+        }
+        model.addAttribute("um", 2023);
+        model.addAttribute("listdt", this.BillService.getRevenueByMonth(2023));
+        model.addAttribute("listdtq", this.BillService.getRevenueByQuarter(2023));
+        return "thongkedoanhthu";
+    }
+
+    @PostMapping("/admin/thongkedoanhthu")
+    public String thongkexulidoanhthu(Model model, @RequestParam("yearofnd") int yearofrevenuebymonth, Authentication authentication) {
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("admin", u);
+        }
+        model.addAttribute("um", yearofrevenuebymonth);
+        model.addAttribute("listdt", this.BillService.getRevenueByMonth(yearofrevenuebymonth));
+        model.addAttribute("listdtq", this.BillService.getRevenueByQuarter(yearofrevenuebymonth));
+        return "thongkedoanhthu";
     }
 
     @GetMapping("/admin/saplichlam")
@@ -152,17 +186,16 @@ public class AdminController {
             dateList.add(calendar.getTime());
         }
         model.addAttribute("dateList", dateList);
-        model.addAttribute("lichundone", this.scheduleService.getSchedules(dateList.get(0)));
+        model.addAttribute("lichundonebs", this.scheduleService.getSchedules(dateList.get(0), 2));
+        model.addAttribute("lichundoneyt", this.scheduleService.getSchedules(dateList.get(0), 3));
         model.addAttribute("lichdone", this.scheduleService.getSchedulesaccepted(dateList.get(0)));
-        model.addAttribute("lichlam", new ScheduleDetail());
-        model.addAttribute("lich", this.shiftService.getShifts());
-        model.addAttribute("getdoctor", this.userService.getBacSi());
         if (authentication != null) {
             UserDetails user = this.userService.loadUserByUsername(authentication.getName());
             User u = this.userService.getUserByUsername(user.getUsername());
             model.addAttribute("admin", u);
 
         }
+        model.addAttribute("msg", "kho loi");
         return "saplichlam";
     }
 
@@ -178,18 +211,24 @@ public class AdminController {
     }
 
     @GetMapping("/admin/saplichlam/xatnhan/{id}")
-    public String saplichlamxatnhan(Model model, @PathVariable(value = "id") int id) {
+    public String saplichlamxatnhan(Model model, @PathVariable(value = "id") int id) throws UnsupportedEncodingException {
+        String msg = "";
         ScheduleDetail s = this.scheduleService.getScheduleDetailById(id);
         User u = this.userService.getUserById(s.getUserId().getId());
-        if (this.scheduleService.checkLichHopLe(s.getDateSchedule(), s.getShiftId().getId(), u.getRoleId().getId()) == true) {
-            if (this.scheduleService.addOrUpdateScheduleDetail(s) == true) {
-                return "redirect:/admin/saplichlam";
-            }
-        } else {
-            model.addAttribute("msg", "Đã quá số lượng nhân viên làm trong ngày" + s.getDateSchedule());
-            return "redirect:/admin/saplichlam";
+//        if (this.scheduleService.checktontai(s.getDateSchedule(), u.getRoleId().getId(), s.getShiftId().getId()) == true) {
+            if (this.scheduleService.checkLichHopLe(s.getDateSchedule(), s.getShiftId().getId(), u.getRoleId().getId()) == true) {
+                if (this.scheduleService.addOrUpdateScheduleDetail(s) == true) {
+                    return "redirect:/admin/saplichlam";
+                }
+            } else {
+                msg = "Đã quá số lượng nhân viên làm trong ngày" + s.getDateSchedule();
+                return "redirect:/admin/saplichlam" + "?msg=" + URLEncoder.encode(msg, "UTF-8");
 
-        }
+            }
+//        } else {
+//            msg = "Đã tồn tại lịch ngày" + s.getDateSchedule()+" vào ca "+s.getShiftId().getName()+" của "+s.getUserId().getName();
+//            return "redirect:/admin/saplichlam" + "?msg=" + URLEncoder.encode(msg, "UTF-8");
+//        }
         return "saplichlam";
     }
 

@@ -45,8 +45,8 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public List<ScheduleDetail> getSchedules(Date fromDate) {
-        return this.scheduleRepository.getSchedules(fromDate);
+    public List<ScheduleDetail> getSchedules(Date fromDate,int roleId){
+        return this.scheduleRepository.getSchedules(fromDate,roleId);
     }
 
     @Override
@@ -67,6 +67,31 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public List<ScheduleDetail> getScheduleDetailsByTaiKhoan(User user) {
         return this.scheduleRepository.getScheduleDetailsByTaiKhoan(user);
+    }
+
+    @Override
+    public List<Integer> getScheduleStatusByDatesAndShift(User user, List<Date> dates, int shiftId) {
+        return this.scheduleRepository.getScheduleStatusByDatesAndShift(user, dates, shiftId);
+    }
+
+    @Override
+    public boolean checktontai(Date fromDate, int roleId, int ca) {
+        return this.scheduleRepository.checktontai(fromDate, roleId, ca);
+    }
+
+    @Override
+    public List<Date> getScheduleofUser(User user, List<Date> dates, int idshift) {
+         return this.scheduleRepository.getScheduleofUser(user, dates, idshift);
+    }
+
+    @Override
+    public List<ScheduleDetail> getSchedulesofUser(User user, List<Date> dates) {
+        return this.scheduleRepository.getSchedulesofUser(user, dates);
+    }
+
+    @Override
+    public List<ScheduleDetail> getScheduleNowofUser(User user, List<Date> dates) {
+         return this.scheduleRepository.getScheduleNowofUser(user, dates);
     }
     
 }

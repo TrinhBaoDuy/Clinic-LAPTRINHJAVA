@@ -19,7 +19,7 @@
             <div class="contentbooking2_main">
 
                 <div class="contentbooking2">
-                    <h1>Y tá : ${nurse.name}</h1>
+                    <h3>Y tá : ${nurse.name}</h3>
                     <h5>Ngày sinh: ${nurse.dod}</h5>
                     <h5>Số điện Thoại: ${nurse.phone}</h5>
                     <h5>Địa chỉ: ${nurse.address}</h5>
@@ -58,38 +58,88 @@
             <tbody>
                 <form:form id="lichlam"  method="post" action="${action}" modelAttribute="lichlam" >
                     <form:hidden path="id" />
-                    <form:hidden path="userId" value="${nurse.id}" />
+                    <form:hidden path="userId" value="${doctor.id}" />
                     <form:hidden path="status" value="0"/>
                     <form:hidden path="shiftId" />
                     <form:hidden path="dateSchedule"/>
                     <tr>
+
                         <td>Ca sáng</td>
                         <c:forEach items="${dateList}" var="date">
                             <td>
-                                <form:checkbox path="listdate1" value="${date}"/>
-                                <label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>
+                                <c:set var="elementExists" value="false" />
+                                <c:forEach var="item" items="${lichhientaica1}">
+                                    <c:set var="itemDate">
+                                        <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+                                    </c:set>
+                                    <c:if test="${item == itemDate}">
+                                        <c:set var="elementExists" value="true" />
+                                    </c:if>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${elementExists eq false}">
+                                        <form:checkbox class="checkbox1" path="listdate1" value="${date}" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" name="myCheckbox" value="someValue" style="margin: 0 20px;" checked="true" disabled="disabled">
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </c:forEach>
                     </tr>
                     <tr>
+
                         <td>Ca chiều</td>
                         <c:forEach items="${dateList}" var="date">
                             <td>
-                                <form:checkbox path="listdate2" value="${date}"/>
-                                <label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>
+                                <c:set var="elementExists" value="false" />
+                                <c:forEach var="item" items="${lichhientaica2}">
+                                    <c:set var="itemDate">
+                                        <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+                                    </c:set>
+                                    <c:if test="${item == itemDate}">
+                                        <c:set var="elementExists" value="true" />
+                                    </c:if>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${elementExists eq false}">
+                                        <form:checkbox class="checkbox1" path="listdate2" value="${date}" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" name="myCheckbox" value="someValue" style="margin: 0 20px;" checked="true" disabled="disabled">
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </c:forEach>
                     </tr>
                     <tr>
+
                         <td>Ca đêm</td>
                         <c:forEach items="${dateList}" var="date">
                             <td>
-                                <form:checkbox path="listdate3" value="${date}"/>
-                                <label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>
+                                <c:set var="elementExists" value="false" />
+                                <c:forEach var="item" items="${lichhientaica3}">
+                                    <c:set var="itemDate">
+                                        <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+                                    </c:set>
+                                    <c:if test="${item == itemDate}">
+                                        <c:set var="elementExists" value="true" />
+                                    </c:if>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${elementExists eq false}">
+                                        <form:checkbox class="checkbox1" path="listdate3" value="${date}" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" name="myCheckbox" value="someValue" style="margin: 0 20px;" checked="true" disabled="disabled">
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </c:forEach>
                     </tr>
+
                 </form:form >
+            </tbody>
             </tbody>
         </table>
         <div class="submitbooking">
@@ -105,6 +155,9 @@
     }
 </script>
 <style>
+    .checkbox1,.checkbox2,.checkbox3{
+        margin: 0 20px;
+    }
     .content{
         display: flex;
         padding: 20px;
@@ -182,6 +235,10 @@
 
     .submitbooking button[type="submit"]:hover {
         background-color: #45a049;
+    }
+    .booking1 img{
+        margin-top: 30px;
+        width: 100px;
     }
 
 

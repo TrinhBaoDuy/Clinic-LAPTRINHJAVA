@@ -14,6 +14,7 @@ import com.owen.service.AppointmentService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -71,8 +72,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getAppointmentsbyUser(User u) {
-        return this.appointmentRepository.getAppointmentsbyUser(u);
+    public List<Appointment> getAppointmentsbyUser(User u,Date date) {
+        return this.appointmentRepository.getAppointmentsbyUser(u,date);
     }
 
     @Override
@@ -101,18 +102,41 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
     
     @Override
-    public Appointment dangkykham(Map<String, String> params){
+   public Appointment dangkykham(Map<String, String> params) {
         Appointment a = new Appointment();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         Date parsedDate = null;
-
+        Date parsedTime = null;
+        Date parsedDateTime = null;
+//        Object thoigian = params.get("appointmentTime");
         try {
             parsedDate = dateFormat.parse(params.get("appointmentDate"));
+            parsedTime = timeFormat.parse(params.get("appointmentTime"));
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(parsedDate);
+
+            Calendar timeCalendar = Calendar.getInstance();
+            timeCalendar.setTime(parsedTime);
+
+            // Thiết lập giờ, phút và giây từ parsedTime
+            int hour = timeCalendar.get(Calendar.HOUR_OF_DAY);
+            int minute = timeCalendar.get(Calendar.MINUTE);
+            int second = timeCalendar.get(Calendar.SECOND);
+
+            // Thiết lập giờ, phút và giây cho parsedDate
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            calendar.set(Calendar.SECOND, second);
+
+            // Lấy ngày và giờ đã chỉnh sửa
+            parsedDateTime = calendar.getTime();
         } catch (ParseException ex) {
             Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         User nguoibenh = this.UserRepository.getUserById(Integer.parseInt(params.get("sickpersonId")));
-        a.setAppointmentDate(parsedDate);
+        a.setAppointmentDate(parsedDateTime);
         a.setSickpersonId(nguoibenh);
         this.appointmentRepository.addOrUpdateAppointment(a);
         return a;
@@ -125,8 +149,21 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<Appointment> getAppointmentsUserbyDate(int userId, int day, int month, int year) {
-        return this.getAppointmentsUserbyDate(userId, day, month, year);
+        return this.appointmentRepository.getAppointmentsUserbyDate(userId, day, month, year);
     }
+    
+    
+    @Override
+    public List<Appointment> getAppointmentsbySickperson(int id) {
+        User nguoibenh = this.UserRepository.getUserById(id);
+        return this.appointmentRepository.getAppointmentsbySickperson(nguoibenh);
+    }
+    
+    @Override
+    public boolean deleteAppo(int id) {
+        return this.appointmentRepository.deleteAppo(id);
+    }
+
 }
 
 

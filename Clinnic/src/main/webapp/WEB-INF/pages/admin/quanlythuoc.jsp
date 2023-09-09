@@ -84,8 +84,8 @@
 
                         </div>
                     </div>
-                    <div class="form-floating mb-3 mt-3">
-                        <button class="btn btn-info" type="submit">
+                    <div class="form-floating mb-3 mt-3 bt1">
+                        <button class="btn btn-info bt2" type="submit">
                             <c:choose>
                                 <c:when test="${medicien.id == null}">Thêm sản phẩm</c:when>
                                 <c:otherwise>Cập nhật sản phẩm</c:otherwise>
@@ -125,7 +125,7 @@
                                 <td>${ds.provider}</td>
                                 <td>${ds.productionDate}</td>
                                 <td>${ds.expirationDate}</td>
-                                <td>
+                                <td class="bt3">
                                     <c:url value="/api/admin/quanlythuoc/${ds.id}" var="apiDel" />
                                     <a href="<c:url value="/admin/quanlythuoc/${ds.id}"/>" class="btn btn-success">Cập nhật</a>
                                     <button class="btn btn-danger" onclick="delObject('${apiDel}', ${ds.id})">Xóa</button>
@@ -263,5 +263,17 @@
     box-shadow: 0px 5px 10px 0 #ADD8E6;
     transition: 0.3s;
     border-radius: 6px;
+}
+.bt1{
+    padding-left: 30px!important;
+}
+.bt2{
+    background-color: green;
+}
+.bt3{
+    display: flex;
+}
+td.bt3 a {
+    margin-right: 10px;  
 }
 </style>

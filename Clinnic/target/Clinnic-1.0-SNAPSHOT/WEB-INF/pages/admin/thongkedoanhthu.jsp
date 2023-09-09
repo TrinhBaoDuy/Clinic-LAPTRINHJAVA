@@ -10,13 +10,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
-<c:url value="/admin/thongke" var="action" />
+<c:url value="/admin/thongkedoanhthu" var="action" />
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <main class="table">
 
-    <h1>Thống kê số lượng bệnh nhân</h1>
+    <h1>Thống kê số lượng doanh thu</h1>
 
     <form action="${action}" method="post">
 
@@ -29,18 +29,18 @@
 
         <button type="submit" >Thống kê</button>
     </form>
-    <h2>Thống kê bệnh nhân theo tháng của năm ${um}</h2>
+    <h2>Thống kê doanh thu theo tháng của năm ${um}</h2>
     <canvas id="monthlyRevenueChart"></canvas>
 
     <table>
         <thead>
             <tr>
                 <th></th>
-                <th>Số lượng người dùng</th>
+                <th>Số lượng doanh thu</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${list}" var="t" varStatus="loop">
+            <c:forEach items="${listdt}" var="t" varStatus="loop">
                 <tr>
                     <td>Tháng ${loop.index+1}</td>
                     <td>${t}</td>
@@ -48,17 +48,17 @@
             </c:forEach>
         </tbody>
     </table>
-    <h2>Thống kê bệnh nhân theo quý của năm ${um}</h2>
+    <h2>Thống kê doanh thu theo quý của năm ${um}</h2>
     <canvas id="quarterlyRevenueChart"></canvas>
     <table>
         <thead>
             <tr>
                 <th></th>
-                <th>Số lượng người dùng</th>
+                <th>Số lượng doanh thu</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${listq}" var="t" varStatus="loop">
+            <c:forEach items="${listdtq}" var="t" varStatus="loop">
                 <tr>
                     <td>Quý ${loop.index+1}</td>
                     <td>${t}</td>
@@ -70,14 +70,14 @@
 
     <script>
         // Lấy dữ liệu từ model
-        const monthData = ${list}
-        const quarterData = ${listq}
+        const monthData = ${listdt}
+        const quarterData = ${listdtq}
 //        Phước------------------------------------------------------------------
         // Dữ liệu doanh thu theo tháng, quý và năm
         const monthlyRevenueData = {
             labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
-                    label: 'Số người dùng',
+                    label: 'Doanh thu',
                     data: monthData,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -88,7 +88,7 @@
         const quarterlyRevenueData = {
             labels: ['Quý 1', 'Quý 2', 'Quý 3', 'Quý 4'],
             datasets: [{
-                    label: 'Số người dùng',
+                    label: 'Doanh thu',
                     data: quarterData,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(255, 99, 132, 1)',

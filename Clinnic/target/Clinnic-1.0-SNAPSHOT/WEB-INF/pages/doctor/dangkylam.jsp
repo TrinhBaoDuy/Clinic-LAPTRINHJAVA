@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:url value="/doctor/dangkylam" var="action" />
 <div class="content">
 
@@ -51,7 +52,7 @@
                     <th>CHỦ NHẬT</th>
 
 
- 
+
                 </tr>
             </thead>
             <tbody>
@@ -62,32 +63,81 @@
                     <form:hidden path="shiftId" />
                     <form:hidden path="dateSchedule"/>
                     <tr>
+
                         <td>Ca sáng</td>
                         <c:forEach items="${dateList}" var="date">
                             <td>
-                                <form:checkbox class="checkbox1" path="listdate1" value="${date}"/>
-                                <!--<label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>-->
+                                <c:set var="elementExists" value="false" />
+                                <c:forEach var="item" items="${lichhientaica1}">
+                                    <c:set var="itemDate">
+                                        <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+                                    </c:set>
+                                    <c:if test="${item == itemDate}">
+                                        <c:set var="elementExists" value="true" />
+                                    </c:if>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${elementExists eq false}">
+                                        <form:checkbox class="checkbox1" path="listdate1" value="${date}" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" name="myCheckbox" value="someValue" style="margin: 0 20px;" checked="true" disabled="disabled">
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </c:forEach>
                     </tr>
                     <tr>
+
                         <td>Ca chiều</td>
                         <c:forEach items="${dateList}" var="date">
                             <td>
-                                <form:checkbox class="checkbox2" path="listdate2" value="${date}"/>
-                                <!--<label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>-->
+                                <c:set var="elementExists" value="false" />
+                                <c:forEach var="item" items="${lichhientaica2}">
+                                    <c:set var="itemDate">
+                                        <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+                                    </c:set>
+                                    <c:if test="${item == itemDate}">
+                                        <c:set var="elementExists" value="true" />
+                                    </c:if>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${elementExists eq false}">
+                                        <form:checkbox class="checkbox1" path="listdate2" value="${date}" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" name="myCheckbox" value="someValue" style="margin: 0 20px;" checked="true" disabled="disabled">
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </c:forEach>
                     </tr>
                     <tr>
+
                         <td>Ca đêm</td>
                         <c:forEach items="${dateList}" var="date">
                             <td>
-                                <form:checkbox class="checkbox3" path="listdate3" value="${date}"/>
-                                <!--<label><fmt:formatDate value="${date}" pattern="dd/MM/yyyy" /></label>-->
+                                <c:set var="elementExists" value="false" />
+                                <c:forEach var="item" items="${lichhientaica3}">
+                                    <c:set var="itemDate">
+                                        <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+                                    </c:set>
+                                    <c:if test="${item == itemDate}">
+                                        <c:set var="elementExists" value="true" />
+                                    </c:if>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${elementExists eq false}">
+                                        <form:checkbox class="checkbox1" path="listdate3" value="${date}" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" name="myCheckbox" value="someValue" style="margin: 0 20px;" checked="true" disabled="disabled">
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </c:forEach>
                     </tr>
+
                 </form:form >
             </tbody>
         </table>
@@ -100,14 +150,21 @@
 <script>
     function submitForms() {
         document.getElementById("lichlam").submit();
-
+    }
+    function check(value) {
+        const my_list = ${lichhientaica1}; // Giả sử biến lichhientaica1 đã được khai báo và chứa một mảng
+        if (my_list.includes(value)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 </script>
 <style>
     .checkbox1,.checkbox2,.checkbox3{
         margin: 0 20px;
     }
-    
+
     .content{
         display: flex;
         padding: 20px;
@@ -188,14 +245,14 @@
     }
     .booking1 img{
         width: 50%;
-    margin-top: 20px;
+        margin-top: 20px;
     }
     th {
-    background-color: red;
-  }
-  .table>:not(caption)>*>* {
-      padding: 0.2rem 0.4rem;
-  }
+        background-color: red;
+    }
+    .table>:not(caption)>*>* {
+        padding: 0.2rem 0.4rem;
+    }
 
 
 

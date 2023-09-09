@@ -12,10 +12,13 @@ import com.owen.pojo.User;
 import com.owen.repository.ScheduleRepository;
 import com.owen.service.ShiftService;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -58,7 +61,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public List<ScheduleDetail> getSchedules(Date fromDate) {
+    public List<ScheduleDetail> getSchedules(Date fromDate, int roleId) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
@@ -68,13 +71,37 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         if (fromDate != null) {
             Predicate fromDatePredicate = builder.greaterThanOrEqualTo(root.get("dateSchedule"), fromDate);
             Predicate statusPredicate = builder.notEqual(root.get("status"), 1);
-            Predicate finalPredicate = builder.and(fromDatePredicate, statusPredicate);
+            Predicate roleIdPredicate = builder.equal(root.get("userId").get("roleId"), roleId);
+            Predicate finalPredicate = builder.and(fromDatePredicate, statusPredicate, roleIdPredicate);
 
             query.where(finalPredicate);
         }
 
         Query typedQuery = session.createQuery(query);
         return typedQuery.getResultList();
+    }
+
+    @Override
+    public boolean checktontai(Date fromDate, int userid, int ca) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.select(root);
+        Predicate fromDatePredicate = builder.greaterThanOrEqualTo(root.get("dateSchedule"), fromDate);
+        Predicate statusPredicate = builder.equal(root.get("status"), 1);
+        Predicate userIdPredicate = builder.equal(root.get("userId"), userid);
+        Predicate finalPredicate = builder.and(fromDatePredicate, statusPredicate, userIdPredicate);
+
+        query.where(finalPredicate);
+        Query typedQuery = session.createQuery(query);
+        List<ScheduleDetail> a = typedQuery.getResultList();
+        for (ScheduleDetail test : a) {
+            if (test.getShiftId().getId() == ca) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -230,6 +257,74 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
+    public List<Date> getScheduleofUser(User user, List<Date> dates, int idshift) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Date> query = builder.createQuery(Date.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.select(root.get("dateSchedule"));
+        Date from = dates.get(0);
+        Date to = dates.get(6);
+
+        Predicate shiftP = builder.equal(root.get("shiftId").get("id"), idshift);
+        Predicate fromDateP = builder.greaterThanOrEqualTo(root.get("dateSchedule"), from);
+        Predicate toDateP = builder.lessThanOrEqualTo(root.get("dateSchedule"), to);
+        Predicate statusPredicate = builder.equal(root.get("status"), 0);
+        Predicate userPredicate = builder.equal(root.get("userId").get("id"), user.getId());
+        // Kết hợp các điều kiện với nhau
+        Predicate finalPredicate = builder.and(userPredicate, statusPredicate, toDateP, fromDateP, shiftP);
+
+        query.where(finalPredicate);
+        Query typedQuery = session.createQuery(query);
+        return typedQuery.getResultList();
+    }
+
+    @Override
+    public List<ScheduleDetail> getSchedulesofUser(User user, List<Date> dates) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.select(root);
+
+        Date from = dates.get(0);
+        Date to = dates.get(6);
+
+        Predicate fromDateP = builder.greaterThanOrEqualTo(root.get("dateSchedule"), from);
+        Predicate toDateP = builder.lessThanOrEqualTo(root.get("dateSchedule"), to);
+        Predicate statusPredicate = builder.equal(root.get("status"), 0);
+        Predicate userPredicate = builder.equal(root.get("userId").get("id"), user.getId());
+        // Kết hợp các điều kiện với nhau
+        Predicate finalPredicate = builder.and(userPredicate, statusPredicate, toDateP, fromDateP);
+
+        query.where(finalPredicate);
+        TypedQuery<ScheduleDetail> typedQuery = session.createQuery(query);
+        return typedQuery.getResultList();
+    }
+    @Override
+    public List<ScheduleDetail> getScheduleNowofUser(User user, List<Date> dates) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.select(root);
+
+        Date from = dates.get(0);
+        Date to = dates.get(6);
+
+        Predicate fromDateP = builder.greaterThanOrEqualTo(root.get("dateSchedule"), from);
+        Predicate toDateP = builder.lessThanOrEqualTo(root.get("dateSchedule"), to);
+        Predicate statusPredicate = builder.equal(root.get("status"), 1);
+        Predicate userPredicate = builder.equal(root.get("userId").get("id"), user.getId());
+        // Kết hợp các điều kiện với nhau
+        Predicate finalPredicate = builder.and(userPredicate, statusPredicate, toDateP, fromDateP);
+
+        query.where(finalPredicate);
+        TypedQuery<ScheduleDetail> typedQuery = session.createQuery(query);
+        return typedQuery.getResultList();
+    }
+
+    @Override
     public ScheduleDetail getScheduleDetailById(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -249,10 +344,104 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     @Override
     public List<ScheduleDetail> getScheduleDetailsByTaiKhoan(User user) {
         Session session = this.factory.getObject().getCurrentSession();
-        Query query = session.createQuery("FROM ScheduleDetail WHERE userId = :idTk");
-        query.setParameter("idTk", user);
-        List<ScheduleDetail> resultList = query.getResultList();
-        return resultList;
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.select(root);
+
+        Predicate statusPredicate = builder.equal(root.get("status"), 1);
+        Predicate userPredicate = builder.equal(root.get("userId").get("id"), user.getId());
+        // Kết hợp các điều kiện với nhau
+        Predicate finalPredicate = builder.and(userPredicate, statusPredicate);
+
+        query.where(finalPredicate);
+        Query typedQuery = session.createQuery(query);
+        return typedQuery.getResultList();
+    }
+
+//    @Override
+//    public List<ScheduleDetail> getScheduleStatusByDatesAndShift(User user, List<Date> dates, int shiftId) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        CriteriaBuilder builder = session.getCriteriaBuilder();
+//        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+//        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+//        query.select(root);
+//        Date fromDate = dates.get(0);
+//        Date toDate = dates.get(6);
+//        // Tạo điều kiện lọc lịch từ ngày truyền vào trở đi
+//        Predicate fromDatePredicate = builder.greaterThanOrEqualTo(root.get("dateSchedule"), fromDate);
+//
+//        Predicate toDatePredicate = builder.lessThanOrEqualTo(root.get("dateSchedule"), toDate);
+//        // Tạo điều kiện lọc khi status bằng 1
+//        Predicate statusPredicate = builder.equal(root.get("status"), 1);
+//        
+//        Predicate shiftPredicate = builder.equal(root.get("shiftId"), shiftId);
+//        
+//        // Tạo điều kiện lọc khi userId bằng giá trị cụ thể
+//        Predicate userIdPredicate = builder.equal(root.get("userId"), user.getId());
+//
+//        // Kết hợp các điều kiện với nhau
+//        Predicate finalPredicate = builder.and(fromDatePredicate, statusPredicate, userIdPredicate, toDatePredicate,shiftPredicate);
+//
+//        query.where(finalPredicate);
+//
+//        Query typedQuery = session.createQuery(query);
+//
+//        return typedQuery.getResultList();
+//    }
+    private boolean isSameDate(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)
+                && cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
+    }
+
+    @Override
+    public List<Integer> getScheduleStatusByDatesAndShift(User user, List<Date> dates, int shiftId) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.select(root);
+        Date fromDate = dates.get(0);
+        Date toDate = dates.get(6);
+        // Tạo điều kiện lọc lịch từ ngày truyền vào trở đi
+        Predicate fromDatePredicate = builder.greaterThanOrEqualTo(root.get("dateSchedule"), fromDate);
+
+        Predicate toDatePredicate = builder.lessThanOrEqualTo(root.get("dateSchedule"), toDate);
+        // Tạo điều kiện lọc khi status bằng 1
+        Predicate statusPredicate = builder.equal(root.get("status"), 1);
+
+        Predicate shiftPredicate = builder.equal(root.get("shiftId"), shiftId);
+
+        // Tạo điều kiện lọc khi userId bằng giá trị cụ thể
+        Predicate userIdPredicate = builder.equal(root.get("userId"), user.getId());
+
+        // Kết hợp các điều kiện với nhau
+        Predicate finalPredicate = builder.and(fromDatePredicate, statusPredicate, userIdPredicate, toDatePredicate, shiftPredicate);
+
+        query.where(finalPredicate);
+
+        Query typedQuery = session.createQuery(query);
+
+        List<ScheduleDetail> resultList = typedQuery.getResultList();
+
+        List<Integer> listInt = new ArrayList<>();
+        for (Date date : dates) {
+            int status = 0;
+            for (ScheduleDetail schedule : resultList) {
+                if (isSameDate(schedule.getDateSchedule(), date)) {
+                    status = 1;
+                    break;
+                }
+            }
+            listInt.add(status);
+        }
+
+        return listInt;
     }
 
 }

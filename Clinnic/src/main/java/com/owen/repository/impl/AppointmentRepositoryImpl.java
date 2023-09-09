@@ -156,6 +156,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         List<Object[]> results = session.createQuery(criteria).getResultList();
         return results;
     }
+
     @Override
     public List<Appointment> getAppointmentsUserbyDate(int userId, int day, int month, int year) {
         Session session = this.factory.getObject().getCurrentSession();
@@ -238,7 +239,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     }
 
     @Override
-    public List<Appointment> getAppointmentsbyUser(User u) {
+    public List<Appointment> getAppointmentsbyUser(User u, Date date) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
 
@@ -248,15 +249,56 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         Predicate doctorPredicate = builder.equal(root.get("sickpersonId"), u);
         Predicate statusPredicate = builder.equal(root.get("status"), 1);
         Predicate prescriptionPredicate = builder.isNotNull(root.get("prescriptionId"));
+        Predicate datePredicate;
 
-        Predicate finalPredicate = builder.and(doctorPredicate, statusPredicate, prescriptionPredicate);
+        if (date == null) {
+            datePredicate = builder.isTrue(builder.literal(true));
+        } else {
+            datePredicate = builder.equal(root.get("appointmentDate"), date);
+        }
+
+        Predicate finalPredicate = builder.and(doctorPredicate, statusPredicate, prescriptionPredicate, datePredicate);
 
         criteria.select(root).where(finalPredicate);
         criteria.orderBy(builder.desc(root.get("appointmentDate")));
         Query query = session.createQuery(criteria);
         return query.getResultList();
     }
+    
+    @Override
+    public boolean deleteAppo(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Appointment me = session.get(Appointment.class, id);
+        try {
+            session.delete(me);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+      @Override
+    public List<Appointment> getAppointmentsbySickperson(User u) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
 
+        CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
+        Root root = criteria.from(Appointment.class);
+        Predicate userPredicate = builder.equal(root.get("sickpersonId").get("id"), u.getId());
+        Predicate statusPredicate = builder.equal(root.get("status"), 0);
+        Predicate prescriptionPredicate = builder.isNull(root.get("prescriptionId"));
+        Predicate nursePredicate = builder.isNull(root.get("nurseId"));
+        Predicate doctorPredicate = builder.isNull(root.get("doctorId"));
+        
+        Predicate finalPredicate = builder.and(doctorPredicate, statusPredicate, prescriptionPredicate,nursePredicate,userPredicate);
+
+        criteria.select(root).where(finalPredicate);
+
+        Query query = session.createQuery(criteria);
+        return query.getResultList();
+    }
+    
     @Override
     public boolean canAcceptAppointment(Date date) {
 //        int appointmentCount = appointmentCountMap.getOrDefault(date, 0);

@@ -46,9 +46,14 @@
                        value="/WEB-INF/pages/index.jsp" />
     </definition>
     <definition name="thongke" extends="baseLayoutAdmin">
-        <put-attribute name="title" value="Thống Kê" />
+        <put-attribute name="title" value="Thống Kê Bệnh Nhân" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/admin/thongke.jsp" />
+    </definition>
+    <definition name="thongkedoanhthu" extends="baseLayoutAdmin">
+        <put-attribute name="title" value="Thống Kê Doanh Thu" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/admin/thongkedoanhthu.jsp" />
     </definition>
     <definition name="users" extends="baseLayoutAdmin">
         <put-attribute name="title" value="Quản ly Nguoi Dung" />
@@ -103,10 +108,10 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/admin/quanlythuoc.jsp" />
     </definition>
-    <definition name="xemlichkham" extends="baseLayoutDoctor">
-        <put-attribute name="title" value="Xem Lich Kham" />
+    <definition name="xemlichlam" extends="baseLayoutDoctor">
+        <put-attribute name="title" value="Lich Lam" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/doctor/xemlichkham.jsp" />
+                       value="/WEB-INF/pages/doctor/xemlichlam.jsp" />
     </definition>
     <definition name="doctor" extends="baseLayoutDoctor">
         <put-attribute name="title" value="Thông Tin Bác Sĩ" />
@@ -155,6 +160,11 @@
         <put-attribute name="title" value="Thanh Toán" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/nurse/thanhtoan.jsp" />
+    </definition>
+    <definition name="xemlichlamyta" extends="baseLayoutNurse">
+        <put-attribute name="title" value="Xem lịch làm" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/nurse/xemlichlam.jsp" />
     </definition>
     <definition name="admin" extends="baseLayoutAdmin">
         <put-attribute name="title" value="Thanh Toán" />

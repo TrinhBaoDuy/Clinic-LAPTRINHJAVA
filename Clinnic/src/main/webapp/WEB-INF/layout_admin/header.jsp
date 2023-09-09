@@ -36,18 +36,21 @@
                             <a class="nav-link" href="<c:url value="/admin/quanlythuoc" />">Quản lý thuốc</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/admin/thongke" />">Thống kê</a>
+                            <a class="nav-link" href="<c:url value="/admin/thongke" />">Thống kê bênh nhân</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/admin/thongkedoanhthu" />">Thống kê doanh thu</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<c:url value="/admin/saplichlam" />">Quản lí lịch làm</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/logout" />">Dang xuat</a>
+                            <a class="nav-link" href="<c:url value="/logout" />">Đăng xuất</a>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/login" />">Dang nhap</a>
+                            <a class="nav-link" href="<c:url value="/login" />">Đăng nhập</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -82,7 +85,7 @@
 
     .navbar-collapse {
         justify-content: flex-end;
-        padding-left: 50%;
+        padding-left: 18%;
     }
 
     .navbar-nav .nav-item {

@@ -30,12 +30,12 @@
                             <a class="nav-link" href="<c:url value="/" />">${pageContext.request.userPrincipal.name}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/logout" />">Dang xuat</a>
+                            <a class="nav-link" href="<c:url value="/logout" />">Đăng xuất</a>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/login" />">Dang nhap</a>
+                            <a class="nav-link" href="<c:url value="/login" />">Đăng nhập</a>
                         </li>
                     </c:otherwise>
                 </c:choose>

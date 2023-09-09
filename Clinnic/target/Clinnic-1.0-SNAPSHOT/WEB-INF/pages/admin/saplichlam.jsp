@@ -10,57 +10,69 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:url value="/admin/saplichlam" var="action" />
 <h1>Trang sắp xếp lịch làm</h1>
-<%-- Form sắp xếp lịch làm --%>
-<h2>Sắp xếp lịch làm</h2>
-<form:form   method="post" action="${action}" modelAttribute="lichlam" >
-    <label for="employee">Chọn bác sĩ</label>
-    <form:select class="form-select" id="userId" name="userId" path="userId">
-        <option>Chọn bác sĩ...</option>
-        <c:forEach items="${getdoctor}" var="r">
-            <option value="${r.id}">${r.name}</option>
-        </c:forEach>
-    </form:select>
+<h2>Lịch làm chưa xác nhận</h2>
+<div class="tble">
 
-    <label for="shift">Chọn ca làm việc:</label>
-    <form:select class="form-select" id="shiftId" name="shiftId" path="shiftId">
-        <option>Chọn ca làm việc...</option>
-        <c:forEach items="${lich}" var="r">
-            <option value="${r.id}">${r.name}</option>
-        </c:forEach>
-    </form:select>
+    <table>
 
-    <button type="submit">Sếp</button>
-</form:form>
-
-<%-- Hiển thị lịch làm --%>
-<h2>Lịch làm chưa sát nhận</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Avatar</th>
-            <th>Họ và tên</th>
-            <th>Ngày Làm</th>
-            <th>Ca làm</th>
-            <th>Chấp thuận</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${lichundone}" var="s">
+        <thead>
             <tr>
-                <td><img style="height: 40px; width: auto" src="<c:url value="${s.userId.avatar}"/>" alt="Avatar"></td>
-                <td>${s.userId.name}</td>
-                <td>${s.dateSchedule}</td>
-                <td>${s.shiftId.name}</td>
-                <td>
-                    <a href="<c:url value="/admin/saplichlam/xatnhan/${s.id}"/>" class="btn btn-success">Xát nhận</a>
-                </td>
+                <th>Avatar</th>
+                <th>Họ và tên BÁC SĨ</th>
+                <th>Ngày Làm</th>
+                <th>Ca làm</th>
+                <th>Chấp thuận</th>
             </tr>
-        </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <c:forEach items="${lichundonebs}" var="s">
+                <tr>
+                    <td><img style="height: 40px; width: auto" src="<c:url value="${s.userId.avatar}"/>" alt="Avatar"></td>
+                    <td>${s.userId.name}</td>
+                    <td>${s.dateSchedule}</td>
+                    <td>${s.shiftId.name}</td>
+                    <td>
+                        <a href="<c:url value="/admin/saplichlam/xatnhan/${s.id}"/>" class="btn btn-success">Xác nhận</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    <table>
 
-<h2>Lịch làm đã sát nhận</h2>
-<h1>${msg}</h1>
+
+        <thead>
+            <tr>
+                <th>Avatar</th>
+                <th> Họ và tên Y TÁ</th>
+                <th>Ngày Làm</th>
+                <th>Ca làm</th>
+                <th>Chấp thuận</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${lichundoneyt}" var="s">
+                <tr>
+                    <td><img style="height: 40px; width: auto" src="<c:url value="${s.userId.avatar}"/>" alt="Avatar"></td>
+                    <td>${s.userId.name}</td>
+                    <td>${s.dateSchedule}</td>
+                    <td>${s.shiftId.name}</td>
+                    <td>
+                        <a href="<c:url value="/admin/saplichlam/xatnhan/${s.id}"/>" class="btn btn-success">Xác nhận</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+
+    </table>
+</div>
+<c:if test="${msg != null}">
+    <div>
+        ${msg}
+    </div>
+</c:if>
+<h2>Lịch làm đã xác nhận</h2>
+
 <table>
     <thead>
         <tr>
@@ -86,3 +98,58 @@
     </tbody>
 </table>
 
+<style>
+    h1{
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .tble{
+        display: flex;
+        margin: 4px;
+    }
+
+    table {
+
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px;
+
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    img {
+        height: 40px;
+        width: auto;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+</style>

@@ -22,6 +22,7 @@ import com.springmvc.enums.RequestType;
 import com.springmvc.momoprocessor.CreateOrderMoMo;
 import com.springmvc.share.utils.LogUtils;
 import com.springmvc.dto.momoclasses.Environment;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -133,7 +134,7 @@ public class NurseController {
             UserDetails user = this.userService.loadUserByUsername(authentication.getName());
             User u = this.userService.getUserByUsername(user.getUsername());
             model.addAttribute("nurse", u);
-            this.appointmentService.changestatus(id, u); 
+            this.appointmentService.changestatus(id, u);
             return "redirect:/nurse";
 
         }
@@ -146,6 +147,8 @@ public class NurseController {
             BindingResult rs) throws MessagingException {
         if (!rs.hasErrors()) {
             Date ngaykham = a.getAppointmentDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String ngaydikham = dateFormat.format(a.getAppointmentDate());
             if (this.appointmentService.canAcceptAppointment(ngaykham) == true) {
                 if (this.appointmentService.addOrUpdateAppointment(a) == true) {
                     MimeMessage message = emailSender.createMimeMessage();
@@ -153,7 +156,6 @@ public class NurseController {
                     String nguoinhan = this.userService.getUserById(a.getSickpersonId().getId()).getEmaill();
                     String tennguoibenh = this.userService.getUserById(a.getSickpersonId().getId()).getName();
                     String tenbacsi = this.userService.getUserById(a.getDoctorId().getId()).getName();
-                    String ngaydikham = a.getAppointmentDate().toString();
                     System.err.println(nguoinhan);
                     helper.setTo(nguoinhan);
                     helper.setSubject("LỊCH HẸN PHÒNG MẠCH");
@@ -177,7 +179,6 @@ public class NurseController {
                 MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
                 String nguoinhan = this.userService.getUserById(a.getSickpersonId().getId()).getEmaill();
                 String tennguoibenh = this.userService.getUserById(a.getSickpersonId().getId()).getName();
-                String ngaydikham = a.getAppointmentDate().toString();
                 System.err.println(nguoinhan);
                 helper.setTo(nguoinhan);
                 helper.setSubject("LỊCH HẸN PHÒNG MẠCH");
@@ -283,6 +284,9 @@ public class NurseController {
             UserDetails user = this.userService.loadUserByUsername(authentication.getName());
             User u = this.userService.getUserByUsername(user.getUsername());
             model.addAttribute("nurse", u);
+            model.addAttribute("lichhientaica1", this.scheduleService.getScheduleofUser(u, dateList, 1));
+            model.addAttribute("lichhientaica2", this.scheduleService.getScheduleofUser(u, dateList, 2));
+            model.addAttribute("lichhientaica3", this.scheduleService.getScheduleofUser(u, dateList, 3));
 
         }
         return "dangkylamviec";
@@ -297,6 +301,83 @@ public class NurseController {
             }
         }
         return "dangkylamviec";
+    }
+    @GetMapping("/nurse/xemlichlam")
+    public String xemlichlam(Model model, Authentication authentication) {
+        List<Date> dateListnow = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Đặt ngày là thứ Hai của tuần hiện tại
+
+        for (int i = 0; i < 7; i++) { // Thêm các ngày từ thứ Hai đến Chủ nhật
+            dateListnow.add(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_WEEK, 1);
+        }
+
+        List<Date> dateList = new ArrayList<>();
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Đặt ngày là thứ Hai
+        calendar2.add(Calendar.WEEK_OF_YEAR, 1);
+        dateList.add(calendar2.getTime()); // Thêm ngày thứ Hai gần nhất vào danh sách
+        for (int i = 0; i < 6; i++) { // Thêm các ngày từ thứ Ba đến Chủ nhật
+            calendar2.add(Calendar.DAY_OF_WEEK, 1);
+            dateList.add(calendar2.getTime());
+        }
+        model.addAttribute("dateList", dateList);
+
+//        List<ScheduleDetail> scheduleDetails = new ArrayList<ScheduleDetail>();
+        model.addAttribute("lichlam", new ScheduleDetail());
+        model.addAttribute("lich", this.shiftService.getShifts());
+
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("nurse", u);
+            model.addAttribute("lichhientaica", this.scheduleService.getSchedulesofUser(u, dateList));
+            model.addAttribute("lichhientai", this.scheduleService.getScheduleNowofUser(u, dateListnow));
+        }
+
+        return "xemlichlamyta";
+    }
+
+    @GetMapping("/nurse/xemlichlam/huy/{id}")
+    public String huylichlam(Model model, Authentication authentication, @PathVariable(value = "id") int id) {
+
+        List<Date> dateListnow = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Đặt ngày là thứ Hai của tuần hiện tại
+
+        for (int i = 0; i < 7; i++) { // Thêm các ngày từ thứ Hai đến Chủ nhật
+            dateListnow.add(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_WEEK, 1);
+        }
+
+        List<Date> dateList = new ArrayList<>();
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Đặt ngày là thứ Hai
+        calendar2.add(Calendar.WEEK_OF_YEAR, 1);
+        dateList.add(calendar2.getTime()); // Thêm ngày thứ Hai gần nhất vào danh sách
+        for (int i = 0; i < 6; i++) { // Thêm các ngày từ thứ Ba đến Chủ nhật
+            calendar2.add(Calendar.DAY_OF_WEEK, 1);
+            dateList.add(calendar2.getTime());
+        }
+        model.addAttribute("dateList", dateList);
+
+//        List<ScheduleDetail> scheduleDetails = new ArrayList<ScheduleDetail>();
+        model.addAttribute("lichlam", new ScheduleDetail());
+        model.addAttribute("lich", this.shiftService.getShifts());
+
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("nurse", u);
+            model.addAttribute("lichhientaica", this.scheduleService.getSchedulesofUser(u, dateList));
+            model.addAttribute("lichhientai", this.scheduleService.getScheduleNowofUser(u, dateListnow));
+        }
+        if (this.scheduleService.deleteScheduleDetail(id) == true) {
+            return "redirect:/nurse/xemlichlam";
+        }
+
+        return "nurse";
     }
 
 }

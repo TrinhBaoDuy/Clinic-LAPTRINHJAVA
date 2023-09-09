@@ -59,7 +59,7 @@ public class BillServiceImpl implements BillService{
 
     @Override
     public List<Integer> getRevenueByQuarter(int year) {
-        return this.getRevenueByQuarter(year);
+        return this.billRepository.getRevenueByQuarter(year);
     }
 
 }

@@ -23,11 +23,16 @@ public interface ScheduleRepository {
 
     boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails);
     
-    List<ScheduleDetail> getSchedules(Date fromDate);
+    List<ScheduleDetail> getSchedules(Date fromDate,int roleId);
     List<ScheduleDetail> getSchedulesaccepted(Date fromDate);
     ScheduleDetail getScheduleDetailById(int id);
     boolean checkLichHopLe(Date dateSchedule, int shiftId,int role);
     List<ScheduleDetail> getScheduleDetailsByTaiKhoan(User user);
+    List<Integer> getScheduleStatusByDatesAndShift(User user, List<Date> dates, int shiftId);
+    boolean checktontai(Date fromDate, int roleId, int ca);
+    List<Date> getScheduleofUser(User user, List<Date> dates, int idshift);
+    List<ScheduleDetail> getSchedulesofUser(User user, List<Date> dates);
+    List<ScheduleDetail> getScheduleNowofUser(User user, List<Date> dates);
 
 
 }

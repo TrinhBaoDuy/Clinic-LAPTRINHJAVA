@@ -24,7 +24,7 @@ public interface ScheduleService {
 
     boolean addOrUpdateScheduleDetails(List<ScheduleDetail> scheduleDetails);
 
-    List<ScheduleDetail> getSchedules(Date fromDate);
+    List<ScheduleDetail> getSchedules(Date fromDate, int roleId);
 
     List<ScheduleDetail> getSchedulesaccepted(Date fromDate);
 
@@ -33,4 +33,13 @@ public interface ScheduleService {
     boolean checkLichHopLe(Date dateSchedule, int shiftId, int role);
 
     List<ScheduleDetail> getScheduleDetailsByTaiKhoan(User user);
+
+    List<Integer> getScheduleStatusByDatesAndShift(User user, List<Date> dates, int shiftId);
+
+    boolean checktontai(Date fromDate, int roleId, int ca);
+
+    List<ScheduleDetail> getSchedulesofUser(User user, List<Date> dates);
+
+    List<Date> getScheduleofUser(User user, List<Date> dates, int idshift);
+    List<ScheduleDetail> getScheduleNowofUser(User user, List<Date> dates);
 }
