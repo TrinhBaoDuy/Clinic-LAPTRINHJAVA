@@ -26,4 +26,6 @@ public interface UserRepository {
     List<User> getBacSi(int id);
     User getUserByEmail(String mail);
     boolean changePassword(User user, String newPassword);
+    User registerUserGoogle(Map<String, String> params);
+    List<User> getUsersByUsername(String username);
 }

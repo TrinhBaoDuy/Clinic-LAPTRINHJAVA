@@ -277,4 +277,14 @@ public class UserServiceImpl implements UserService {
         return this.userRepo.changePassword(user, newPassword);
     }
 
+    @Override
+    public User registerUserGoogle(Map<String, String> params) {
+        if(this.userRepo.getUsersByUsername(params.get("username"))== null){
+            return this.userRepo.registerUserGoogle(params);
+        }else{
+            return this.getUserByUsername(params.get("username"));
+        }
+        
+    }
+
 }

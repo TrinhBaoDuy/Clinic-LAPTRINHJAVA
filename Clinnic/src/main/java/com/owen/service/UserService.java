@@ -39,4 +39,5 @@ public interface UserService extends UserDetailsService{
     List<User> getBacSi(int id);
     User getUserByEmail(String mail);
     boolean changePassword(User user, String newPassword);
+    User registerUserGoogle(Map<String, String> params);
 }

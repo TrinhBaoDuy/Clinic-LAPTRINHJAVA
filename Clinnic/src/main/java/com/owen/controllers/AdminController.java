@@ -85,25 +85,39 @@ public class AdminController {
             model.addAttribute("admin", u);
 
         }
+        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
+        long count = this.userService.countUser();
+        model.addAttribute("counter", Math.ceil(count * 1.0 / pageSize));
         return "quanlytaikhoan";
     }
 
     @GetMapping("/admin/quanlytaikhoan/themtaikhoan")
-    public String themtaikhoan(Model model) {
+    public String themtaikhoan(Model model, Authentication authentication) {
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("admin", u);
+
+        }
         model.addAttribute("nguoidung", new User());
         return "themtaikhoan";
     }
 
     @GetMapping("/admin/quanlytaikhoan/themtaikhoan/{id}")
-    public String capnhattaikhoan(Model model, @PathVariable(value = "id") int id) {
+    public String capnhattaikhoan(Model model, @PathVariable(value = "id") int id, Authentication authentication) {
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("admin", u);
+        }
         model.addAttribute("nguoidung", this.userService.getUserById(id));
         return "themtaikhoan";
     }
 
     @PostMapping("/admin/quanlytaikhoan/themtaikhoan")
-    public String addAndUpUser(@ModelAttribute(value = "nguoidung") @Valid User u, BindingResult rs) throws IOException {
+    public String addAndUpUser(Model model, @ModelAttribute(value = "nguoidung") @Valid User us, BindingResult rs, Authentication authentication) throws IOException {
         if (!rs.hasErrors()) {
-            if (this.userService.addOrUpdateUser(u) == true) {
+            if (this.userService.addOrUpdateUser(us) == true) {
                 return "redirect:/admin/quanlytaikhoan";
             }
         }
@@ -175,7 +189,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/saplichlam")
-    public String lichlam(Model model, Authentication authentication ) {
+    public String lichlam(Model model, Authentication authentication) {
 //        msg = null;
         List<Date> dateList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -217,15 +231,15 @@ public class AdminController {
         ScheduleDetail s = this.scheduleService.getScheduleDetailById(id);
         User u = this.userService.getUserById(s.getUserId().getId());
 //        if (this.scheduleService.checktontai(s.getDateSchedule(), u.getRoleId().getId(), s.getShiftId().getId()) == true) {
-            if (this.scheduleService.checkLichHopLe(s.getDateSchedule(), s.getShiftId().getId(), u.getRoleId().getId()) == true) {
-                if (this.scheduleService.addOrUpdateScheduleDetail(s) == true) {
-                    return "redirect:/admin/saplichlam";
-                }
-            } else {
-                msg = "Đã quá số lượng nhân viên làm trong ngày" + s.getDateSchedule();
-                return "redirect:/admin/saplichlam" + "?msg=" + URLEncoder.encode(msg, "UTF-8");
-
+        if (this.scheduleService.checkLichHopLe(s.getDateSchedule(), s.getShiftId().getId(), u.getRoleId().getId()) == true) {
+            if (this.scheduleService.addOrUpdateScheduleDetail(s) == true) {
+                return "redirect:/admin/saplichlam";
             }
+        } else {
+            msg = "Đã quá số lượng nhân viên làm trong ngày" + s.getDateSchedule();
+            return "redirect:/admin/saplichlam" + "?msg=" + URLEncoder.encode(msg, "UTF-8");
+
+        }
 //        } else {
 //            msg = "Đã tồn tại lịch ngày" + s.getDateSchedule()+" vào ca "+s.getShiftId().getName()+" của "+s.getUserId().getName();
 //            return "redirect:/admin/saplichlam" + "?msg=" + URLEncoder.encode(msg, "UTF-8");
@@ -242,3 +256,5 @@ public class AdminController {
         return "saplichlam";
     }
 }
+
+

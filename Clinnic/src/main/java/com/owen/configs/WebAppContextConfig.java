@@ -19,13 +19,17 @@ import com.owen.fomatters.UserFormatter;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 //import org.springframework.mail.javamail.JavaMailSender;
 //import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -64,7 +68,6 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //    public SimpleDateFormat simpleDateFormat() {
 //        return new SimpleDateFormat("yyyy-MM-dd");
 //    }
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
@@ -92,9 +95,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new PaymentFormatter());
         registry.addFormatter(new TienKhamFormatter());
     }
-    
 
-    
 //    @Bean
 //    public JavaMailSender javaMailSender() {
 //        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -111,5 +112,25 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //        return mailSender;
 //
 //    }
-    
+    @Override
+    public Validator getValidator() {
+        return validator();
+    }
+
+    @Bean
+    public Validator validator() {
+        LocalValidatorFactoryBean v = new LocalValidatorFactoryBean();
+        v.setValidationMessageSource(messageSource());
+
+        return v;
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource m = new ResourceBundleMessageSource();
+        m.setBasenames("messages");
+
+        return m;
+    }
+
 }

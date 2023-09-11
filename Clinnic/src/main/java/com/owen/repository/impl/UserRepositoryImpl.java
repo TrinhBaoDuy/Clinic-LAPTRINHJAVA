@@ -28,6 +28,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.owen.repository.UserRepository;
+import com.owen.service.RoleService;
 import com.owen.service.impl.UserServiceImpl;
 import java.io.IOException;
 import java.util.Date;
@@ -56,6 +57,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private Cloudinary cloudinary;
+
+    @Autowired
+    private RoleService RoleService;
 
     @Override
     public List<User> getUsers(Map<String, String> params) {
@@ -250,13 +254,12 @@ public class UserRepositoryImpl implements UserRepository {
         return results.isEmpty() ? null : results.get(0);
     }
 
-    
     @Override
     public boolean changePassword(User user, String newPassword) {
         Session session = this.factory.getObject().getCurrentSession();
         boolean passwordChanged = false;
         User existingUser = getUserByEmail(user.getEmaill());
-        
+
         if (existingUser != null) {
             existingUser.setPassword(this.passwordEncoder.encode(newPassword));
             session.update(existingUser);
@@ -266,4 +269,41 @@ public class UserRepositoryImpl implements UserRepository {
         return passwordChanged;
     }
 
+    @Override
+    public User registerUserGoogle(Map<String, String> params) {
+            User user = new User();
+            String tendau = params.get("firstname");
+            String tencuoi = params.get("lastname");
+            String name = tendau + tencuoi;
+
+            user.setName(name);
+            user.setPhone(params.get("phonenumber"));
+            user.setAddress(params.get("location"));
+            user.setEmaill(params.get("email"));
+            user.setUsername(params.get("email"));
+            String randomPassword = "123";
+            user.setPassword(this.passwordEncoder.encode(randomPassword));
+            Role Sickperson = this.RoleService.getRoleById(4);
+            user.setRoleId(Sickperson);
+            user.setAvatar(params.get("avatar"));
+            this.addOrUpdateUser(user);
+            return user;
+    }
+
+    @Override
+    public List<User> getUsersByUsername(String username) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.where(
+                builder.and(
+                        builder.equal(root.get("username"), username)
+                //                        builder.equal(root.get("roleId"), 2)
+                )
+        );
+        Query q = session.createQuery(query);
+        List<User> results = q.getResultList();
+        return results;
+    }
 }

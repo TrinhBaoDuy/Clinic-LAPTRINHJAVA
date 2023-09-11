@@ -19,10 +19,21 @@
                 <div class="search-container">
                     <input class="form-control me-2" type="text" name="name" placeholder="Nhập tên người dùng..." />
                     <button class="btn btn-primary btsearch" type="submit"><i class="fas fa-search"></i> Tìm</button>
-                     <div class="input1"><a class="input" href="<c:url value="/admin/quanlytaikhoan/themtaikhoan"/>">THÊM TÀI KHOẢN</a></div>
+                    <div class="input1"><a class="input" href="<c:url value="/admin/quanlytaikhoan/themtaikhoan"/>">THÊM TÀI KHOẢN</a></div>
                 </div>
             </form>
         </div>
+        <c:if test="${counter > 1}">
+            <ul class="pagination mt-1">
+                <li class="page-item"><a class="page-link" href="<c:url value="/admin/quanlytaikhoan" />">Tất cả</a></li>
+                    <c:forEach begin="1" end="${counter}" var="i">
+                        <c:url value="/admin/quanlytaikhoan" var="pageUrl">
+                            <c:param name="page" value="${i}"></c:param>
+                        </c:url>
+                    <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
+                    </c:forEach>
+            </ul>
+        </c:if>
         <table>
             <thead>
                 <tr>
@@ -117,7 +128,7 @@
     }
     .input{
         background-color: #66af69;
-        
+
         color: white;
         padding: 12px 12px;
         border: none;
@@ -125,7 +136,7 @@
         cursor: pointer;
         width: 100%;
         margin-top: 50px;
-    margin-left: 660px;
+        margin-left: 660px;
         text-decoration: none;
     }
     .search-container {

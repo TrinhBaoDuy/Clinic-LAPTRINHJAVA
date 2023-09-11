@@ -23,9 +23,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -55,30 +59,37 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 50)
-    @Column(name = "username")
+    @Size(max = 1000, min = 1, message = "{user.notnull}")
+//    @UniqueElements( message = "{user.username.unique}")
+    @Column(name = "username", unique = true)
+    @NotNull(message = "{user.notnull}")
     private String username;
-    @Size(max = 1000)
+    @Size(max = 1000, min = 1, message = "{user.notnull}")
     @Column(name = "password")
     private String password;
-    @Size(max = 1000)
+//    @Size(max = 1000, min = 1, message = "{user.notnull}")
     @Column(name = "avatar")
     private String avatar;
-    @Size(max = 45)
+    @NotNull(message = "{user.name.notNull}")
+    @Size(min = 5, max = 20, message = "{user.name.leng}")
     @Column(name = "name")
     private String name;
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Size(max = 45)
+//    @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    @Size(max = 45, min = 1, message = "{user.notnull}")
     @Column(name = "phone")
     private String phone;
-    @Size(max = 100)
+    @Size(max = 100, min = 1, message = "{user.notnull}")
+    @NotNull(message = "{user.notnull}")
     @Column(name = "address")
     private String address;
-    @Size(max = 100)
+    @Size(max = 100, min = 1, message = "{user.notnull}")
     @Column(name = "emaill")
+    @NotNull(message = "{user.notnull}")
     private String emaill;
     @Column(name = "dod")
     @Temporal(TemporalType.DATE)
+//    @NotNull(message = "{user.notnull}")
+//    @Past(message = "{user.dod.past}")
     private Date dod;
     @Size(max = 45)
     @Column(name = "sex")
@@ -98,12 +109,11 @@ public class User implements Serializable {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Role roleId;
-    
-    
+
     @Transient
     @JsonIgnore
+//    @Size(max = 1000 , min = 1,message = "{user.notnull}")
     private MultipartFile file;
-    
 
     /**
      * @return the file
@@ -278,5 +288,7 @@ public class User implements Serializable {
 //    public String getUserRole() {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //    }
-
 }
+
+
+

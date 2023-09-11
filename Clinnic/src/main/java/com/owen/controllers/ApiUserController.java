@@ -63,10 +63,8 @@ public class ApiUserController {
     public ResponseEntity<List<User>> list(@RequestParam Map<String, String> params) {
         return new ResponseEntity<>(this.userService.getUsers(params), HttpStatus.OK);
     }
-    
-    
-//    @ResponseStatus(HttpStatus.CREATED)
 
+//    @ResponseStatus(HttpStatus.CREATED)
 //    @PostMapping(path = "/user", consumes = {
 //        MediaType.MULTIPART_FORM_DATA_VALUE,
 //        MediaType.APPLICATION_JSON_VALUE
@@ -78,7 +76,6 @@ public class ApiUserController {
 //         User user = this.userService.addUser(params, avatar);
 //        return new ResponseEntity<>(user, HttpStatus.CREATED);
 //    }
-
     @GetMapping("/test")
     @CrossOrigin()
     public ResponseEntity<String> test(Principal pricipal) {
@@ -86,21 +83,30 @@ public class ApiUserController {
     }
 
     @PostMapping(path = "/user",
-           consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
-           produces = {MediaType.APPLICATION_JSON_VALUE})
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
-    public ResponseEntity<User> addUser(@RequestParam Map<String, String> params, 
+    public ResponseEntity<User> addUser(@RequestParam Map<String, String> params,
             @RequestPart MultipartFile avatar) {
         User user = this.userService.addUser(params, avatar);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
-    
+
     @GetMapping(path = "/current-user/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<User> details(Principal user) {
         User u = this.userService.getUserByUsername(user.getName());
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
-    
-    
+
+    @PostMapping("/login-google/")
+    @CrossOrigin
+    public ResponseEntity<String> loginGoogle(@RequestParam Map<String, String> params) {
+        User userRegister = this.userService.registerUserGoogle(params);
+        String token = this.jwtService.generateTokenLogin(userRegister.getUsername());
+        return new ResponseEntity<>(token, HttpStatus.OK);
+//        return new ResponseEntity<>(userRegister, HttpStatus.OK);
+
+    }
+
 }
