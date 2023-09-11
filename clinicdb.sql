@@ -42,7 +42,7 @@ CREATE TABLE `appointment` (
   CONSTRAINT `nu` FOREIGN KEY (`nurse_id`) REFERENCES `user` (`id`),
   CONSTRAINT `per` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`id`),
   CONSTRAINT `sick` FOREIGN KEY (`sickperson_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +51,7 @@ CREATE TABLE `appointment` (
 
 LOCK TABLES `appointment` WRITE;
 /*!40000 ALTER TABLE `appointment` DISABLE KEYS */;
-INSERT INTO `appointment` VALUES (1,'2023-10-08 00:00:00',1,'2023-10-09 00:00:00',1,2,6,4),(2,'2023-10-08 00:00:00',1,'2023-10-09 00:00:00',NULL,9,6,4),(3,'2023-10-08 00:00:00',1,'2023-10-09 00:00:00',18,2,6,4),(4,'2023-10-08 00:00:00',1,'2023-10-09 00:00:00',NULL,9,4,4),(5,'2023-07-15 09:00:00',1,'2023-07-18 09:00:00',16,2,5,4),(6,'2023-08-02 00:00:00',1,NULL,19,2,6,4),(7,'2023-08-02 00:00:00',1,NULL,20,2,6,4),(8,'2023-08-24 00:00:00',1,NULL,22,2,6,4),(9,'2023-08-08 00:00:00',1,NULL,21,9,6,4),(12,'2023-08-11 00:00:00',1,NULL,1,2,6,4),(13,'2023-08-22 00:00:00',1,NULL,1,2,6,4),(14,'2023-08-27 00:00:00',1,NULL,1,2,6,4),(16,'2023-08-25 00:00:00',1,NULL,28,2,6,4),(17,'2023-08-23 00:00:00',1,NULL,29,2,6,4),(18,'2023-08-10 00:00:00',1,NULL,30,2,6,4),(19,'2023-09-09 00:00:00',1,NULL,31,2,6,4),(20,'2023-09-14 00:00:00',1,NULL,32,2,6,4),(21,'2023-09-05 00:00:00',1,NULL,33,2,6,4),(22,NULL,1,NULL,35,2,6,4),(23,'2023-08-26 00:00:00',1,NULL,34,2,6,4),(24,'2023-08-18 00:00:00',1,NULL,36,2,6,4),(25,'2023-08-09 00:00:00',1,NULL,37,2,6,4),(26,'2023-08-24 00:00:00',1,NULL,38,2,6,4),(27,'2023-08-09 00:00:00',1,NULL,39,2,6,4),(28,'2023-08-17 00:00:00',1,NULL,41,2,6,4),(29,'2023-08-17 00:00:00',1,NULL,NULL,2,6,4),(30,'2023-08-10 00:00:00',1,NULL,NULL,2,6,4),(31,'2023-08-26 00:00:00',1,NULL,NULL,2,6,4),(32,'2023-08-09 00:00:00',1,NULL,NULL,2,6,4),(33,'2023-08-25 00:00:00',1,NULL,NULL,2,6,4),(34,'2023-08-10 00:00:00',1,NULL,NULL,2,6,4),(35,'2023-08-10 00:00:00',0,NULL,NULL,NULL,6,NULL);
+INSERT INTO `appointment` VALUES (5,'2023-07-15 09:00:00',1,'2023-08-18 09:00:00',16,2,5,4),(8,'2023-08-24 00:00:00',1,'2023-09-08 16:36:38',51,2,6,4),(12,'2023-08-11 00:00:00',1,NULL,1,2,6,4),(13,'2023-08-22 00:00:00',1,'2023-08-31 16:55:05',1,2,6,4),(14,'2023-08-27 00:00:00',1,NULL,1,2,6,4),(16,'2023-08-25 00:00:00',1,NULL,28,2,6,4),(17,'2023-08-23 00:00:00',1,NULL,29,2,6,4),(18,'2023-08-10 00:00:00',1,NULL,30,2,6,4),(19,'2023-09-09 00:00:00',1,NULL,31,2,6,4),(20,'2023-09-14 00:00:00',1,NULL,32,2,6,4),(21,'2023-09-05 00:00:00',1,NULL,33,2,6,4),(22,NULL,1,NULL,35,2,6,4),(23,'2023-08-26 00:00:00',1,NULL,34,2,6,4),(24,'2023-08-18 00:00:00',1,NULL,36,2,6,4),(25,'2023-08-09 00:00:00',1,NULL,37,2,6,4),(26,'2023-08-24 00:00:00',1,'2023-09-10 14:23:56',47,2,6,4),(27,'2023-08-09 00:00:00',1,NULL,39,2,6,4),(28,'2023-08-17 00:00:00',1,NULL,41,2,6,4),(29,'2023-08-17 00:00:00',1,NULL,42,2,6,4),(30,'2023-08-10 00:00:00',1,NULL,43,2,6,4),(31,'2023-08-26 00:00:00',1,NULL,46,2,6,4),(32,'2023-08-09 00:00:00',1,'2023-09-10 17:50:39',48,2,6,4),(33,'2023-08-25 00:00:00',1,'2023-09-10 13:36:02',52,2,6,4),(34,'2023-08-10 00:00:00',1,NULL,49,2,6,4),(35,'2023-08-10 00:00:00',0,NULL,NULL,NULL,6,NULL),(38,'2023-09-04 00:00:00',0,NULL,NULL,NULL,6,NULL),(39,'2023-09-15 00:00:00',0,NULL,NULL,NULL,6,NULL),(43,'2023-09-12 00:00:00',1,'2023-09-11 03:03:43',55,2,32,35),(44,'2023-11-18 00:00:00',0,NULL,NULL,NULL,32,NULL),(45,'2023-12-24 00:00:00',0,NULL,NULL,NULL,32,NULL),(46,'2023-05-12 00:00:00',0,NULL,NULL,NULL,33,NULL),(47,'2023-05-12 00:00:00',0,NULL,NULL,NULL,33,NULL),(48,'2023-09-22 00:00:00',0,NULL,NULL,NULL,34,NULL),(49,'2023-09-23 00:00:00',1,NULL,NULL,2,34,35);
 /*!40000 ALTER TABLE `appointment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ DROP TABLE IF EXISTS `bill`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bill` (
-  `id` varchar(45) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `appo_id` int DEFAULT NULL,
   `pay_id` int DEFAULT NULL,
   `pay_money` int DEFAULT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE `bill` (
   CONSTRAINT `apo` FOREIGN KEY (`appo_id`) REFERENCES `appointment` (`id`),
   CONSTRAINT `kham` FOREIGN KEY (`tienkham`) REFERENCES `tienkham` (`id`),
   CONSTRAINT `pay` FOREIGN KEY (`pay_id`) REFERENCES `payment` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +84,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES ('1',1,1,1000000,1);
+INSERT INTO `bill` VALUES (2,13,1,1200410,1),(6,5,NULL,NULL,1),(16,33,2,1300015,1),(18,43,NULL,NULL,1);
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,7 +107,7 @@ CREATE TABLE `medicine` (
   PRIMARY KEY (`id`),
   KEY `unit_idx` (`id_unit`),
   CONSTRAINT `unit` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `medicine` (
 
 LOCK TABLES `medicine` WRITE;
 /*!40000 ALTER TABLE `medicine` DISABLE KEYS */;
-INSERT INTO `medicine` VALUES (1,'Paracetamol',10.50,'JAPAN','2023-10-08','2024-10-08',2,95),(2,'Amoxicillin',20.00,'KOREA','2023-10-08','2024-10-08',2,199),(8,'Thanh bug',15.00,'VIETNAM','2023-08-17','2023-09-17',3,295),(18,'Thanh bug',123.00,'123123','1111-11-11','1111-11-22',2,10),(19,'Thuốc Ý',10000000.00,'VIETNAM','2023-08-28','2023-08-29',6,1000);
+INSERT INTO `medicine` VALUES (1,'Paracetamol',10.50,'JAPAN','2023-10-08','2024-10-08',2,100),(2,'Amoxicillin',20.00,'KOREA','2023-10-08','2024-10-08',2,203),(8,'Thanh bug',15.00,'VIETNAM','2023-08-17','2023-09-17',3,281),(18,'Thanh bug',123.00,'123123','1111-11-11','1111-11-22',2,8),(19,'Thuốc Ý',10000000.00,'VIETNAM','2023-08-28','2023-08-29',6,1000),(22,'Vitamin A',10000.00,'VIETNAM','2023-08-31','2023-10-08',1,200),(23,'Vitamin B',11000.00,'VIETNAM','2023-08-28','2023-10-08',1,210),(24,'Vitamin C',12000.00,'VIETNAM','2023-08-22','2023-10-20',1,110);
 /*!40000 ALTER TABLE `medicine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +158,7 @@ CREATE TABLE `prescription` (
   `symptom` varchar(45) DEFAULT NULL,
   `conclusion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +167,7 @@ CREATE TABLE `prescription` (
 
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
-INSERT INTO `prescription` VALUES (1,'2023-07-15 16:24:05','Prescription B','Fever, cough','Prescribed painkillers.'),(2,'2023-07-15 16:24:23','Prescription A','Fever, cough','Advised to gargle with warm water.'),(3,NULL,NULL,NULL,NULL),(4,'2023-08-02 00:00:00','Prescription B','Headache','Prescribed painkillers.'),(5,'2023-08-03 00:00:00','Prescription C','Sore throat','Advised to gargle with warm water.'),(6,'2023-08-04 00:00:00','Prescription D','Allergies','Recommended antihistamines.'),(15,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(16,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(17,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(18,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(19,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(20,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(21,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(22,'2023-08-24 00:00:00','1','cáº£m láº¡nh','ho hen'),(26,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(27,'2023-08-25 00:00:00','1','cáº£m','ho hen'),(28,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(29,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(30,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(31,'2023-08-25 00:00:00','1','cáº£m','ho hen'),(32,'2023-08-25 00:00:00','1','Cáº£m','ho hen'),(33,'2023-08-25 00:00:00','1','cáº£m','ho hen'),(34,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(35,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(36,'2023-08-26 00:00:00','1','cáº£m láº¡nh','ho hen'),(37,'2023-08-26 00:00:00','1','cáº£m láº¡nh','ho hen'),(38,'2023-08-26 00:00:00','1','cáº£m','ho hen'),(39,'2023-08-27 00:00:00','1','cáº£m','ho hen'),(40,'2023-08-27 00:00:00','1','cáº£m láº¡nh','ho hen'),(41,'2023-08-27 00:00:00','1','cáº£m láº¡nh','ho hen');
+INSERT INTO `prescription` VALUES (1,'2023-07-15 16:24:05','Prescription B','Fever, cough','Prescribed painkillers.'),(2,'2023-07-15 16:24:23','Prescription A','Fever, cough','Advised to gargle with warm water.'),(3,NULL,NULL,NULL,NULL),(4,'2023-08-02 00:00:00','Prescription B','Headache','Prescribed painkillers.'),(5,'2023-08-03 00:00:00','Prescription C','Sore throat','Advised to gargle with warm water.'),(6,'2023-08-04 00:00:00','Prescription D','Allergies','Recommended antihistamines.'),(15,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(16,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(17,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(19,'2023-08-24 00:00:00','1','cáº£m','ho hen'),(22,'2023-08-24 00:00:00','1','cáº£m láº¡nh','ho hen'),(26,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(27,'2023-08-25 00:00:00','1','cáº£m','ho hen'),(28,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(29,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(30,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(31,'2023-08-25 00:00:00','1','cáº£m','ho hen'),(32,'2023-08-25 00:00:00','1','Cáº£m','ho hen'),(33,'2023-08-25 00:00:00','1','cáº£m','ho hen'),(34,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(35,'2023-08-25 00:00:00','1','cáº£m láº¡nh','ho hen'),(36,'2023-08-26 00:00:00','1','cáº£m láº¡nh','ho hen'),(37,'2023-08-26 00:00:00','1','cáº£m láº¡nh','ho hen'),(38,'2023-08-26 00:00:00','1','cáº£m','ho hen'),(39,'2023-08-27 00:00:00','1','cáº£m','ho hen'),(40,'2023-08-27 00:00:00','1','cáº£m láº¡nh','ho hen'),(41,'2023-08-27 00:00:00','1','cáº£m láº¡nh','ho hen'),(42,'2023-08-28 00:00:00','1','cáº£m','ho hen'),(43,'2023-08-30 00:00:00','1','cáº£m láº¡nh','ho hen'),(44,'2023-08-31 00:00:00','1','cáº£m láº¡nh','ho hen'),(46,'2023-09-06 00:00:00','1','cáº£m láº¡nh','ho hen'),(47,'2023-09-08 00:00:00','1','',''),(48,'2023-09-08 00:00:00','1','',''),(49,'2023-09-08 00:00:00','1','nhá»©t Äáº§u','há»c java'),(50,'2023-09-08 00:00:00','1','cáº£m','ho hen'),(51,'2023-09-08 00:00:00','1','mÃ¨o xinh','mÃ¨o'),(52,'2023-09-10 00:00:00','1','cáº£m láº¡nh','ho hen'),(55,'2023-09-11 00:00:00','1','ViÃªn Phá»i','Ho ÄÃªm nhiá»u ngÃ y');
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +189,7 @@ CREATE TABLE `prescription_item` (
   KEY `prescription_item_ibfk_2` (`medicine_id`),
   CONSTRAINT `prescription_item_ibfk_1` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`id`),
   CONSTRAINT `prescription_item_ibfk_2` FOREIGN KEY (`medicine_id`) REFERENCES `medicine` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +198,7 @@ CREATE TABLE `prescription_item` (
 
 LOCK TABLES `prescription_item` WRITE;
 /*!40000 ALTER TABLE `prescription_item` DISABLE KEYS */;
-INSERT INTO `prescription_item` VALUES (1,1,1,20,'Uống 1 viên mỗi 6 tiếng trong 3 ngày'),(2,1,2,10,'Uống 1 viên mỗi 8 tiếng trong 7 ngày'),(3,2,1,30,'Uống mỗi ngày một viên'),(5,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(6,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(7,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(8,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(9,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(10,29,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(11,30,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(12,31,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(13,32,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(14,33,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(15,34,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(16,35,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(17,35,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(18,35,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(19,35,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(20,37,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(21,37,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(27,39,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(28,39,2,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(29,39,8,2,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(30,39,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(33,38,1,2,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(34,38,18,2,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(35,38,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau');
+INSERT INTO `prescription_item` VALUES (3,2,1,30,'Uống mỗi ngày một viên'),(5,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(6,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(7,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(8,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(9,NULL,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(10,29,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(11,30,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(12,31,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(13,32,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(14,33,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(15,34,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(16,35,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(17,35,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(18,35,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(19,35,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(20,37,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(21,37,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(27,39,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(28,39,2,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(29,39,8,2,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(30,39,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(33,38,1,2,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(34,38,18,2,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(35,38,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(36,43,8,5,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(37,43,1,5,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(38,44,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(41,38,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(42,38,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(43,38,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(44,38,8,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(48,46,8,3,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(55,51,19,NULL,''),(56,51,1,1,'uá»ng vÃ o buá»i sÃ¡ng hÃ´m sau'),(57,51,1,NULL,''),(60,47,1,NULL,''),(61,47,1,NULL,''),(62,47,1,NULL,''),(63,48,18,2,''),(64,48,1,1,''),(65,48,1,NULL,''),(66,48,1,NULL,''),(69,55,1,6,'Uá»ng sau khi Än 30 phÃºt'),(70,55,2,6,'Han Che uong nuoc lanh');
 /*!40000 ALTER TABLE `prescription_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +244,7 @@ CREATE TABLE `schedule_detail` (
   KEY `user_idx` (`user_id`),
   CONSTRAINT `SHI` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`),
   CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `schedule_detail` (
 
 LOCK TABLES `schedule_detail` WRITE;
 /*!40000 ALTER TABLE `schedule_detail` DISABLE KEYS */;
-INSERT INTO `schedule_detail` VALUES ('2023-08-01',1,1,1,1),('2023-08-02',2,1,2,1),('2023-08-03',1,2,3,1),('2023-08-28',1,2,4,NULL),('2023-09-03',1,2,5,NULL),('2023-08-30',1,2,6,NULL),('2023-08-28',1,2,7,NULL),('2023-08-29',1,2,8,NULL),('2023-08-29',1,2,9,NULL),('2023-09-03',1,2,10,NULL),('2023-08-29',1,3,11,NULL),('2023-09-02',1,3,12,NULL),('2023-08-31',1,3,13,NULL),('2023-09-03',1,2,14,NULL),('2023-08-30',1,2,15,NULL);
+INSERT INTO `schedule_detail` VALUES ('2023-08-01',1,4,1,1),('2023-08-02',2,4,2,1),('2023-08-03',1,2,3,1),('2023-08-28',1,2,4,NULL),('2023-09-03',1,2,5,NULL),('2023-08-30',1,2,6,NULL),('2023-08-28',1,2,7,NULL),('2023-08-29',1,2,8,NULL),('2023-08-29',1,2,9,NULL),('2023-09-03',1,2,10,NULL),('2023-08-29',1,3,11,NULL),('2023-09-02',1,3,12,NULL),('2023-08-31',1,3,13,NULL),('2023-09-03',1,2,14,NULL),('2023-08-30',1,2,15,NULL),('2023-09-08',1,2,16,1),(NULL,1,2,17,0),(NULL,1,2,18,0),(NULL,1,2,19,0),(NULL,1,2,20,0),(NULL,1,2,21,0),(NULL,2,2,22,0),(NULL,2,2,23,0),('2023-09-06',2,2,24,0),(NULL,1,2,25,0),('2023-09-05',2,2,26,0),('2023-09-06',2,2,27,0),('2023-09-10',3,2,28,0),(NULL,1,2,29,0),(NULL,1,2,30,0),('2023-09-04',3,2,31,0),(NULL,1,2,32,0),(NULL,1,2,33,0),(NULL,3,2,34,0),('2023-09-06',2,2,35,0),('2023-09-07',3,2,36,0),('2023-09-06',3,2,37,0),(NULL,3,2,38,0),('2023-09-10',3,2,39,1),('2023-09-10',2,2,40,1),(NULL,3,2,42,0),('2023-09-06',3,2,43,0),('2023-09-08',3,2,44,1),(NULL,3,2,45,0),('2023-09-06',3,2,46,0),('2023-09-07',3,2,47,0),(NULL,3,2,48,0),('2023-09-06',3,2,49,0),('2023-09-08',3,2,50,1),('2023-09-06',2,2,51,0),('2023-09-07',2,2,52,0),('2023-09-08',2,2,53,1),('2023-09-04',1,2,54,0),('2023-09-05',1,2,55,0),('2023-09-04',2,2,56,0),('2023-09-09',1,2,57,1),('2023-09-09',2,2,58,1),('2023-09-09',3,2,59,1),('2023-09-09',1,4,60,1),('2023-09-09',2,4,61,1),('2023-09-09',3,4,62,1),('2023-08-30',3,2,63,0),('2023-08-30',3,2,64,0),('2023-09-04',2,2,65,0),('2023-09-05',2,2,66,0),('2023-09-06',2,2,67,0),('2023-09-04',1,2,68,0),('2023-09-05',1,2,69,0),('2023-09-04',2,2,70,0),('2023-09-09',3,3,72,1),('2023-09-10',3,3,73,1),('2023-09-04',1,2,76,0),('2023-09-05',1,2,77,0),('2023-09-06',1,2,78,0),('2023-09-07',1,2,79,0),('2023-09-08',1,2,80,0),('2023-09-09',1,2,81,1),('2023-09-10',1,2,82,0),('2023-09-04',1,2,83,0),('2023-09-05',2,4,84,0),('2023-09-05',1,4,85,0),('2023-09-05',3,4,86,0),('2023-09-06',2,4,87,0),('2023-09-17',1,2,88,1),('2023-09-15',2,2,89,1),('2023-09-16',2,2,90,1),('2023-09-11',1,4,91,1),('2023-09-13',1,4,92,1),('2023-09-11',2,4,93,1),('2023-09-12',2,4,94,1),('2023-09-14',2,4,95,1),('2023-09-11',3,4,96,1),('2023-09-11',1,2,97,1),('2023-09-12',1,2,98,1),('2023-09-13',1,2,99,1),('2023-09-14',1,2,100,1),('2023-09-15',1,2,101,1),('2023-09-16',1,2,102,1),('2023-09-17',1,2,103,1),('2023-09-11',2,2,104,1),('2023-09-12',2,2,105,1),('2023-09-13',2,2,106,1),('2023-09-14',2,2,107,1),('2023-09-15',2,2,108,1),('2023-09-16',2,2,109,1),('2023-09-17',2,2,110,1),('2023-09-11',3,2,111,1),('2023-09-12',3,2,112,1),('2023-09-13',3,2,113,1),('2023-09-14',3,2,114,1),('2023-09-15',3,2,115,1),('2023-09-16',3,2,116,1),('2023-09-17',3,2,117,1),('2023-09-12',3,2,120,1),('2023-09-14',1,4,121,1),('2023-09-14',2,4,122,1),('2023-09-12',1,2,124,0),('2023-09-14',1,2,126,0),('2023-09-15',1,2,127,0),('2023-09-16',1,2,128,0),('2023-09-17',1,2,129,0),('2023-09-11',2,2,130,0),('2023-09-12',2,2,131,0),('2023-09-13',2,2,132,0),('2023-09-14',2,2,133,0),('2023-09-15',2,2,134,0),('2023-09-16',2,2,135,0),('2023-09-17',2,2,136,0),('2023-09-11',3,2,137,0),('2023-09-12',3,2,138,0),('2023-09-13',3,2,139,0),('2023-09-14',3,2,140,0),('2023-09-15',3,2,141,0),('2023-09-16',3,2,142,0),('2023-09-17',3,2,143,0),('2023-09-11',1,4,144,0),('2023-09-12',1,4,145,0),('2023-09-13',1,4,146,0),('2023-09-14',1,4,147,0),('2023-09-15',1,4,148,0),('2023-09-16',1,4,149,0),('2023-09-17',1,4,150,0),('2023-09-11',2,4,151,0),('2023-09-12',2,4,152,0),('2023-09-13',2,4,153,0),('2023-09-14',2,4,154,0),('2023-09-15',2,4,155,0),('2023-09-16',2,4,156,0),('2023-09-17',2,4,157,0),('2023-09-11',3,4,158,0),('2023-09-12',3,4,159,0),('2023-09-13',3,4,160,0),('2023-09-14',3,4,161,0),('2023-09-15',3,4,162,0),('2023-09-16',3,4,163,0),('2023-09-17',3,4,164,0),('2023-09-18',1,2,165,1),('2023-09-21',3,2,182,1),('2023-09-23',3,2,184,1),('2023-09-24',3,2,185,1),('2023-09-18',1,2,186,0),('2023-09-18',2,2,187,0),('2023-09-18',3,2,188,0),('2023-09-18',1,2,189,0),('2023-09-19',1,2,190,0),('2023-09-18',2,2,191,1),('2023-09-19',2,2,192,0),('2023-09-19',1,4,194,1),('2023-09-20',1,4,195,1),('2023-09-21',1,4,196,1),('2023-09-22',1,4,197,1),('2023-09-23',1,4,198,1),('2023-09-24',1,4,199,1),('2023-09-18',2,4,200,0),('2023-09-19',2,4,201,0),('2023-09-20',2,4,202,0),('2023-09-21',2,4,203,0),('2023-09-22',2,4,204,0),('2023-09-23',2,4,205,0),('2023-09-24',2,4,206,0),('2023-09-18',3,4,207,0),('2023-09-19',3,4,208,0),('2023-09-20',3,4,209,1),('2023-09-21',3,4,210,0),('2023-09-22',3,4,211,0),('2023-09-23',3,4,212,0),('2023-09-24',3,4,213,0),('2023-09-18',1,4,214,0),('2023-09-18',2,4,215,0),('2023-09-18',3,4,216,0),('2023-09-18',1,3,217,0),('2023-09-19',1,3,218,0),('2023-09-20',1,3,219,0),('2023-09-18',2,3,220,1),('2023-09-19',2,3,221,0),('2023-09-20',2,3,222,1),('2023-09-18',3,3,223,0),('2023-09-19',3,3,224,0),('2023-09-20',3,3,225,0),('2023-09-19',1,3,226,1),('2023-09-19',2,3,227,1),('2023-09-19',3,3,228,1),('2023-09-18',1,5,229,1),('2023-09-19',1,5,230,1),('2023-09-18',2,5,231,1),('2023-09-19',2,5,232,0),('2023-09-18',3,5,233,0),('2023-09-19',3,5,234,0),('2023-09-18',1,5,235,0),('2023-09-18',2,5,236,1),('2023-09-18',3,5,237,1),('2023-09-18',1,2,238,1),('2023-09-19',2,2,239,0),('2023-09-18',1,NULL,244,0),('2023-09-19',1,NULL,245,0),('2023-09-20',1,NULL,246,0),('2023-09-21',1,NULL,247,0),('2023-09-22',1,NULL,248,0),('2023-09-23',1,NULL,249,0),('2023-09-24',1,NULL,250,0),('2023-09-18',2,NULL,251,0),('2023-09-19',2,NULL,252,0),('2023-09-20',2,NULL,253,0),('2023-09-21',2,NULL,254,0),('2023-09-22',2,NULL,255,0),('2023-09-23',2,NULL,256,0),('2023-09-24',2,NULL,257,0),('2023-09-18',1,36,258,0),('2023-09-19',1,36,259,0),('2023-09-20',1,36,260,0),('2023-09-21',1,36,261,0),('2023-09-22',1,36,262,0),('2023-09-23',1,36,263,0),('2023-09-24',1,36,264,0),('2023-09-18',2,36,265,0),('2023-09-19',2,36,266,0),('2023-09-20',2,36,267,0),('2023-09-21',2,36,268,0),('2023-09-22',2,36,269,0),('2023-09-23',2,36,270,0),('2023-09-24',2,36,271,0),('2023-09-18',3,36,272,0),('2023-09-19',3,36,273,0),('2023-09-20',3,36,274,0),('2023-09-21',3,36,275,0),('2023-09-22',3,36,276,0),('2023-09-23',3,36,277,0),('2023-09-24',3,36,278,0),('2023-09-18',1,37,279,0),('2023-09-19',1,37,280,0),('2023-09-20',1,37,281,1),('2023-09-21',1,37,282,0),('2023-09-22',1,37,283,0),('2023-09-23',1,37,284,0),('2023-09-24',1,37,285,0),('2023-09-18',2,37,286,0),('2023-09-19',2,37,287,1),('2023-09-20',2,37,288,1),('2023-09-21',2,37,289,1),('2023-09-22',2,37,290,1),('2023-09-23',2,37,291,1),('2023-09-24',2,37,292,1),('2023-09-18',3,37,293,1),('2023-09-19',3,37,294,1),('2023-09-20',3,37,295,1),('2023-09-21',3,37,296,1),('2023-09-22',3,37,297,1),('2023-09-23',3,37,298,1),('2023-09-24',3,37,299,1);
 /*!40000 ALTER TABLE `schedule_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +299,7 @@ CREATE TABLE `service_items` (
   KEY `appo_idx` (`appo_id`),
   CONSTRAINT `appo` FOREIGN KEY (`appo_id`) REFERENCES `appointment` (`id`),
   CONSTRAINT `se` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +308,7 @@ CREATE TABLE `service_items` (
 
 LOCK TABLES `service_items` WRITE;
 /*!40000 ALTER TABLE `service_items` DISABLE KEYS */;
-INSERT INTO `service_items` VALUES (1,'2023-10-08 00:00:00',1,3),(4,'2023-10-08 00:00:00',2,2),(2,'2023-10-08 00:00:00',4,1),(3,'2023-10-08 00:00:00',5,2),(3,'2023-08-24 00:00:00',8,2),(3,'2023-08-24 00:00:00',9,1),(7,'2023-08-24 00:00:00',10,1),(3,'2023-08-24 00:00:00',11,2),(3,'2023-08-24 00:00:00',12,2),(3,'2023-08-24 00:00:00',13,2),(3,'2023-08-24 00:00:00',14,2),(13,'2023-08-24 00:00:00',18,3),(13,'2023-08-24 00:00:00',19,2),(12,'2023-08-25 00:00:00',20,2),(16,NULL,24,NULL),(17,NULL,25,NULL),(18,NULL,26,NULL),(19,NULL,27,NULL),(20,NULL,28,NULL),(21,NULL,29,NULL),(23,NULL,30,NULL),(22,NULL,31,NULL),(24,NULL,32,NULL),(25,NULL,33,NULL),(26,NULL,34,NULL),(27,NULL,35,NULL),(28,NULL,36,NULL),(28,NULL,37,NULL);
+INSERT INTO `service_items` VALUES (13,'2023-08-24 00:00:00',18,3),(13,'2023-08-24 00:00:00',19,2),(12,'2023-08-25 00:00:00',20,2),(16,NULL,24,NULL),(17,NULL,25,NULL),(18,NULL,26,NULL),(19,NULL,27,NULL),(20,NULL,28,NULL),(21,NULL,29,NULL),(23,NULL,30,NULL),(22,NULL,31,NULL),(24,NULL,32,NULL),(25,NULL,33,NULL),(26,NULL,34,NULL),(27,NULL,35,NULL),(28,NULL,36,NULL),(28,NULL,37,NULL),(29,NULL,38,NULL),(30,NULL,39,NULL),(31,NULL,42,NULL),(32,'2023-09-08 00:00:00',43,3),(32,'2023-09-08 00:00:00',44,4),(26,'2023-09-08 00:00:00',45,3),(26,'2023-09-08 00:00:00',46,4),(26,'2023-09-08 00:00:00',47,4),(32,'2023-09-08 00:00:00',48,2),(32,'2023-09-08 00:00:00',49,3),(32,'2023-09-08 00:00:00',50,4),(34,'2023-09-08 00:00:00',51,1),(34,'2023-09-08 00:00:00',52,2),(34,'2023-09-08 00:00:00',53,3),(34,'2023-09-08 00:00:00',54,4),(33,'2023-09-10 00:00:00',58,2),(33,'2023-09-10 00:00:00',59,3),(43,'2023-09-11 00:00:00',62,2),(43,'2023-09-11 00:00:00',63,3);
 /*!40000 ALTER TABLE `service_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -334,7 +334,7 @@ CREATE TABLE `shift` (
 
 LOCK TABLES `shift` WRITE;
 /*!40000 ALTER TABLE `shift` DISABLE KEYS */;
-INSERT INTO `shift` VALUES (1,'Ca sáng','08:00:00','16:00:00'),(2,'Ca chiều','16:00:00','00:00:00'),(3,'Ca đêm','00:00:00','08:00:00');
+INSERT INTO `shift` VALUES (1,'Ca sáng','08:00:00','16:00:00'),(2,'Ca chiều','16:00:00','23:59:00'),(3,'Ca đêm','00:00:00','08:00:00');
 /*!40000 ALTER TABLE `shift` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -408,7 +408,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `role_idx` (`role_id`),
   CONSTRAINT `role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='		';
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='		';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -417,7 +417,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','$2a$12$m.6Wyu5HSAzwdv8RSQmxwuW24uapMoa8LPbrnCNZoaTkmE8yWsEyO',1,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691306503/avatar1.png','admin','042302340243','123ABC','123@123','1991-01-01','Nam'),(2,'doctor1','$2a$12$S6GNLW60N031dXxU5wYnMesRp1A1/Uj1XJ6IvOE8xP5XAkz2uftmS',2,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691307639/avatar2.png','Nguyễn Văn A','001233012312','123ABC','123@123','1992-02-02','Nam'),(3,'doctor2','$2a$12$ugHEVyKVH2nOSVjOQIeqGuEgEPsq0rhrgsz4OL8L0df84BIZG3i4y',2,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691307639/avatar2.png','Trịnh Bảo D','321231230132','123DCQ','123@124','1992-02-02','Nữ'),(4,'nurse1','$2a$12$C1R23YsWTklMn/gsICiyE.7rhXRKPXLITcs9ADVB8cqUhVOWjrisK',3,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691307639/avatar3.png','Phạm Huỳnh N','212301231230','123QWER','2051050075duy@ou.edu.vn','1993-03-03','Nữ'),(5,'nurse2','$2a$12$4U5WueGLKEQrpS9.te6g9.xl3XELxjp66qxirurQZYfNH3YJpQIW.',3,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691307639/avatar3.png','Trịnh Thanh B','1231231212','1121Q12','122@13','1993-03-03','Nam'),(6,'sickperson1','$2a$12$/5co2R/d2mrvBZ8oLhUjHeNyzP.wsuNlRaqFPKWmjwIAOXznflFqm',4,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691306503/avatar1.png','Nguyễn Văn P','12312312313','qADFEQ','2051050381phuoc@ou.edu.vn','1993-04-04','Nam'),(7,NULL,NULL,1,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691407329/n1v9tzudntetcmftbyp5.png','Trịnh Bảo Duy','0388853371','089202010041','2051050075duy@ou.edu.vn',NULL,'Nam'),(8,NULL,NULL,4,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691487808/manaftzcpxuc51is3tyj.png','Cô giáo','0388853371','089202010041','giao@ou.edgiao',NULL,'Nữ'),(9,NULL,NULL,2,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691554847/y2emx9kd0d6pppvnp6u4.png','Trịnh Bảo Duy','0388853371','089202010041','2051050075duy@ou.edu.vn',NULL,'Nam'),(10,NULL,NULL,2,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691563203/bh2tgu9qnl1ed0bpsbrc.png','Trịnh Bảo Duy','0388853371','089202010041','2051050075duy@ou.edu.vn',NULL,'Nam'),(23,'thanh','123',4,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1693133917/stzdaleqwxvmlxfa0itq.png','thanh','0388853371','089202010041','2051050075duy@ou.edu.vn','2023-08-10','Nữ'),(24,'duy','$2a$10$e6RAi7FaR.tm2wrys14nyub5NhCCLGo5z.nOCAhykiItH5pc0KUPG',4,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1693133812/vxzfmxxnwfeitkkcdd1g.png','duy','0388853371','089202010041','2051050075duy@ou.edu.vn','2023-08-22','Nam');
+INSERT INTO `user` VALUES (1,'admin','$2a$12$m.6Wyu5HSAzwdv8RSQmxwuW24uapMoa8LPbrnCNZoaTkmE8yWsEyO',1,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691306503/avatar1.png','admin','042302340243','123ABC','123@123','1991-01-01','Nam'),(2,'doctor1','$2a$12$S6GNLW60N031dXxU5wYnMesRp1A1/Uj1XJ6IvOE8xP5XAkz2uftmS',2,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691307639/avatar2.png','Nguyễn Văn A','001233012312','123ABC','123@123','1992-02-02','Nam'),(3,'doctor2','$2a$12$ugHEVyKVH2nOSVjOQIeqGuEgEPsq0rhrgsz4OL8L0df84BIZG3i4y',2,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691307639/avatar2.png','Trịnh Bảo D','321231230132','123DCQ','123@124','1992-02-02','Nữ'),(4,'nurse1','$2a$10$3sTfCiZUOnF3Eag4S15pEeq9HTVRw3VpWFfvcohuL6RTkB5k7l4oe',3,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691307639/avatar3.png','Phạm Huỳnh N','212301231230','123QWER','2051050075duy@ou.edu.vn','1993-03-03','Nữ'),(5,'nurse2','$2a$12$4U5WueGLKEQrpS9.te6g9.xl3XELxjp66qxirurQZYfNH3YJpQIW.',3,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691307639/avatar3.png','Trịnh Thanh B','1231231212','1121Q12','122@13','1993-03-03','Nam'),(6,'sickperson1','$2a$12$/5co2R/d2mrvBZ8oLhUjHeNyzP.wsuNlRaqFPKWmjwIAOXznflFqm',4,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1691306503/avatar1.png','Nguyễn Văn P','12312312313','qADFEQ','2051050381phuoc@ou.edu.vn','1993-04-04','Nam'),(32,'tanphat','$2a$10$ay7CAvdar7AMH07F6mZEwOyY7WJV9ZAfy9zDC8OelebuFeAvKgZMy',4,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1694375225/owptphokxxpl9iy2vgbu.jpg','THAI TAN PHAT','0826523431','An Giang','2051050075duy@ou.edu.vn','2002-02-11','Nam'),(33,'thuyennguyen','$2a$10$mGDuu02xyWySE6kJXuvaleaLwmvA4iVze1pn6WNpeNIlqHjGsY5r.',4,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1694375302/bjcttt2lwyovk4zj4dch.jpg','NGUYEN THANH THUYEN','0826523432','Sóc Trăng','2051050075duy@ou.edu.vn','2002-05-22','Nam'),(34,'baoduy','$2a$10$kt6..dnkdGHD/Cnodyz7ReaBUI66L9ozvLaGg2HQqjuMzHjmmmEUu',4,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1694375369/e5z53ai6vb630axjhzbd.jpg','TRINH BAO DUY','0826523433','An Giang','2051050075duy@ou.edu.vn','2002-02-22','Nam'),(35,'thanhnurse','$2a$10$40V3zt9h3XdFMkVKqOzJneYViwsgtik4A9wCkjLvt0M6XG16MkZXO',3,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1694375468/wfkmwe0dfrjkwgdhjvor.jpg','NGUYEN THI THANH','0826543434','Thành Phố Hồ Chí Minh','2051050075duy@ou.edu.vn','2002-02-22','Nam'),(36,'toanmydoctor','$2a$10$0RrJWXj2/FrZISleRMCbauDAf.AVi9vIv21mfXs306o3JTwx/JQg6',2,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1694375569/bwwr02flhqvsn86pmnje.jpg','NGUYEN TOAN MY','0826523439','Tiền Giang','2051050075duy@ou.edu.vn','2002-02-22','Nam'),(37,'yenvidoctor','$2a$10$OwAuMcU5TS.7y4yx2LGLlOzNUF3O5EoLupgNw47Yg4oapmFDN5g12',2,'https://res.cloudinary.com/dstqvlt8d/image/upload/v1694377815/aoyi4vvmm22u0ebkheci.jpg','PHAN THI YEN VI','0826523439','Gia Lai','2051050075duy@ou.edu.vn','2002-02-22','Nam');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -430,4 +430,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-28 16:10:07
+-- Dump completed on 2023-09-11 12:40:12
