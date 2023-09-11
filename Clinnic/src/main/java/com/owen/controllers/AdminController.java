@@ -175,7 +175,8 @@ public class AdminController {
     }
 
     @GetMapping("/admin/saplichlam")
-    public String lichlam(Model model, Authentication authentication) {
+    public String lichlam(Model model, Authentication authentication ) {
+//        msg = null;
         List<Date> dateList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Đặt ngày là thứ Hai
@@ -195,7 +196,7 @@ public class AdminController {
             model.addAttribute("admin", u);
 
         }
-        model.addAttribute("msg", "kho loi");
+//        model.addAttribute("msg", msg);
         return "saplichlam";
     }
 

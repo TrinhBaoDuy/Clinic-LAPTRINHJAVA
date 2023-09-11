@@ -238,9 +238,10 @@
         margin-right: 20px;
     }
     .search-container input{
-        width: 50%;
-        border-radius: 10px;
-        border-width: 1px;
+height: 40px;
+    width: 30%;
+    border-radius: 10px;
+    border-width: 0px;
     }
 
     .search-button{

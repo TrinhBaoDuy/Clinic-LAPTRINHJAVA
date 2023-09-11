@@ -52,4 +52,12 @@ public interface AppointmentService {
 
     boolean deleteAppo(int id);
 
+    List<Appointment> getAppointmentsbyDoctorfordelete(User u);
+
+    List<Appointment> getAppointmentsbyNursefordelete(User u);
+
+    List<Appointment> getAppointmentsbySickPersonfordelete(User u);
+    
+    List<Appointment> getAppointmentsbyIDPrefordelete(int id);
+
 }

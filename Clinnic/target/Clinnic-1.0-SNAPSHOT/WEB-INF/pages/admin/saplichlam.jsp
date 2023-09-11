@@ -66,11 +66,11 @@
 
     </table>
 </div>
-<c:if test="${msg != null}">
+<%--<c:if test="${msg != null}">
     <div>
         ${msg}
     </div>
-</c:if>
+</c:if>--%>
 <h2>Lịch làm đã xác nhận</h2>
 
 <table>

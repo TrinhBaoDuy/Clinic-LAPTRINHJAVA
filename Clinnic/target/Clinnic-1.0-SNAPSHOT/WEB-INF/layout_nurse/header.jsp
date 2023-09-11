@@ -76,7 +76,7 @@
 
     .navbar-collapse {
         justify-content: flex-end;
-        padding-left: 45%;
+       padding-left: 35%!important;
     }
 
     .navbar-nav .nav-item {

@@ -14,4 +14,5 @@ import java.util.List;
 public interface ServiceItemRepository {
     boolean addOrUpdateServiceItem(ServiceItems m,int id);
     List<ServiceItems> getServicecbyAppoID(int id);
+    boolean deleteServiceItems(int id);
 }

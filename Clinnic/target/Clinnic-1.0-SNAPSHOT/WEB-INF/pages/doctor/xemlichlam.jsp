@@ -33,7 +33,7 @@
 
         </div>
     </div>
-    <script src="<c:url value="/js/dongho.js" />"></script>
+<!--    <script src="<c:url value="/js/dongho.js" />"></script>
     <div class="contentright">
         <h1>Lịch làm đã đăng ký </h1>
         <p>Giờ hiện tại: <span id="current-time"></span></p>
@@ -44,7 +44,7 @@
                     <th>Ca làm</th>
                     <th>Thời gian bắt đầu</th>
                     <th>Thời gian kết ca</th>
-                    <th>Nút</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -60,8 +60,8 @@
             </tbody>
         </table>
 
-    </div>
-    <div>
+    </div>-->
+    <div class="contentright contentright2 ">
         <h1>Lịch làm hiện tại </h1>
         <p>Giờ hiện tại: <span id="current-time"></span></p>
         <table class=" table ">
@@ -71,7 +71,7 @@
                     <th>Ca làm</th>
                     <th>Thời gian bắt đầu</th>
                     <th>Thời gian kết ca</th>
-                    <th>Nút</th>
+<!--                    <th>Nút</th>-->
                 </tr>
             </thead>
             <tbody>
@@ -81,7 +81,7 @@
                         <td>${t.shiftId.name}</td>
                         <td>${t.shiftId.start}</td>
                         <td>${t.shiftId.end}</td>
-                        <td><a href="<c:url value="/doctor/xemlichlam/huy/${t.id}"/>" >Hủy</a></td>
+                        <!--<td><a href="<c:url value="/doctor/xemlichlam/huy/${t.id}"/>" >Hủy</a></td>-->
                     </tr>
                 </c:forEach>
             </tbody>
@@ -89,6 +89,34 @@
     </div>
 
 </div>
+    <script src="<c:url value="/js/dongho.js" />"></script>
+    <div class="contentright contentright1">
+        <h1>Lịch làm đã đăng ký </h1>
+        <p>Giờ hiện tại: <span id="current-time"></span></p>
+        <table class=" table ">
+            <thead>
+                <tr>
+                    <th>Ngày làm</th>
+                    <th>Ca làm</th>
+                    <th>Thời gian bắt đầu</th>
+                    <th>Thời gian kết ca</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${lichhientaica}" var="t">
+                    <tr>
+                        <td>${t.dateSchedule}</td>
+                        <td>${t.shiftId.name}</td>
+                        <td>${t.shiftId.start}</td>
+                        <td>${t.shiftId.end}</td>
+                        <td class="bthuy"><button><a href="<c:url value="/doctor/xemlichlam/huy/${t.id}"/>" >Hủy</a></button></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+    </div>
 <style>
     .checkbox1,.checkbox2,.checkbox3{
         margin: 0 20px;
@@ -186,6 +214,38 @@
         width: 20px;
 
     }
+    .contentright1{
+        margin: 0 auto!important;
+    width: 93%!important;
+    
+    }
+    .contentright2{
+        margin-right: 31px;
+    }
+    
+    .bthuy {
+  text-align: center;
+}
+
+.bthuy button {
+  padding: 8px 16px;
+  background-color: #0080ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bthuy button a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.bthuy button:hover {
+  background-color: #0059b3;
+}
+ 
 
 
 

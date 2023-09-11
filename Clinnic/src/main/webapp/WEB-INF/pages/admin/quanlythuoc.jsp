@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3 mt-3 bt1">
-                        <button class="btn btn-info bt2" type="submit">
+                        <button class="btn btn-success" type="submit">
                             <c:choose>
                                 <c:when test="${medicien.id == null}">Thêm sản phẩm</c:when>
                                 <c:otherwise>Cập nhật sản phẩm</c:otherwise>
@@ -169,6 +169,7 @@
 .container {
     margin: 0 auto;
     padding: 20px;
+        margin-left: 50px;
 }
 
 .form-group {
@@ -242,8 +243,10 @@
     width: 20%;
 }
 .infoMe{
-    width: 80%;
-    padding-left: 40px;
+    width: 100%;
+     
+    margin-right: -15%;
+    margin-left: 50px;
 }
 .infoMeSearch{
     display: flex;

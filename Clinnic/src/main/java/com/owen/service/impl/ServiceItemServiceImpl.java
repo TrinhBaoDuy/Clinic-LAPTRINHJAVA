@@ -31,6 +31,11 @@ public class ServiceItemServiceImpl implements ServiceItemService{
         return this.serviceItemRepository.getServicecbyAppoID(id);
     }
 
+    @Override
+    public boolean deleteServiceItems(int id) {
+        return this.serviceItemRepository.deleteServiceItems(id);
+    }
+
     
     
 }

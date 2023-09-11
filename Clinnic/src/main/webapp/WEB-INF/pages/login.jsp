@@ -45,53 +45,7 @@
 </form>
     </div>
 <style>
-
-/*    .login{
-        display: flex;
-        padding: 10px;
-    }
-    .img_login{
-        width: 40%;
-    }
-    .mainLogin {
-        background-color: white;
-        font-family: Arial, sans-serif;
-                display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        width: 60%
-    }
-    .mainLogin p{
-        font-family: 'Charcoal', sans-serif;
-        font-size: 48px;
-        color: #fff;
-
-        letter-spacing: 3px;
-        font-weight: bold;
-
-        background: blue;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        transition: all 0.3s ease;
-    }
-    .mainLogin div{
-        padding: 20px;
-        margin: 20px;
-    }
-    .login-container {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        text-align: center;
-    }
-
-
-    form-floating mt-3 mb-3:hover {
-        background-color: #45a049;
-    }*/
+ 
 .border{
     display: flex;
     border: 0.5px solid #5AAC4E;

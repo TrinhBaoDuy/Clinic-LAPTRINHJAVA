@@ -20,6 +20,7 @@
         <p th:text="${errorMessage}"></p>
     </div>
     <div class="infor1">
+        <div class="div1">
         <nav class="bookingleft">
             <div class="dkk1">
                 <div class="booking1">
@@ -35,16 +36,29 @@
                         <h5>Địa chỉ: ${nurse.address}</h5>
                         <h5>Email: ${nurse.emaill}</h5>
                         <h5>Giới tính: ${nurse.sex}</h5>
-                        <div>
+<!--                        <div class="paypal">
                             <c:forEach items="${thanhtoan}" var="tk">
                                 <h1>Hóa đơn ${tk.id} vừa khám xong <a><a href="<c:url value="/nurse/thanhtoan/${tk.id}" />">nhấn</a> để thanh toán hóa đơn</h1>
                             </c:forEach>
-                        </div>
+                        </div>-->
                     </div>
 
                 </div>
             </div>
         </nav>
+                        <div class="bookingright right1">
+                            <div class="imgright1"><img src="https://res.cloudinary.com/dstqvlt8d/image/upload/v1694333894/Stock_Image__Business_Finance_dm4j3i.jpg" alt=""/> </div>
+        <div class="paypal">
+            <h1>Thanh Toán Hóa Đơn</h1>
+            <hr> 
+            <c:forEach items="${thanhtoan}" var="tk">
+                <h10>Hóa đơn ${tk.id} vừa khám xong <a href="<c:url value="/nurse/thanhtoan/${tk.id}" />">nhấn</a> để thanh toán hóa đơn</h10><br>
+            </c:forEach>
+        </div>
+                        </div>
+        </div>
+                        
+                        
         <div class="tb1"   >    
 
             <nav class="table1">
@@ -114,19 +128,19 @@
 
                     <div class="form-floating mb-3 mt-3">
                         <form:input type="text" class="form-control" 
-                                    path="id" id="id"/>
+                                    path="id" id="id" readonly="true"/>
                         <label for="name">Mã</label>
 
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <form:input type="text" class="form-control" 
-                                    path="sickpersonId" id="sickpersonId"/>
-                        <label for="name">Mã thằng bệnh</label>
+                                    path="sickpersonId" id="sickpersonId" readonly="true"/>
+                        <label for="name">Mã bệnh nhân</label>
 
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <form:input value="${nurse.id}" type="text" class="form-control" 
-                                    path="nurseId" id="nurseId"/>
+                                    path="nurseId" id="nurseId" readonly="true"/>
                         <label for="name">Mã y tá</label>
 
                     </div>
@@ -585,7 +599,39 @@
         background-color: green;
     }
 
-    
+    .paypal {
+        text-align: center; 
+        padding: 10px; /* Khoảng cách giữa nội dung và viền */
+    }
+
+    .paypal h1 {
+        font-size: 18px; /* Kích thước chữ */
+        margin: 0; /* Xóa khoảng cách giữa các phần tử h1 */
+    }
+
+    .paypal a {
+        color: #0080ff; /* Màu chữ */
+        text-decoration: none; /* Loại bỏ gạch chân */
+    }
+
+    .paypal a:hover {
+        text-decoration: underline; /* Gạch chân khi hover */
+    }
+    .div1{
+        display: flex;
+            
+    }
+    .right1{
+        display: flex!important;
+    }
+    .imgright1{
+        width: 21%;
+    }
+    .imgright1 img{
+        width: 100%;
+    }
+
+
 
 
 

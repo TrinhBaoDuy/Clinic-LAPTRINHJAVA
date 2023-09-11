@@ -4,8 +4,12 @@
  */
 package com.owen.service.impl;
 
+import com.owen.pojo.Appointment;
 import com.owen.pojo.Prescription;
+import com.owen.pojo.PrescriptionItem;
 import com.owen.repository.PrescriptionRepository;
+import com.owen.service.AppointmentService;
+import com.owen.service.PrescriptionItemService;
 import com.owen.service.PrescriptionService;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +26,12 @@ public class PrescriptionServiceImpl implements  PrescriptionService{
     @Autowired
     private PrescriptionRepository prescriptionRepository;
     
+    @Autowired
+    private PrescriptionItemService PrescriptionItemService;
+    
+    @Autowired
+    private AppointmentService appointmentService;
+    
     @Override
     public List<Prescription> getPrescriptions(Map<String, String> params) {
         return this.prescriptionRepository.getPrescriptions(params);
@@ -33,7 +43,7 @@ public class PrescriptionServiceImpl implements  PrescriptionService{
     }
 
     @Override
-    public boolean deletePrescription(int id) {
+    public boolean deletePrescription(int id) {  
         return this.prescriptionRepository.deletePrescription(id);
     }
 

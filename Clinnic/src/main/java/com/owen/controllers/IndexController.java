@@ -5,6 +5,7 @@
 package com.owen.controllers;
 
 
+import com.owen.pojo.User;
 import com.owen.service.RoleService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import com.owen.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -41,8 +44,24 @@ public class IndexController {
 
     @RequestMapping("/")
     @Transactional
-    public String index(Model model, @RequestParam Map<String, String> params) {
-        
+    public String index(Model model, Authentication authentication) {
+         if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            if(u.getRoleId().getId().equals(1)){
+                model.addAttribute("admin", u);
+                return "indexadmin";
+            }
+            if(u.getRoleId().getId().equals(2)){
+                model.addAttribute("doctor", u);
+                return "indexbacsi";
+            }
+            if(u.getRoleId().getId().equals(3)){
+                model.addAttribute("nurse", u);
+                return "indexyta";
+            }
+            
+        }
         return "index";
     }
     

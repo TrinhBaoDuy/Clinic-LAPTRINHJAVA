@@ -33,6 +33,7 @@ public interface ScheduleRepository {
     List<Date> getScheduleofUser(User user, List<Date> dates, int idshift);
     List<ScheduleDetail> getSchedulesofUser(User user, List<Date> dates);
     List<ScheduleDetail> getScheduleNowofUser(User user, List<Date> dates);
+    List<ScheduleDetail> getScheduleDetailsByTaiKhoanfordelete(User user);
 
 
 }

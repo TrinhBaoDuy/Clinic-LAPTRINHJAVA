@@ -139,6 +139,59 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         Query query = session.createQuery(criteria);
         return query.getResultList();
     }
+    
+    @Override
+    public List<Appointment> getAppointmentsbyDoctorfordelete(User u) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
+        Root<Appointment> root = criteria.from(Appointment.class);
+        Predicate doctorPredicate = builder.equal(root.get("doctorId"), u.getId());
+        Predicate finalPredicate = builder.and(doctorPredicate);
+        criteria.select(root).where(finalPredicate);
+        Query query = session.createQuery(criteria);
+        return query.getResultList();
+    }
+    
+    @Override
+    public List<Appointment> getAppointmentsbyIDPrefordelete(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
+        Root<Appointment> root = criteria.from(Appointment.class);
+        Predicate doctorPredicate = builder.equal(root.get("prescriptionId"), id);
+        Predicate finalPredicate = builder.and(doctorPredicate);
+        criteria.select(root).where(finalPredicate);
+        Query query = session.createQuery(criteria);
+        return query.getResultList();
+    }
+    
+    @Override
+    public List<Appointment> getAppointmentsbyNursefordelete(User u) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
+        Root<Appointment> root = criteria.from(Appointment.class);
+        Predicate doctorPredicate = builder.equal(root.get("nurseId"), u.getId());
+        Predicate finalPredicate = builder.and(doctorPredicate);
+        criteria.select(root).where(finalPredicate);
+        Query query = session.createQuery(criteria);
+        return query.getResultList();
+    }
+    
+    @Override
+    public List<Appointment> getAppointmentsbySickPersonfordelete(User u) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> criteria = builder.createQuery(Appointment.class);
+        Root<Appointment> root = criteria.from(Appointment.class);
+        Predicate doctorPredicate = builder.equal(root.get("sickpersonId"), u.getId());
+        Predicate finalPredicate = builder.and(doctorPredicate);
+        criteria.select(root).where(finalPredicate);
+        Query query = session.createQuery(criteria);
+        return query.getResultList();
+    }
+    
 
     @Override
     public List<Object[]> getAppointmentServiceByDoctor(User doctor) {

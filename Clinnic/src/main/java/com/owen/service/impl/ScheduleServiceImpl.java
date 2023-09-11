@@ -93,6 +93,11 @@ public class ScheduleServiceImpl implements ScheduleService{
     public List<ScheduleDetail> getScheduleNowofUser(User user, List<Date> dates) {
          return this.scheduleRepository.getScheduleNowofUser(user, dates);
     }
+
+    @Override
+    public List<ScheduleDetail> getScheduleDetailsByTaiKhoanfordelete(User user) {
+          return this.scheduleRepository.getScheduleDetailsByTaiKhoanfordelete(user);
+    }
     
 }
 

@@ -17,12 +17,15 @@
             <div class="imglogo">
                 <img src=" https://res.cloudinary.com/dstqvlt8d/image/upload/v1692731869/zyro-image_ukyhu5.png" alt="logo">
                 <h2>Toa Thuốc</h2>
-
             </div>
             <hr>
             <nav class="bookingright ">
                 <div class="dkk2">
-
+                    <c:if test="${msg != null}">
+                        <div class="loi">
+                            <h3>${msg}</h3>
+                        </div>
+                    </c:if>
                     <div class="contentdkk3  "  >
 
                         <div class='content1'>
@@ -67,7 +70,9 @@
                                                         <form:hidden path="medicineId" value="${ds.id}"/>
                                                         <form:hidden path="prescriptionId"/>
                                                         <div class="overlay-content">
+
                                                             <a class="huy" href="<c:url value="/doctor/khambenh/kethuoc/${appo.id}" />">X</a>
+
                                                             <input name="PreId" value="${appo.id}" type="hidden"/>
                                                             <h1>${ds.id}-${ds.name}</h1>
                                                             <div>
@@ -131,10 +136,10 @@
                 </button>
 
             </div>
-            <div class="submitbooking ">
-                <button class="btsearch2" onclick="hoi()">NEXT</button>
-            </div>
-            <div>
+            <!--            <div class="submitbooking ">
+                            <button class="btsearch2" onclick="hoi()">NEXT</button>
+                        </div>-->
+            <div >
                 <form:form id="taohoadon"  method="post" modelAttribute="hoadonmoi" action="${actionhd}">
                     <form:hidden path="id" />
                     <form:hidden path="payMoney"/>
@@ -142,8 +147,8 @@
                     <form:hidden path="payId" />
                     <form:hidden path="tienkham" value="1"/>
                     <input type="hidden" name="PreId" value="${appo.id}" />
-                    <div class="submitbooking ">
-                        <button>Tạo hóa đơn và rời khỏi </button>
+                    <div class="submitbooking " >
+                        <button class="btsearch2">Tạo hóa đơn và rời khỏi </button>
                     </div>
                 </form:form>
             </div>
@@ -187,7 +192,18 @@
 
 <style>
 
+    .loi {
+        background-color: #ffdddd;
+        padding: 10px;
+        margin-top: 10px;
+        text-align: center;
+        border-radius: 10px;
+    }
 
+    .loi h3 {
+        color: #ff0000;
+        font-size: 16px;
+    }
 
 
     CSS cho trang đè
@@ -203,6 +219,8 @@
         justify-content: center;
         align-items: center;
         z-index: 9999;
+        pointer-events: none;
+        opacity: 1px;
     }
 
     .overlay-content {
@@ -241,6 +259,8 @@
         border-radius: 30px;
         margin: 30px;
         background-color: #F5FFFA;
+        position: relative;
+        z-index: 1;
 
     }
     .add{
@@ -471,6 +491,24 @@
     .addButton2{
         padding-left:40px;
         margin-left: 35%!important;
+    }
+    a.huy {
+
+        color: #000;
+        text-decoration: none;
+        margin-left: 91%;
+        padding: 5px 10px;
+
+
+        background-color: #fff;
+        border: 1px solid #000;
+
+
+    }
+
+    a.huy:hover {
+        background-color: #000;
+        color: #fff;
     }
 
 

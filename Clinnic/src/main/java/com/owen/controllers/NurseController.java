@@ -202,7 +202,7 @@ public class NurseController {
     }
 
     @GetMapping("/nurse/thanhtoan/{id}")
-    public String thanhtoan(Model model, @PathVariable(value = "id") int id) {
+    public String thanhtoan(Model model, @PathVariable(value = "id") int id,Authentication authentication) {
         model.addAttribute("appo", this.appointmentService.getAppointmentById(id));
         Appointment a = this.appointmentService.getAppointmentById(id);
         int idPre = a.getPrescriptionId().getId();
@@ -213,6 +213,11 @@ public class NurseController {
         model.addAttribute("dichvu", this.serviceItemService.getServicecbyAppoID(id));
         model.addAttribute("pay", this.paymentService.getPayments());
         model.addAttribute("bill", this.billService.getBillByApoId(id));
+        if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("nurse", u);
+        }
         return "thanhtoan";
     }
 

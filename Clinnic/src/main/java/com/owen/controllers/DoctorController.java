@@ -27,6 +27,8 @@ import com.owen.service.ServiceItemService;
 import com.owen.service.ServiceService;
 import com.owen.service.ShiftService;
 import com.owen.service.UserService;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -171,14 +173,21 @@ public class DoctorController {
 
     @GetMapping("/doctor/khambenh/kethuoc/{id}")
     public String kethuocid(Model model, Authentication authentication,
-            @RequestParam Map<String, String> params, @PathVariable(value = "id") int id
+            @RequestParam Map<String, String> params, @PathVariable(value = "id") int id,
+            @RequestParam(name = "msg", required = false) String msg
     ) {
+        model.addAttribute("msg", msg);
         model.addAttribute("hoadonmoi", new Bill());
         model.addAttribute("getmediciens", this.medicineService.getMediciness(params));
         model.addAttribute("appo", this.appointmentService.getAppointmentById(id));
         model.addAttribute("phieuthuoc", new PrescriptionItem());
         Appointment a = this.appointmentService.getAppointmentById(id);
         model.addAttribute("dsthuoc", this.prescriptionItemService.getPrescriptionsbyIDPres(a.getPrescriptionId().getId()));
+         if (authentication != null) {
+            UserDetails user = this.userService.loadUserByUsername(authentication.getName());
+            User u = this.userService.getUserByUsername(user.getUsername());
+            model.addAttribute("doctor", u);
+         }
         return "kethuoc";
     }
 
@@ -186,19 +195,26 @@ public class DoctorController {
     public String update(@ModelAttribute(value = "phieuthuoc")
             @Valid PrescriptionItem phieuthuoc, @RequestParam(value = "PreId") int id,
             BindingResult rs
-    ) {
-        if (!rs.hasErrors()) {
-            if (this.prescriptionItemService.addOrUpdatePrescriptionItem(phieuthuoc, id) == true) {
-                Medicine medicine = this.medicineService.getMedicineById(phieuthuoc.getMedicineId().getId());
-                int soluongthuoc = medicine.getQuantity();
-                int soluongban = phieuthuoc.getQuantity();
-                int soluongupdate = soluongthuoc - soluongban;
-                medicine.setQuantity(soluongupdate);
-                this.medicineService.addOrUpdateMedicine(medicine); //
-                return "redirect:/doctor/khambenh/kethuoc/" + id;
+    ) throws UnsupportedEncodingException {
+        String msg = "";
+        if (phieuthuoc.getQuantity() != null && phieuthuoc.getInstructions() != null) {
+            if (!rs.hasErrors()) {
+                if (this.prescriptionItemService.addOrUpdatePrescriptionItem(phieuthuoc, id) == true) {
+                    Medicine medicine = this.medicineService.getMedicineById(phieuthuoc.getMedicineId().getId());
+                    int soluongthuoc = medicine.getQuantity();
+                    int soluongban = phieuthuoc.getQuantity();
+                    int soluongupdate = soluongthuoc - soluongban;
+                    medicine.setQuantity(soluongupdate);
+                    this.medicineService.addOrUpdateMedicine(medicine); //
+                    return "redirect:/doctor/khambenh/kethuoc/" + id;
+                }
             }
+            msg = "BindingResult lỗi rồi bạn ơi";
+            return "redirect:/doctor/khambenh/kethuoc/" + id + "?msg=" + URLEncoder.encode(msg, "UTF-8");
+        }else{
+            msg = "Nhập thiếu dữ liệu khi kê thuốc cho bệnh nhân";
+            return "redirect:/doctor/khambenh/kethuoc/" + id + "?msg=" + URLEncoder.encode(msg, "UTF-8");
         }
-        return "doctor";
     }
 
     @PostMapping("/doctor/khambenh/kethuoc/taohoahon")
@@ -276,24 +292,24 @@ public class DoctorController {
 //            Font unicodeContentFont = new Font(unicodeFont, 12, Font.NORMAL);
 
             // Tiêu đề
-            Paragraph title = new Paragraph("PHÒNG MẠCH PISCEL", titleFont);
+            Paragraph title = new Paragraph("PHONG MACH PISCEL", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
 
             // Thông tin bệnh nhân
-            Paragraph patientInfo = new Paragraph("Bệnh nhân: " + tenBenhnhan, headerFont);
+            Paragraph patientInfo = new Paragraph("Benh nhan: " + tenBenhnhan, headerFont);
             document.add(patientInfo);
 
             // Thông tin bác sĩ
-            Paragraph doctorInfo = new Paragraph("Bác sĩ: " + tenBacsi, headerFont);
+            Paragraph doctorInfo = new Paragraph("Bac si: " + tenBacsi, headerFont);
             document.add(doctorInfo);
 
             // Chẩn đoán
-            Paragraph diagnosis = new Paragraph("Chuẩn đoán: " + chuanDoan, headerFont);
+            Paragraph diagnosis = new Paragraph("Chuan doan: " + chuanDoan, headerFont);
             document.add(diagnosis);
 
             // Danh sách thuốc
-            Paragraph prescriptionHeading = new Paragraph("Danh sách thuốc:", headerFont);
+            Paragraph prescriptionHeading = new Paragraph("Danh sach thuoc:", headerFont);
             document.add(prescriptionHeading);
 
             for (PrescriptionItem item : thuoc) {

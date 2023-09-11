@@ -73,5 +73,19 @@ public class ServiceItemRepositoryImpl implements ServiceItemRepository {
 
         return session.createQuery(query).getResultList();
     }
+    
+    @Override
+    public boolean deleteServiceItems(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        ServiceItems ser = session.get(ServiceItems.class, id);
+        try {
+            session.delete(ser);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+
+    }
 
 }

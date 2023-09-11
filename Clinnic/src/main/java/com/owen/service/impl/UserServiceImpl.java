@@ -6,6 +6,8 @@ package com.owen.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.owen.pojo.Appointment;
+import com.owen.pojo.Prescription;
 import com.owen.pojo.Role;
 import com.owen.pojo.ScheduleDetail;
 import com.owen.pojo.Shift;
@@ -17,6 +19,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.owen.repository.UserRepository;
+import com.owen.service.AppointmentService;
+import com.owen.service.PrescriptionService;
+import com.owen.service.ScheduleService;
 import com.owen.service.UserService;
 import java.io.IOException;
 import java.text.ParseException;
@@ -57,7 +62,13 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private ScheduleRepository scheduleRepository;
+    private ScheduleService scheduleService;
+    
+    @Autowired
+    private AppointmentService AppointmentService;
+    
+    @Autowired
+    private PrescriptionService PrescriptionService;
 
     @Override
     public List<User> getUsers(Map<String, String> params) {
@@ -71,6 +82,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUser(int id) {
+        if(this.scheduleService.getScheduleDetailsByTaiKhoanfordelete(this.userRepo.getUserById(id))!= null){
+            List<ScheduleDetail> ds = this.scheduleService.getScheduleDetailsByTaiKhoanfordelete(this.userRepo.getUserById(id));
+            for(ScheduleDetail lich : ds){
+                this.scheduleService.deleteScheduleDetail(lich.getId());
+            }
+        }
+        if(this.userRepo.getUserById(id).getRoleId().getId() == 2){
+           List<Appointment> ds = this.AppointmentService.getAppointmentsbyDoctorfordelete(this.userRepo.getUserById(id));
+           for(Appointment lich : ds){
+                this.AppointmentService.deleteAppo(lich.getId());
+                this.PrescriptionService.deletePrescription(lich.getPrescriptionId().getId());
+            }
+        }
+        if(this.userRepo.getUserById(id).getRoleId().getId() == 3){
+           List<Appointment> ds = this.AppointmentService.getAppointmentsbyNursefordelete(this.userRepo.getUserById(id));
+           for(Appointment lich : ds){
+                this.AppointmentService.deleteAppo(lich.getId());
+                this.PrescriptionService.deletePrescription(lich.getPrescriptionId().getId());
+            }
+        }
+        if(this.userRepo.getUserById(id).getRoleId().getId() == 4){
+           List<Appointment> ds = this.AppointmentService.getAppointmentsbySickPersonfordelete(this.userRepo.getUserById(id));
+           for(Appointment lich : ds){
+                this.AppointmentService.deleteAppo(lich.getId());
+                this.PrescriptionService.deletePrescription(lich.getPrescriptionId().getId());
+            }
+        }
         return this.userRepo.deleteUser(id);
     }
 
@@ -110,51 +148,52 @@ public class UserServiceImpl implements UserService {
         return this.userRepo.getUserById(id);
     }
 
-    @Override
+   @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User u = this.userRepo.getUserByUsername(username);
         if (u == null) {
-            throw new UsernameNotFoundException("Invalid");
+            throw new UsernameNotFoundException("Tài khoản không tồn tại!");
         }
-        boolean canLogin = true;
-//        boolean canLogin = false;
-//
-//        List<ScheduleDetail> listTgTruc = this.scheduleRepository.getScheduleDetailsByTaiKhoan(u);
-//
-//        if (listTgTruc.isEmpty()) {
-//            canLogin = true;
-//        } else {
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-//
-//            Date currentDate = new Date();
-//            Date currentTime = new Date();
-//
-//            String formattedDate = formatter.format(currentDate);
-//            String currentTimeStr = timeFormat.format(currentTime);
-//
-//            try {
-//                Date ngayHienTai = formatter.parse(formattedDate);
-//                Date gioHienTai = timeFormat.parse(currentTimeStr);
-//
-//                for (ScheduleDetail chiTiet : listTgTruc) {
-//
-//                    Shift thoiGianTruc = chiTiet.getShiftId();
-//
-//                    Date startTime = thoiGianTruc.getStart();
-//                    Date endTime = thoiGianTruc.getEnd();
-//
-//                    Date ngayDkyTruc = chiTiet.getDateSchedule();
-//
-//                    if (ngayDkyTruc.equals(ngayHienTai) && gioHienTai.after(startTime) && gioHienTai.before(endTime)) {
-//                        canLogin = true;
-//                        break;
-//                    }
-//                }
-//            } catch (ParseException ex) {
-//                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, "Lỗi khi phân tích ngày tháng", ex);
-//            }
-//        }
+
+        boolean canLogin = false;
+        List<ScheduleDetail> chiTietThoiGianTrucList = this.scheduleService.getScheduleDetailsByTaiKhoan(u);
+        if (chiTietThoiGianTrucList.isEmpty()) {
+            canLogin = true;
+        } else {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+            Date currentDate = new Date();
+            Date currentTime = new Date();
+
+            String formattedDate = formatter.format(currentDate);
+            String currentTimeStr = timeFormat.format(currentTime);
+
+            try {
+                Date ngayHienTai = formatter.parse(formattedDate);
+                Date gioHienTai = timeFormat.parse(currentTimeStr);
+
+                for (ScheduleDetail chiTietThoiGianTruc : chiTietThoiGianTrucList) {
+
+                    Shift thoiGianTruc = chiTietThoiGianTruc.getShiftId();
+
+                    Date startTime = thoiGianTruc.getStart();
+                    Date endTime = thoiGianTruc.getEnd();
+
+                    Date ngayDkyTruc = chiTietThoiGianTruc.getDateSchedule();
+                    
+                    boolean check1 = ngayDkyTruc.equals(ngayHienTai);
+                    boolean check2 = gioHienTai.after(startTime);
+                    boolean check3 =  gioHienTai.before(endTime);
+                        if (check1 == true && check2 == true && check3 == true) {
+                        canLogin = true;
+                        break;
+                    }
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, "Lỗi khi phân tích ngày tháng", ex);
+            }
+        }
         if (canLogin) {
             Set<GrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority(u.getRoleId().getName()));
@@ -164,64 +203,6 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("Không thể đăng nhập vào lúc này!");
         }
     }
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User u = this.userRepo.getUserByUsername(username);
-//        if (u == null) {
-//            throw new UsernameNotFoundException("Invalid");
-//        }
-//
-//        boolean canLogin = false;
-//
-//        List<ScheduleDetail> listTgTruc = this.scheduleRepository.getScheduleDetailsByTaiKhoan(u);
-//
-//        if (listTgTruc.isEmpty()) {
-//            canLogin = true;
-//        } else {
-//            LocalDate currentDate = LocalDate.now();
-//            LocalTime currentTime = LocalTime.now();
-//            Calendar calendar = Calendar.getInstance();
-//
-//            for (ScheduleDetail chiTiet : listTgTruc) {
-//                Shift thoiGianTruc = chiTiet.getShiftId();
-//
-//                Date dateDkyTruc = chiTiet.getDateSchedule();
-//                calendar.setTime(dateDkyTruc);
-//                int year = calendar.get(Calendar.YEAR);
-//                int month = calendar.get(Calendar.MONTH) + 1;
-//                int day = calendar.get(Calendar.DAY_OF_MONTH);
-//                LocalDate ngayDkyTruc = LocalDate.of(year, month, day);
-//
-//                Date start = thoiGianTruc.getStart();
-//                calendar.setTime(start);
-//                int startHour = calendar.get(Calendar.HOUR_OF_DAY);
-//                int startMinute = calendar.get(Calendar.MINUTE);
-//                int startSecond = calendar.get(Calendar.SECOND);
-//                LocalTime startTime = LocalTime.of(startHour, startMinute, startSecond);
-//
-//                Date end = thoiGianTruc.getEnd();
-//                calendar.setTime(end);
-//                int endHour = calendar.get(Calendar.HOUR_OF_DAY);
-//                int endMinute = calendar.get(Calendar.MINUTE);
-//                int endSecond = calendar.get(Calendar.SECOND);
-//                LocalTime endTime = LocalTime.of(endHour, endMinute, endSecond);
-//
-//                if (ngayDkyTruc.equals(currentDate) && currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
-//                    canLogin = true;
-//                    break;
-//                }
-//            }
-//        }
-//
-//        if (canLogin) {
-//            Set<GrantedAuthority> authorities = new HashSet<>();
-//            authorities.add(new SimpleGrantedAuthority(u.getRoleId().getName()));
-//            return new org.springframework.security.core.userdetails.User(
-//                    u.getUsername(), u.getPassword(), authorities);
-//        } else {
-//            throw new UsernameNotFoundException("Không thể đăng nhập vào lúc này!");
-//        }
-//    }
 
     @Override
     public User getUserByUsername(String username) {

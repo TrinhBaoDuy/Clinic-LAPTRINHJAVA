@@ -30,6 +30,7 @@
         <button type="submit" >Thống kê</button>
     </form>
     <h2>Thống kê doanh thu theo tháng của năm ${um}</h2>
+    <div class="chart">
     <canvas id="monthlyRevenueChart"></canvas>
 
     <table>
@@ -48,7 +49,9 @@
             </c:forEach>
         </tbody>
     </table>
+    </div>
     <h2>Thống kê doanh thu theo quý của năm ${um}</h2>
+    <div class="chart">
     <canvas id="quarterlyRevenueChart"></canvas>
     <table>
         <thead>
@@ -66,6 +69,8 @@
             </c:forEach>
         </tbody>
     </table>
+    </div>
+    
 
 
     <script>
@@ -129,15 +134,89 @@
 </main>
 
 <style>
-    h1, h2 {
+   h1, h2 {
         text-align: center;
     }
 
     canvas {
         display: block;
-        margin: 0 auto;
+        margin: 50px;
         max-width: 600px;
         max-height: 400px;
+    }
+    .table {
+        /*  margin: 20px auto;
+          max-width: 600px;*/
+        text-align: center;
+    }
+
+    .table h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .table form {
+        margin-bottom: 20px;
+    }
+
+    .table form label {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .table form select {
+        padding: 4px;
+    }
+
+    .table form button {
+        padding: 8px 16px;
+        background-color: #0080ff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .table form button:hover {
+        background-color: #0059b3;
+    }
+
+    .table h2 {
+        font-size: 20px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .table canvas {
+        margin-top: 10px;
+    }
+
+    .table table {
+        width: 100%;
+        margin-right: 128px;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .table th,
+    .table td {
+        padding: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .table th {
+        font-weight: bold;
+        background-color: #f5f5f5;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    .chart{
+        display: flex;
+        padding-left: 216px;
     }
 </style>
 

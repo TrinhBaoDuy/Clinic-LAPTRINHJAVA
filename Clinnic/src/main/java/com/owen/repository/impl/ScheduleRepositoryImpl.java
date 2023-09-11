@@ -443,5 +443,21 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
         return listInt;
     }
+    
+    @Override
+    public List<ScheduleDetail> getScheduleDetailsByTaiKhoanfordelete(User user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ScheduleDetail> query = builder.createQuery(ScheduleDetail.class);
+        Root<ScheduleDetail> root = query.from(ScheduleDetail.class);
+        query.select(root);
+        Predicate userPredicate = builder.equal(root.get("userId"), user.getId());
+        // Kết hợp các điều kiện với nhau
+        Predicate finalPredicate = builder.and(userPredicate);
+
+        query.where(finalPredicate);
+        Query typedQuery = session.createQuery(query);
+        return typedQuery.getResultList();
+    }
 
 }
