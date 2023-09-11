@@ -5,8 +5,10 @@
 package com.owen.service.impl;
 
 import com.owen.pojo.Medicine;
+import com.owen.pojo.PrescriptionItem;
 import com.owen.repository.MedicineRepository;
 import com.owen.service.MedicineService;
+import com.owen.service.PrescriptionItemService;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class MedicineServiceImpl implements MedicineService{
     
     @Autowired
     private MedicineRepository medicineRepository;
+    
+    @Autowired
+    private PrescriptionItemService PrescriptionItemService;
 
     @Override
     public List<Object> getMediciness(Map<String, String> params) {
@@ -34,6 +39,12 @@ public class MedicineServiceImpl implements MedicineService{
 
     @Override
     public boolean deleteMedicine(int id) {
+        if(this.PrescriptionItemService.getPrescriptionsbyIDMedicine(id)!=null){
+            List<PrescriptionItem> ds = this.PrescriptionItemService.getPrescriptionsbyIDMedicine(id);
+            for( PrescriptionItem pre : ds){
+                this.PrescriptionItemService.deletePres(pre.getId());
+            }
+        }
         return this.medicineRepository.deleteMedicine(id);
     }
 

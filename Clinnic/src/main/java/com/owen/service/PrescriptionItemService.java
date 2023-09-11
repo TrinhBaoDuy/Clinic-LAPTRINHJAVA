@@ -16,4 +16,5 @@ public interface PrescriptionItemService {
     
     List<PrescriptionItem> getPrescriptionsbyIDPres(int id);
     boolean deletePres(int id);
+     List<PrescriptionItem> getPrescriptionsbyIDMedicine(int id);
 }

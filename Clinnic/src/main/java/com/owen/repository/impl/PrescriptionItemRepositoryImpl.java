@@ -41,7 +41,7 @@ public class PrescriptionItemRepositoryImpl implements PrescriptionItemRepositor
         Session s = this.factory.getObject().getCurrentSession();
         Appointment p = s.get(Appointment.class, id);
         try {
-            if (m.getId() == null ) {
+            if (m.getId() == null) {
                 s.save(m);
                 m.setPrescriptionId(p.getPrescriptionId());
                 p.setMedicalappointmentDate(new Date());
@@ -64,6 +64,18 @@ public class PrescriptionItemRepositoryImpl implements PrescriptionItemRepositor
         Root<PrescriptionItem> root = query.from(PrescriptionItem.class);
 
         query.select(root).where(builder.equal(root.get("prescriptionId"), id));
+
+        return session.createQuery(query).getResultList();
+    }
+
+    @Override
+    public List<PrescriptionItem> getPrescriptionsbyIDMedicine(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<PrescriptionItem> query = builder.createQuery(PrescriptionItem.class);
+        Root<PrescriptionItem> root = query.from(PrescriptionItem.class);
+
+        query.select(root).where(builder.equal(root.get("medicineId"), id));
 
         return session.createQuery(query).getResultList();
     }
