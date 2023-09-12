@@ -23,6 +23,8 @@
                         <div class="form-group">
                             <label for="product_name">Tên thuốc</label>
                             <form:input type="text" class="form-control" path="name" id="product_name" placeholder="Tên thuốc..." />
+                            <form:errors  path="name" element="div" cssClass="text-danger" />
+
 
                         </div>
                     </div>
@@ -31,6 +33,7 @@
                         <div class="form-group">
                             <label for="product_price">Giá</label>
                             <form:input type="number" class="form-control" path="price" id="product_price" placeholder="Giá..." />
+                            
 
                         </div>
                     </div>
@@ -65,6 +68,7 @@
                         <div class="form-group">
                             <label for="product_manufacturer">Nhà sản xuất</label>
                             <form:input type="text" class="form-control" path="provider" id="product_manufacturer" placeholder="Nhà sản xuất..." />
+                            <form:errors  path="provider" element="div" cssClass="text-danger" />
 
                         </div>
                     </div>
